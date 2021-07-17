@@ -86,7 +86,7 @@ header li :hover {
 
 #pozadie {
     min-height: 500px;
-    background: url(/obrazky/skzpe.jpg) no-repeat 0px 0px ;
+    background: url(../obrazky/skzpe.jpg) no-repeat 0px 0px ;
     text-align: center;
     font-size: 20px;
     color: rgb(43, 28, 28);
