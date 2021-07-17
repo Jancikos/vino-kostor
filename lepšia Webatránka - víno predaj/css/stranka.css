@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    background-color: rgb(212, 203, 203);
+    padding: 0;
+    margin: 0;
+}
+
+.nazov {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.nazov h1 {
+    padding-left: 10px;
+}
+
+header {
+    background: rgb(136, 70, 70);
+    color: white;
+    padding-top: 30px;
+    min-height: 70px;
+    border-bottom: black 4px solid;
+}
+
+header a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+ ul {
+    margin-top: -50px;
+    padding-bottom: 0px;
+}
+
+header li {
+    float: left;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+
+.obrazky {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+ 
+/* .box {
+    background-color: rgb(161, 87, 87);
+    text-align: center;
+} */
+
+#kontakt {
+    padding-left: 10px;
+    /* padding-top: none; */
+    border: 2px solid black;
+    border-radius: 2px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+header .nazov{
+    float: left;
+}
+
+header #nazov h1 {
+    margin: 0;
+}
+
+header nav {
+    float: right;
+    padding-top: 20px;
+}
+
+header li :hover {
+    color: black;
+    font-weight: bolder;
+}
+
+#pozadie {
+    min-height: 500px;
+    background: url(/obrazky/skzpe.jpg) no-repeat 0px 0px ;
+    text-align: center;
+    font-size: 20px;
+    color: rgb(43, 28, 28);
+    margin: none;
+    text-decoration: bold;
+}
+
+#pozadie h1 {
+    margin-top: 100px;
+    font-size: 55px;
+    margin-bottom: 10px;
+}
+
+#textpozadie {
+    padding-top: 33px;
+}
+
+.box {
+    margin-top: 20px;
+    margin-left: 20px;
+    float: left;
+    width: 30%;
+    text-align: center;
+}
+
+footer {
+    padding: 20px;
+    margin-top: 500px;
+    color: white;
+    background-color: brown;
+    text-align: center;
+}
+
+#history {
+    margin-left: 25px;
+}
+
+#padd {
+    margin-top: 20px; 
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 10px ;
+    /* background-color: black; */
+    border: black 2px solid;
+    border-radius: 2px;
+}
+
+#pivnica {
+    float: right;
+    padding-bottom: 150px;
+    padding-right: 15px;
+}
