@@ -104,14 +104,6 @@ header li :hover {
     padding-top: 33px;
 }
 
-.box {
-    margin-top: 20px;
-    margin-left: 20px;
-    float: left;
-    width: 30%;
-    text-align: center;
-}
-
 footer {
     padding: 20px;
     margin-top: 500px;
@@ -138,4 +130,17 @@ footer {
     float: right;
     padding-bottom: 150px;
     padding-right: 15px;
+}
+
+#mainShowCase{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.showCaseItem{
+    margin: 15px;
+    width: 350px;
+    text-align: center;
 }
