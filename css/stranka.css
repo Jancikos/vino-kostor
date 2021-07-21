@@ -63,11 +63,12 @@ header li {
 #kontakt {
     padding-left: 10px;
     /* padding-top: none; */
-    border: 2px solid black;
-    border-radius: 2px;
+    /* border: 2px solid black; */
+    border-radius: 5px;
     margin-top: 10px;
-    margin-left: 10px;
+    margin-left: 10px  ;
     margin-right: 10px;
+    background-color: rgba(163, 154, 154, 0.425);
 }
 
 header .nazov{
@@ -93,7 +94,7 @@ header li :hover {
     background: url(../obrazky/skzpe.jpg) no-repeat 0px 0px ;
     text-align: center;
     font-size: 20px;
-    color: rgb(43, 28, 28);
+    color: rgb(255, 255, 255);
     margin: none;
     text-decoration: bold;
 }
@@ -117,15 +118,23 @@ header li :hover {
     margin-left: 10px;
     margin-right: 10px;
     padding-left: 10px ;
-    /* background-color: black; */
-    border: black 2px solid;
-    border-radius: 2px;
+    background-color: rgba(163, 154, 154, 0.425);
+    /* border: black 2px solid; */
+    border-radius: 5px;
 }
 
 #pivnica {
     float: right;
     padding-bottom: 150px;
     padding-right: 15px;
+}
+
+#novy {
+    margin: 40px;
+}
+
+#dva {
+    margin-bottom: 80px;
 }
 
 /* main showcase */
@@ -157,6 +166,6 @@ header li :hover {
 #pageWrapper footer {
     padding: 10px;
     color: white;
-    background-color: brown;
+    background-color: rgb(136, 70, 70);
     text-align: center;
 }
