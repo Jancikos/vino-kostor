@@ -25,42 +25,20 @@ section{
     height: 32px !important;
 }
 
-.nazov {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-}
-
-.nazov h1 {
-    padding-left: 10px;
-}
-
 header {
     background: rgb(136, 70, 70);
     color: white;
-    padding-top: 30px;
+    padding: 8px;
     min-height: 70px;
     border-bottom: black 4px solid;
 }
 
-header a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 16px;
+header h1 {
+    font-size: 3em;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
-
- ul {
-    margin-top: -50px;
-    padding-bottom: 0px;
-}
-
-header li {
-    float: left;
-    display: inline;
-    padding: 0 20px 0 20px;
-}
-
 
 .obrazky {
     max-width: 200px;
@@ -73,24 +51,6 @@ header li {
     background-color: rgb(161, 87, 87);
     text-align: center;
 } */
-
-header .nazov{
-    float: left;
-}
-
-header #nazov h1 {
-    margin: 0;
-}
-
-header nav {
-    float: right;
-    padding-top: 20px;
-}
-
-header li :hover {
-    color: black;
-    font-weight: bolder;
-}
 
 #pozadie {
     min-height: 500px;
@@ -114,16 +74,6 @@ header li :hover {
 
 #history {
     margin-left: 25px;
-}
-
-#padd {
-    margin-top: 20px; 
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 10px ;
-    background-color: rgba(163, 154, 154, 0.425);
-    /* border: black 2px solid; */
-    border-radius: 5px;
 }
 
 #pivnica {
