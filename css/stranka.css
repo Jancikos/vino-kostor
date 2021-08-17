@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+html, body{
+    height: 100vh;
+}
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:  'Roboto', sans-serif;
     font-size: 15px;
     line-height: 1.5;
     background-color: rgb(212, 203, 203);
@@ -7,42 +13,32 @@ body {
     margin: 0;
 }
 
-.nazov {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+section{
+    padding-top: 8px;
+    padding-bottom: 6px;
+    padding-left: 6%;
+    padding-right: 6%;
 }
 
-.nazov h1 {
-    padding-left: 10px;
+.icon{
+    width: 32px !important;
+    height: 32px !important;
 }
 
 header {
     background: rgb(136, 70, 70);
     color: white;
-    padding-top: 30px;
+    padding: 8px;
     min-height: 70px;
     border-bottom: black 4px solid;
 }
 
-header a {
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 16px;
+header h1 {
+    font-size: 3em;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
-
- ul {
-    margin-top: -50px;
-    padding-bottom: 0px;
-}
-
-header li {
-    float: left;
-    display: inline;
-    padding: 0 20px 0 20px;
-}
-
 
 .obrazky {
     max-width: 200px;
@@ -56,40 +52,17 @@ header li {
     text-align: center;
 } */
 
-#kontakt {
-    padding-left: 10px;
-    /* padding-top: none; */
-    border: 2px solid black;
-    border-radius: 2px;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-header .nazov{
-    float: left;
-}
-
-header #nazov h1 {
-    margin: 0;
-}
-
-header nav {
-    float: right;
-    padding-top: 20px;
-}
-
-header li :hover {
-    color: black;
-    font-weight: bolder;
-}
-
 #pozadie {
     min-height: 500px;
-    background: url(../obrazky/skzpe.jpg) no-repeat 0px 0px ;
+
+    background-image: url(../obrazky/skzpe.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
     text-align: center;
     font-size: 20px;
-    color: rgb(43, 28, 28);
+    color: rgb(255, 255, 255);
     margin: none;
     text-decoration: bold;
 }
@@ -104,38 +77,99 @@ header li :hover {
     padding-top: 33px;
 }
 
-.box {
-    margin-top: 20px;
-    margin-left: 20px;
-    float: left;
-    width: 30%;
-    text-align: center;
-}
-
-footer {
-    padding: 20px;
-    margin-top: 500px;
-    color: white;
-    background-color: brown;
-    text-align: center;
-}
-
 #history {
     margin-left: 25px;
-}
-
-#padd {
-    margin-top: 20px; 
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 10px ;
-    /* background-color: black; */
-    border: black 2px solid;
-    border-radius: 2px;
 }
 
 #pivnica {
     float: right;
     padding-bottom: 150px;
     padding-right: 15px;
+}
+
+#novy {
+    margin: 40px;
+}
+
+#dva {
+    margin-bottom: 80px;
+}
+
+/* main showcase */
+#mainShowCase{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.showCaseItem{
+    margin: 15px;
+    width: 350px;
+    text-align: center;
+}
+
+/* zabezpecenie footera na spodku stránky */
+#pageWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+#pageWrapper #pageBody{
+    margin: 6px 0px;
+    flex-grow: 1;
+}
+
+#pageWrapper footer {
+    padding: 10px;
+    color: white;
+    background-color: rgb(136, 70, 70);
+    text-align: center;
+}
+
+/* contact */
+#contact{
+    background-color: rgb(136, 70, 70);;
+    text-align: center;
+}
+
+#contact h1{
+    color: wheat;
+    font-size: 2rem;
+    margin: 0 0 6px 0;
+}
+#contact h2{
+    margin: 0;
+    color: rgb(204, 148, 103);
+}
+#contact h4{
+    margin: 0 0 8px 0;
+    color: rgb(204, 148, 103);
+}
+#contact .contact-photo{
+    min-width: 200px;
+    max-width: 300px;
+ }
+
+#contact .contact-card{
+    min-width: 150px;
+    margin: 12px;
+}
+
+#contact .contact-card a{
+    color: bisque;
+}
+
+/* find us */
+#find-us{
+    text-align: center;
+}
+#find-us h1{
+    font-size: 2rem;
+    margin: 0 0 6px 0;
+}
+#find-us p{
+    font-size: 1rem;
+    margin: 0 0 6px 0;
 }

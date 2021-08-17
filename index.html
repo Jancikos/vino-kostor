@@ -6,70 +6,82 @@
     <meta name="viewport" content="width=device-width" <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/stranka.css">
-    <title>Home</title>
+    <title>Víno Kostor</title>
 </head>
 
-<body>
-    <header>
-        <div class="menu">
-            <div id="nazov">
-                <h1 style="width: 50%;">Víno Kostor</h1>
-                <nav>
-                    <ul>
-                        <li><a href="index.html">Domov</a></li>
-                        <li><a href="o-nas.html">o nas</a></li>
-                        <li><a href="kontakt.html">Kontakt</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-    <article>
-        
-        <section id="pozadie">
-            <div id="textpozadie">
-            <h1>Predaj domáceho vína </h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit ligula non nibh vehicula mollis.
-                Maecenas id arcu et ante mollis gravida ut in purus. Nullam vulputate facilisis elit, nec ultrices sem
-                consectetur a. Nunc placerat metus diam, nec suscipit turpis commodo id. Mauris placerat lobortis
-                sagittis. </p>
-            </div>
-        </section>
-        <section>
-        <div class="box">
-        <img class="obrazky" src="obrazky/biele.jpeg">
-            <h4>Biele vino</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit ligula non nibh vehicula mollis.
-                Maecenas id arcu et ante mollis gravida ut in purus. Nullam vulputate facilisis elit, nec ultrices sem
-                consectetur a.
-            </p>
-        </div>
-        </section>
-        <!-- obrazok -->
-        <section>
-        <div class="box">
-        <img class="obrazky" src="obrazky/červené.jpg">
-            <h4>Červené víno</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit ligula non nibh vehicula mollis.
-                Maecenas id arcu et ante mollis gravida ut in purus. Nullam vulputate facilisis elit, nec ultrices sem
-                consectetur a.</p>
-        </div>
-        </section>
-            <!-- obrazok -->
-            <section>
-            <div class="box">
-                <img class="obrazky" src="obrazky/živoč.jpg">
-                <h4>Živočíšne výrobky</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin hendrerit ligula non nibh vehicula
-                    mollis.
-                    Maecenas id arcu et ante mollis gravida ut in purus. Nullam vulputate facilisis elit, nec ultrices
-                    sem consectetur a.</p>
-            </div>
-            </section>
-    </article>
 
-    <footer>
-        <p class="copyright">Šimon Kostor, Copyright© 2021 </p>
-    </footer>
+<body>
+    <div id="pageWrapper">
+        <header>
+            <h1>Víno Kostor</h1>
+        </header>
+        <article>
+            <section id="pozadie">
+                <div id="textpozadie">
+                    <h1>Predaj domáceho vína </h1>
+                    <p>Predaj domáceho vína z lokálnych odrôd viniča ktoré sa vyrába vo vinohradníckej lokalite Hont ktorá je známa pre svoje ovocinárske a vinohradnícke korene.
+                        Vinica sa nachádza na úpätí Štiavnických vrchov kde pôsobia tektonické dosky južnej strany pohoria.</p>
+                </div>
+            </section>
+
+            <section id="mainShowCase">
+                <div class="showCaseItem">
+                    <img class="obrazky" src="obrazky/biele.jpeg">
+                    <h4>Biele vino</h4>
+                    <p>Biele víno je charakteristické pre svoju príjemnú vôňu ktorá je typická pre samorodný vinič.
+                    </p>
+                </div>
+                <div class="showCaseItem">
+                    <img class="obrazky" src="obrazky/červené.jpg">
+                    <h4>Červené víno</h4>
+                    <p>Červené víno má peknú rubínovú farbu a príjemnú chuť. </p>
+                </div>
+                <div class="showCaseItem">
+                    <img class="obrazky" src="obrazky/živoč.jpg">
+                    <h4>Živočíšne výrobky</h4>
+                    <p>Živočíšne výrobky sú domáce potraviny ako domáca paštika, domáca šunka, domáca slanina, domáca klobása a domáca papriková omáčka. Ponuka bude postupne aktualizovaná.</p>
+                </div>
+            </section>
+
+
+            <section id="contact" class="container">
+                <h1>S radosťou nás kontaktujte</h1>
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+                    <div class="contact-card">
+                        <img src="./obrazky/lubko.jpg" alt="Ľubko" class="contact-photo">
+                        <h2>Ľubo Kostor</h2>
+                        <h4>Hlavný vincúr</h4>
+                        <a href="tel:0903548162" target="blank">0903 548 162</a>
+                    </div>
+                    <div class="contact-card">
+                        <img src="./obrazky/janko.jpg" alt="Janko" class="contact-photo">
+                        <h2>Janko Kostor</h2>
+                        <h4>Vicevincúr</h4>
+                        <a href="tel:0902200593" target="blank">0902 200 593</a> 
+                        <br>
+                        <a href="mailto:ko.janci@gmail.com" target="blank">ko.janci@gmail.com</a>
+                    </div>
+                    <div class="contact-card">
+                        <img src="./obrazky/simonko.jpg" alt="Simonko" class="contact-photo">
+                        <h2>Šimon Kostor</h2>
+                        <h4>Podvincúr vo výučbe</h4>
+                        <a href="mailto:kostor.simon@gmail.com" target="blank">kostor.simon@gmail.com</a>
+                    </div>
+                </div>
+            </section>
+            <section id="find-us">
+                <h1>Kde nás nájdete</h1>
+                <p>Pivnica sa nachádza pri obci Ladzany vo vinohradníckej lokalite Biele dráhy.</p>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2655.698241323563!2d18.90301335090139!3d48.270181379132374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476ac736d91aaf8b%3A0x2677a7da21b59c3!2sV%C3%ADno%20Kostor!5e0!3m2!1ssk!2ssk!4v1627200498042!5m2!1ssk!2ssk" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+            </section>
+        </article>
+
+        <footer>
+            <p class="copyright">Šimon Kostor, Copyright © 2021 </p>
+        </footer>
+    </div>
 </body>
+
 </html>
