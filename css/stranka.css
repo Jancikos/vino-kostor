@@ -20,11 +20,6 @@ section{
     padding-right: 6%;
 }
 
-.icon{
-    width: 32px !important;
-    height: 32px !important;
-}
-
 header {
     background: rgb(136, 70, 70);
     color: white;
@@ -38,75 +33,6 @@ header h1 {
     text-align: center;
     margin: 0;
     padding: 0;
-}
-
-.obrazky {
-    max-width: 200px;
-    max-height: 200px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
- 
-/* .box {
-    background-color: rgb(161, 87, 87);
-    text-align: center;
-} */
-
-#pozadie {
-    min-height: 500px;
-
-    background-image: url(../obrazky/skzpe.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    text-align: center;
-    font-size: 20px;
-    color: rgb(255, 255, 255);
-    margin: none;
-    text-decoration: bold;
-}
-
-#pozadie h1 {
-    margin-top: 100px;
-    font-size: 55px;
-    margin-bottom: 10px;
-}
-
-#textpozadie {
-    padding-top: 33px;
-}
-
-#history {
-    margin-left: 25px;
-}
-
-#pivnica {
-    float: right;
-    padding-bottom: 150px;
-    padding-right: 15px;
-}
-
-#novy {
-    margin: 40px;
-}
-
-#dva {
-    margin-bottom: 80px;
-}
-
-/* main showcase */
-#mainShowCase{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.showCaseItem{
-    margin: 15px;
-    width: 350px;
-    text-align: center;
 }
 
 /* zabezpecenie footera na spodku stránky */
