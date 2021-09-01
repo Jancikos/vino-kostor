@@ -99,3 +99,72 @@ header h1 {
     font-size: 1rem;
     margin: 0 0 6px 0;
 }
+
+
+/* slider */
+#slider{
+    position: relative;;
+
+    min-height: 400px;
+    max-height:  600px;
+
+}
+
+.slider-item{
+    display: none;
+
+    height:  600px;
+    width: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.slider-item.pivnica-exterier{
+    background-image: url(../obrazky/slider/pivnica-exterier.jpg);
+}
+.slider-item.pivnica-interier{
+    background-image: url(../obrazky/slider/pivnica-interier.jpg);
+}
+.slider-item.vinica{
+    background-image: url(../obrazky/slider/vinica.jpg);
+}
+
+
+.slider-item.active{
+    display: block;
+}
+
+#slider-navigation{
+    position: absolute;
+
+    bottom: 10px;
+    left: 45%;
+}
+#slider-navigation .slider-radio{
+    background-color: red;
+}
+
+.slider-button{
+    position: absolute;
+
+    top: 50%;
+
+    background: none;
+    border: none;
+    color: white; 
+    padding: 12px 16px; 
+    font-size: 40px; 
+    cursor: pointer; 
+}
+.slider-button:hover{
+    font-size: 50px;
+    transition: 1s;
+}
+#slider-next{
+    right: 25px;
+}
+#slider-previous{
+    left: 25px;
+}

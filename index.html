@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stranka.css">
+    <link rel="stylesheet" href="./css/stranka.css">
+    <!-- <link rel="stylesheet" href="css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Víno Kostor</title>
 </head>
 
@@ -15,8 +18,23 @@
         <header>
             <h1>Víno Kostor</h1>
         </header>
-
+        
         <article>
+            <div id="slider">
+                <div class="slider-item pivnica-exterier active"></div>
+                <div class="slider-item pivnica-interier"></div>
+                <div class="slider-item vinica"></div>
+                <div id="slider-navigation">
+                    <form id="silder-navigation-form">
+                        <input class="slider-radio" type="radio" name="activeIndex" value="0" checked>
+                        <input class="slider-radio" type="radio" name="activeIndex" value="1">
+                        <input class="slider-radio" type="radio" name="activeIndex" value="2">
+                    </form>
+                </div>
+                <button id="slider-next" class="slider-button" ><i class="fa fa-angle-right"></i></button>
+                <button id="slider-previous" class="slider-button"><i class="fa fa-angle-left"></i></button>
+            </div>
+            
             <section id="contact" class="container">
                 <h1>S radosťou nás kontaktujte</h1>
                 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
@@ -57,4 +75,59 @@
         </footer>
     </div>
 </body>
+<script src="./js/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="./js/slider.js"></script>
+<script>
+    const slider = $('#slider');
+    const sliderItems = $('#slider .slider-item');
+    const sliderRadios = $('#slider .slider-radio');
+
+    $('#slider-next').on('click', () => {
+        nextSliderItem();
+    });
+    
+    $('#slider-previous').on('click', () => {
+        const activeItem = slider.find('.active');
+        const activeIndex = sliderItems.index(activeItem);
+        var previousIndex = activeIndex - 1;
+
+        if(previousIndex < 0){
+            previousIndex = sliderItems.length - 1;
+        }
+
+        showSliderItem(previousIndex);
+    });
+
+    $('#slider-navigation [type="radio"]').on('click', (e) => {
+        console.log($(this));
+        showSliderItem(e.target.value);
+    });
+
+    function nextSliderItem(){
+        const activeItem = slider.find('.active');
+        const activeIndex = sliderItems.index(activeItem);
+        var nextIndex = activeIndex + 1;
+
+        if(nextIndex >= sliderItems.length){
+            nextIndex = 0;
+        }
+
+        showSliderItem(nextIndex);
+    }
+
+    function showSliderItem(index){
+        console.log('show item ' + index);
+
+        // slider.find('.active').fadeOut();
+        slider.find('.active').removeClass('active');
+        sliderItems[index].classList.add('active');
+        sliderRadios[index].checked = true;
+    }
+
+    setInterval((e) =>{ 
+        nextSliderItem();
+    }, 10000);
+
+
+</script>
 </html>
