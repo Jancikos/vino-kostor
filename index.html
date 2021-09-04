@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/stranka.css">
+    <link rel="stylesheet" href="./css/stranka.css">
+    <!-- <link rel="stylesheet" href="css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Víno Kostor</title>
 </head>
 
@@ -15,35 +18,42 @@
         <header>
             <h1>Víno Kostor</h1>
         </header>
+        
         <article>
-            <section id="pozadie">
-                <div id="textpozadie">
-                    <h1>Predaj domáceho vína </h1>
-                    <p>Predaj domáceho vína z lokálnych odrôd viniča ktoré sa vyrába vo vinohradníckej lokalite Hont ktorá je známa pre svoje ovocinárske a vinohradnícke korene.
-                        Vinica sa nachádza na úpätí Štiavnických vrchov kde pôsobia tektonické dosky južnej strany pohoria.</p>
+            <div id="slider">
+                <div class="slider-item pivnica-exterier active" style="display: block;">
+                    <div class="slider-text">
+                        <div class="title">
+                            <span>Pivnička</span>
+                        </div>
+                        <p class="text">Naše vínko tvoríme aj skladujeme v pivničke, ktorá sa nachádza vo vinárskej osade <b>Biele Dráhy</b> pri obci <b>Ladzany</b>.</p>
+                    </div>
                 </div>
-            </section>
-
-            <section id="mainShowCase">
-                <div class="showCaseItem">
-                    <img class="obrazky" src="obrazky/biele.jpeg">
-                    <h4>Biele vino</h4>
-                    <p>Biele víno je charakteristické pre svoju príjemnú vôňu ktorá je typická pre samorodný vinič.
-                    </p>
+                <div class="slider-item pivnica-interier">
+                    <div class="slider-text">
+                        <div class="title">
+                            <span>Posedenie pri vínku</span>
+                        </div>
+                        <p class="text"> Koštovku našej práce môžeme aj s pohostením absolovať v príjemne zariadenej miestnosti priamo pri vstupe do "hrtanu" pivnice.</p>
+                    </div>
                 </div>
-                <div class="showCaseItem">
-                    <img class="obrazky" src="obrazky/červené.jpg">
-                    <h4>Červené víno</h4>
-                    <p>Červené víno má peknú rubínovú farbu a príjemnú chuť. </p>
+                <div class="slider-item vinica">
+                    <div class="slider-text">
+                        <div class="title">
+                            <span>Vinohrad</span>
+                        </div>
+                        <p class="text">Naše víno vyrábame výhradne z doma vypestovaného viniča.</p>
+                    </div>
                 </div>
-                <div class="showCaseItem">
-                    <img class="obrazky" src="obrazky/živoč.jpg">
-                    <h4>Živočíšne výrobky</h4>
-                    <p>Živočíšne výrobky sú domáce potraviny ako domáca paštika, domáca šunka, domáca slanina, domáca klobása a domáca papriková omáčka. Ponuka bude postupne aktualizovaná.</p>
+                <div id="slider-navigation">
+                    <button class="slider-radio active"></button>
+                    <button class="slider-radio"></button>
+                    <button class="slider-radio"></button>
                 </div>
-            </section>
-
-
+                <button id="slider-next" class="slider-button" ><i class="fa fa-angle-right"></i></button>
+                <button id="slider-previous" class="slider-button"><i class="fa fa-angle-left"></i></button>
+            </div>
+            
             <section id="contact" class="container">
                 <h1>S radosťou nás kontaktujte</h1>
                 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
@@ -69,6 +79,7 @@
                     </div>
                 </div>
             </section>
+
             <section id="find-us">
                 <h1>Kde nás nájdete</h1>
                 <p>Pivnica sa nachádza pri obci Ladzany vo vinohradníckej lokalite Biele dráhy.</p>
@@ -83,5 +94,63 @@
         </footer>
     </div>
 </body>
+<script src="./js/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+<script src="./js/slider.js"></script>
+<script>
+    const slider = $('#slider');
+    const sliderItems = $('#slider .slider-item');
+    const sliderRadios = $('#slider .slider-radio');
 
+    $('#slider-next').on('click', async () => {
+        nextSliderItem();        
+    });
+    
+    $('#slider-previous').on('click', () => {
+        const activeItem = slider.find('.slider-item.active');
+        const activeIndex = sliderItems.index(activeItem);
+        var previousIndex = activeIndex - 1;
+
+        if(previousIndex < 0){
+            previousIndex = sliderItems.length - 1;
+        }
+
+        showSliderItem(activeIndex, previousIndex);
+    });
+
+    $('#slider #slider-navigation .slider-radio').on('click', (e) => {
+        const activeRadio = slider.find('.slider-radio.active');
+        showSliderItem(sliderRadios.index(activeRadio), sliderRadios.index(e.target));
+    });
+
+    function nextSliderItem(){
+        const activeItem = slider.find('.slider-item.active');
+        const activeIndex = sliderItems.index(activeItem);
+        var nextIndex = activeIndex + 1;
+
+        if(nextIndex >= sliderItems.length){
+            nextIndex = 0;
+        }
+        
+        showSliderItem(activeIndex, nextIndex);
+    }
+    
+    function showSliderItem(activeIndex, nextIndex){
+        console.log('show item ' + nextIndex);
+        
+        // slider.find('.active').fadeOut();
+        sliderItems.eq(activeIndex).fadeOut(500);
+        
+        slider.find('.active').removeClass('active');
+        sliderItems[nextIndex].classList.add('active');
+        sliderRadios[nextIndex].classList.add('active');
+
+        sliderItems.eq(nextIndex).fadeIn(1000);
+        sliderRadios[nextIndex].checked = true;
+    }
+
+    setInterval((e) =>{ 
+        nextSliderItem();
+    }, 15000);
+
+</script>
 </html>
