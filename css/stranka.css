@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 
+:root {
+    --main-color: brown;
+}
+
 html, body{
     height: 100vh;
 }
@@ -21,15 +25,13 @@ section{
 }
 
 header {
-    background: rgb(136, 70, 70);
+    background: var(--main-color);
     color: white;
-    padding: 8px;
-    min-height: 70px;
-    border-bottom: black 4px solid;
+    border-bottom: black 0.5vh solid;
 }
 
 header h1 {
-    font-size: 3em;
+    font-size: 4vh;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -50,13 +52,13 @@ header h1 {
 #pageWrapper footer {
     padding: 10px;
     color: white;
-    background-color: rgb(136, 70, 70);
+    background-color: var(--main-color);
     text-align: center;
 }
 
 /* contact */
 #contact{
-    background-color: rgb(136, 70, 70);;
+    background-color: var(--main-color);
     text-align: center;
 }
 
@@ -101,19 +103,25 @@ header h1 {
 }
 
 
-/* slider */
+/* SLIDER */
 #slider{
     position: relative;;
 
     min-height: 400px;
-    max-height:  600px;
+    height:  94vh;
+    max-height: 1000px;
 
+    background-color: var(--main-color);
 }
 
 .slider-item{
     display: none;
 
-    height:  600px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height:  100%;
     width: 100%;
 
     background-position: center;
@@ -131,40 +139,70 @@ header h1 {
     background-image: url(../obrazky/slider/vinica.jpg);
 }
 
-
-.slider-item.active{
-    display: block;
-}
-
+/* spodné navigacne slider buttony */
 #slider-navigation{
     position: absolute;
 
     bottom: 10px;
-    left: 45%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 #slider-navigation .slider-radio{
-    background-color: red;
+    margin: 8px;
+
+    width: 25px;
+    height: 25px;
+
+    border: 3px solid var(--main-color);
+    border-radius: 50%;
+
+    background-color: transparent;
+
+    cursor: pointer;
+    
+    transition: 0.5s;
+}
+#slider-navigation .slider-radio.active{
+    background-color: var(--main-color);
+}
+#slider-navigation .slider-radio:hover{
+    background-color: var(--main-color);
+    
 }
 
+/* next previous slider buttony */
 .slider-button{
     position: absolute;
 
     top: 50%;
+    transform: translateY(-50%);
+    
+    background: transparent;
+    opacity: 50%;
 
-    background: none;
+    color: var(--main-color);
     border: none;
-    color: white; 
-    padding: 12px 16px; 
-    font-size: 40px; 
-    cursor: pointer; 
+    
+    padding: 24px;
+    
+    font-size: 40px;
+    cursor: pointer;
 }
 .slider-button:hover{
-    font-size: 50px;
-    transition: 1s;
+    transition: 0.5s;
+
+    opacity: 50%;
+    background-color: whitesmoke;
+    color: red;
+
+    border: 2px solid grey;
 }
 #slider-next{
-    right: 25px;
+    right: 0px;
+    border-right: 0 !important;
 }
 #slider-previous{
-    left: 25px;
+    left: 0px;
+    border-left: 0 !important;
 }
+/************/
