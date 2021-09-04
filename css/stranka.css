@@ -205,4 +205,74 @@ header h1 {
     left: 0px;
     border-left: 0 !important;
 }
+
+/* texty nad obrázkami */
+#slider .slider-text{
+    position: absolute;
+
+    
+    bottom: 45px;
+    
+    left: 5%;  
+    
+    /* animation: 2s slide-bottom 2s forwards;
+    opacity: 0%;
+    transform: translate(5%, 100%); */
+}
+#slider .slider-text .title{
+    display: inline-block;
+    padding: 12px;
+    margin: 0;
+
+    color: rgb(255, 255, 255);
+    font-size: 24px;
+    font-weight: bold;
+
+    background: rgba(196, 158, 89, 0.75);
+    
+    animation: 2s slide-bottom 2s forwards;
+    opacity: 0%;
+    transform: translate(5%, 100%);
+}
+#slider .slider-text .title > span{
+}
+#slider .slider-text .text{
+    /* display: inline-block; */
+    padding: 8px;
+    margin: 8px 0;
+
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+
+    max-width: 80ch;
+
+    background: rgba(109, 65, 52, 0.75);
+    
+    
+    animation: 2s slide-bottom 2.75s forwards;
+    opacity: 0%;
+    transform: translate(5%, 100%);
+}
+#slider .slider-text .text > span{
+}
 /************/
+
+
+@media screen and (max-width: 500px) {
+    #slider .slider-text{
+        left: 50%;
+        transform: translateX(-50%);
+        
+        text-align: center;
+    }
+}
+
+/* animacie na slidnutie zo spodku */
+@keyframes slide-bottom {
+    from {
+    }
+    to {
+        opacity: 100%;
+        transform:translateX(0);
+    }
+}
