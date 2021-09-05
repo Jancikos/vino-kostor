@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+:root {
+    --main-color: #8E1B1C;
+    --main-color-lighter: #750303;
+    --dark-color: #2B1112af;
+    --light-color: #fbc75faf;
+    --white-color: #F2EAB9;
+}
+
+/* global */
+body {
+    font-family:  'Roboto', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    background-color: rgb(212, 203, 203);
+    padding: 0;
+    margin: 0;
+}
+
+#pageWrapper {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100vh auto;
+    
+    grid-template-areas: 
+        "header header header"
+        "contact find-us find-us"
+        "footer footer footer";
+}
+
+.container{
+    padding: 16px;
+}
+
+
+/* header */
+
+#header{
+    grid-area: header;
+}
+header {
+    background: var(--main-color);
+    color: white;
+    border-bottom: var(--dark-color) 0.5vh solid;
+}
+header h1 {
+    font-size: 4vh;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+#pageWrapper footer {
+    grid-area: footer;
+    padding: 10px;
+    color: white;
+    background-color: var(--main-color);
+    border-top: var(--dark-color) 0.5vh solid;
+    text-align: center;
+}
+#pageWrapper footer p {
+    padding: 0;
+    margin: 0;
+}
+
+/* contact */
+#contact{
+    grid-area: contact;
+    
+    background-color: var(--main-color);
+    text-align: center;
+}
+
+#contact h1{
+    color: var(--white-color);
+    font-size: 4vh;
+    margin: 0 0 6px 0;
+}
+#contact h2{
+    margin: 0;
+    color: var(--light-color);
+}
+#contact h4{
+    margin: 0 0 8px 0;
+    color: var(--light-color);
+}
+#contact .contact-photo{
+    min-width: 150px;
+    width: 90%;
+    max-width: 350px;
+
+    border: 2px solid var(--main-color);
+    /* border-radius: 10%; */
+}
+
+#contact .contact-card{
+    min-width: 200px;
+    margin: 12px;
+    padding: 12px;
+    border: 2px solid var(--dark-color);
+    background-color: var(--main-color-lighter);
+    /* border-radius: 10%; */
+}
+
+#contact .contact-card a{
+    color: bisque;
+    text-decoration: underline;
+}
+
+#contact .contact-card a i{
+    margin: 0 8px;
+}
+
+/* find us */
+#find-us{
+    grid-area: find-us;
+
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+
+    border-left: var(--dark-color) 0.5vh solid;
+    background-color: var(--main-color-lighter);
+}
+#find-us h1{
+    font-size: 2rem;
+    color: var(--white-color);
+    margin: 0;
+}
+#find-us p{
+    font-size: 1rem;
+    color: var(--white-color);
+    margin: 0 0 6px 0;
+}
+#find-us .map{
+    flex-grow: 1;
+    border-radius: 10%;
+    padding: 1rem;
+    min-height: 300px;
+}
+#find-us .map iframe{
+    border: var(--dark-color) 0.5vh solid;
+    width: 100%;
+    height: 100%;
+}
+
+
+@media screen and (max-width: 600px) {
+    #pageWrapper {
+        grid-template-areas: 
+            "header header header"
+            "contact contact contact"
+            "find-us find-us find-us"
+            "footer footer footer";
+    }    
+}
+/* animacie na slidnutie zo spodku */
+@keyframes slide-bottom {
+    from {
+    }
+    to {
+        opacity: 100%;
+        transform:translateX(0);
+    }
+}
