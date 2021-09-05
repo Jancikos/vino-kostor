@@ -1,0 +1,157 @@
+/* SLIDER */
+#slider{
+    position: relative;
+
+    min-height: 400px;
+    height:  94vh;
+    max-height: 1000px;
+
+    background-color: var(--main-color);
+    border-bottom: var(--dark-color) 0.5vh solid;
+
+    overflow-x: hidden;
+}
+
+.slider-item{
+    display: none;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height:  100%;
+    width: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.slider-item.pivnica-exterier{
+    background-image: url(../obrazky/slider/pivnica-exterier.jpg);
+}
+.slider-item.pivnica-interier{
+    background-image: url(../obrazky/slider/pivnica-interier.jpg);
+}
+.slider-item.vinica{
+    background-image: url(../obrazky/slider/vinica.jpg);
+}
+
+/* spodné navigacne slider buttony */
+#slider-navigation{
+    position: absolute;
+
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#slider-navigation .slider-radio{
+    margin: 8px;
+
+    width: 25px;
+    height: 25px;
+
+    border: 3px solid var(--main-color);
+    border-radius: 50%;
+
+    background-color: transparent;
+
+    cursor: pointer;
+    
+    transition: 0.5s;
+}
+#slider-navigation .slider-radio.active{
+    background-color: var(--main-color);
+}
+#slider-navigation .slider-radio:hover{
+    background-color: var(--main-color);
+    
+}
+
+/* next previous slider buttony */
+.slider-button{
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+    
+    background: transparent;
+    opacity: 50%;
+
+    color: var(--main-color);
+    border: none;
+    
+    padding: 24px;
+    
+    font-size: 40px;
+    cursor: pointer;
+}
+.slider-button:hover{
+    transition: 0.5s;
+
+    opacity: 50%;
+    background-color: whitesmoke;
+    color: red;
+
+    border: 2px solid grey;
+}
+#slider-next{
+    right: 0px;
+    border-right: 0 !important;
+}
+#slider-previous{
+    left: 0px;
+    border-left: 0 !important;
+}
+
+/* texty nad obrázkami */
+#slider .slider-text{
+    position: absolute;
+
+    
+    bottom: 45px;
+    
+    left: 5%;  
+}
+#slider .slider-text .title{
+    display: inline-block;
+    padding: 12px;
+    margin: 0;
+
+    color: rgb(255, 255, 255);
+    font-size: 24px;
+    font-weight: bold;
+
+    background: rgba(196, 158, 89, 0.75);
+    
+    animation: 2s slide-bottom 1s forwards;
+    opacity: 0%;
+    transform: translate(5%, 100%);
+}
+#slider .slider-text .text{
+    padding: 8px;
+    margin: 8px 0;
+
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+
+    max-width: 80ch;
+
+    background: #80221abf;
+    
+    
+    animation: 2s slide-bottom 1.75s forwards;
+    opacity: 0%;
+    transform: translate(5%, 100%);
+}
+
+@media screen and (max-width: 120ch) {
+        
+    #slider .slider-text{
+        left: 50%;
+        transform: translateX(-50%);
+        
+        text-align: center;
+    }
+    
+}
