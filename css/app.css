@@ -4,10 +4,7 @@
     --main-color: brown;
 }
 
-html, body{
-    height: 100vh;
-}
-
+/* global */
 body {
     font-family:  'Roboto', sans-serif;
     font-size: 15px;
@@ -17,32 +14,6 @@ body {
     margin: 0;
 }
 
-section{
-    padding-top: 8px;
-    padding-bottom: 6px;
-    padding-left: 6%;
-    padding-right: 6%;
-}
-
-#header{
-    grid-area: header;
-
-}
-header {
-
-    background: var(--main-color);
-    color: white;
-    border-bottom: black 0.5vh solid;
-}
-
-header h1 {
-    font-size: 4vh;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-
-/* zabezpecenie footera na spodku stránky */
 #pageWrapper {
     display: grid;
 
@@ -55,10 +26,29 @@ header h1 {
         "footer footer footer";
 }
 
-#pageWrapper #pageBody{
-    margin: 6px 0px;
-    flex-grow: 1;
+.container{
+    padding: 16px;
 }
+
+
+/* header */
+
+#header{
+    grid-area: header;
+}
+header {
+
+    background: var(--main-color);
+    color: white;
+    border-bottom: black 0.5vh solid;
+}
+header h1 {
+    font-size: 4vh;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
 
 #pageWrapper footer {
     grid-area: footer;
