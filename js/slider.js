@@ -36,9 +36,6 @@ function nextSliderItem() {
 }
 
 function showSliderItem(activeIndex, nextIndex) {
-    console.log('show item ' + nextIndex);
-
-    // slider.find('.active').fadeOut();
     sliderItems.eq(activeIndex).fadeOut(500);
 
     slider.find('.active').removeClass('active');
