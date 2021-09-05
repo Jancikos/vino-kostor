@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+:root {
+    --main-color: brown;
+}
+
+html, body{
+    height: 100vh;
+}
+
+body {
+    font-family:  'Roboto', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    background-color: rgb(212, 203, 203);
+    padding: 0;
+    margin: 0;
+}
+
+section{
+    padding-top: 8px;
+    padding-bottom: 6px;
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+header {
+    background: var(--main-color);
+    color: white;
+    border-bottom: black 0.5vh solid;
+}
+
+header h1 {
+    font-size: 4vh;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* zabezpecenie footera na spodku stránky */
+#pageWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+#pageWrapper #pageBody{
+    margin: 6px 0px;
+    flex-grow: 1;
+}
+
+#pageWrapper footer {
+    padding: 10px;
+    color: white;
+    background-color: var(--main-color);
+    text-align: center;
+}
+
+/* contact */
+#contact{
+    background-color: var(--main-color);
+    text-align: center;
+}
+
+#contact h1{
+    color: wheat;
+    font-size: 2rem;
+    margin: 0 0 6px 0;
+}
+#contact h2{
+    margin: 0;
+    color: rgb(204, 148, 103);
+}
+#contact h4{
+    margin: 0 0 8px 0;
+    color: rgb(204, 148, 103);
+}
+#contact .contact-photo{
+    min-width: 200px;
+    max-width: 300px;
+ }
+
+#contact .contact-card{
+    min-width: 150px;
+    margin: 12px;
+}
+
+#contact .contact-card a{
+    color: bisque;
+}
+
+/* find us */
+#find-us{
+    text-align: center;
+}
+#find-us h1{
+    font-size: 2rem;
+    margin: 0 0 6px 0;
+}
+#find-us p{
+    font-size: 1rem;
+    margin: 0 0 6px 0;
+}
+
+
+@media screen and (max-width: 500px) {
+    #slider .slider-text{
+        left: 50%;
+        transform: translateX(-50%);
+        
+        text-align: center;
+    }
+}
+
+/* animacie na slidnutie zo spodku */
+@keyframes slide-bottom {
+    from {
+    }
+    to {
+        opacity: 100%;
+        transform:translateX(0);
+    }
+}
