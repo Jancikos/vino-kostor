@@ -2,7 +2,7 @@
 
 :root {
     --main-color: #8E1B1C;
-    --main-color-lighter: #9A2A1Faf;
+    --main-color-lighter: #750303;
     --dark-color: #2B1112af;
     --light-color: #fbc75faf;
     --white-color: #F2EAB9;
@@ -41,7 +41,6 @@ body {
     grid-area: header;
 }
 header {
-
     background: var(--main-color);
     color: white;
     border-bottom: var(--dark-color) 0.5vh solid;
@@ -94,15 +93,16 @@ header h1 {
     max-width: 350px;
 
     border: 2px solid var(--main-color);
-    border-radius: 10%;
+    /* border-radius: 10%; */
 }
 
 #contact .contact-card{
     min-width: 150px;
     margin: 12px;
     padding: 12px;
+    border: 2px solid var(--dark-color);
     background-color: var(--main-color-lighter);
-    border-radius: 10%;
+    /* border-radius: 10%; */
 }
 
 #contact .contact-card a{
