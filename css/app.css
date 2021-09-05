@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 
 :root {
-    --main-color: brown;
+    --main-color: #8E1B1C;
+    --main-color-lighter: #9A2A1Faf;
+    --dark-color: #2B1112af;
+    --light-color: #fbc75faf;
+    --white-color: #F2EAB9;
 }
 
 /* global */
@@ -40,7 +44,7 @@ header {
 
     background: var(--main-color);
     color: white;
-    border-bottom: black 0.5vh solid;
+    border-bottom: var(--dark-color) 0.5vh solid;
 }
 header h1 {
     font-size: 4vh;
@@ -69,30 +73,41 @@ header h1 {
 
 #contact h1{
     color: wheat;
-    font-size: 2rem;
+    font-size: 4vh;
     margin: 0 0 6px 0;
 }
 #contact h2{
     margin: 0;
-    color: rgb(204, 148, 103);
+    color: var(--light-color);
 }
 #contact h4{
     margin: 0 0 8px 0;
-    color: rgb(204, 148, 103);
+    color: var(--light-color);
 }
 #contact .contact-photo{
     min-width: 150px;
     width: 90%;
     max-width: 350px;
- }
+
+    border: 2px solid var(--main-color);
+    border-radius: 10%;
+}
 
 #contact .contact-card{
     min-width: 150px;
     margin: 12px;
+    padding: 12px;
+    background-color: var(--main-color-lighter);
+    border-radius: 10%;
 }
 
 #contact .contact-card a{
     color: bisque;
+    text-decoration: underline;
+}
+
+#contact .contact-card a i{
+    margin: 0 8px;
 }
 
 /* find us */

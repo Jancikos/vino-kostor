@@ -7,6 +7,7 @@
     max-height: 1000px;
 
     background-color: var(--main-color);
+    border-bottom: var(--dark-color) 0.5vh solid;
 }
 
 .slider-item{
@@ -134,7 +135,7 @@
 
     max-width: 80ch;
 
-    background: rgba(109, 65, 52, 0.75);
+    background: #80221abf;
     
     
     animation: 2s slide-bottom 1.75s forwards;
