@@ -24,7 +24,12 @@ section{
     padding-right: 6%;
 }
 
+#header{
+    grid-area: header;
+
+}
 header {
+
     background: var(--main-color);
     color: white;
     border-bottom: black 0.5vh solid;
@@ -39,9 +44,15 @@ header h1 {
 
 /* zabezpecenie footera na spodku stránky */
 #pageWrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100%;
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100vh auto;
+    
+    grid-template-areas: 
+        "header header header"
+        "contact find-us find-us"
+        "footer footer footer";
 }
 
 #pageWrapper #pageBody{
@@ -50,14 +61,18 @@ header h1 {
 }
 
 #pageWrapper footer {
+    grid-area: footer;
     padding: 10px;
     color: white;
     background-color: var(--main-color);
+    border-top: 2px solid black;
     text-align: center;
 }
 
 /* contact */
 #contact{
+    grid-area: contact;
+    
     background-color: var(--main-color);
     text-align: center;
 }
@@ -76,8 +91,9 @@ header h1 {
     color: rgb(204, 148, 103);
 }
 #contact .contact-photo{
-    min-width: 200px;
-    max-width: 300px;
+    min-width: 150px;
+    width: 90%;
+    max-width: 350px;
  }
 
 #contact .contact-card{
@@ -91,6 +107,11 @@ header h1 {
 
 /* find us */
 #find-us{
+    grid-area: find-us;
+
+    display: flex;
+    flex-direction: column;
+
     text-align: center;
 }
 #find-us h1{
@@ -101,15 +122,20 @@ header h1 {
     font-size: 1rem;
     margin: 0 0 6px 0;
 }
+#find-us iframe{
+    flex-grow: 1;
+    min-height: 400px;
+}
 
 
 @media screen and (max-width: 500px) {
-    #slider .slider-text{
-        left: 50%;
-        transform: translateX(-50%);
-        
-        text-align: center;
-    }
+    #pageWrapper {
+        grid-template-areas: 
+            "header header header"
+            "contact contact contact"
+            "find-us find-us find-us"
+            "footer footer footer";
+    }    
 }
 
 /* animacie na slidnutie zo spodku */

@@ -1,6 +1,6 @@
 /* SLIDER */
 #slider{
-    position: relative;;
+    position: relative;
 
     min-height: 400px;
     height:  94vh;
@@ -140,4 +140,15 @@
     animation: 2s slide-bottom 1.75s forwards;
     opacity: 0%;
     transform: translate(5%, 100%);
+}
+
+@media screen and (max-width: 500px) {
+        
+    #slider .slider-text{
+        left: 50%;
+        transform: translateX(-50%);
+        
+        text-align: center;
+    }
+    
 }
