@@ -3,13 +3,14 @@
     position: relative;
 
     min-height: 400px;
-    height:  94vh;
+    height:  100vh;
     max-height: 1000px;
 
     background-color: var(--main-color);
     border-bottom: var(--dark-color) 0.5vh solid;
+    box-sizing: border-box;
 
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .slider-item{
@@ -26,14 +27,30 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.slider-item::before{
+   position: absolute;
 
-.slider-item.pivnica-exterier{
+    top: 0;
+    left: 0;
+
+    height:  100%;
+    width: 100%;
+
+    content: '';
+    filter: brightness(.75);
+    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.slider-item.pivnica-exterier::before{
     background-image: url(../obrazky/slider/pivnica-exterier.jpg);
 }
-.slider-item.pivnica-interier{
+
+.slider-item.pivnica-interier::before{
     background-image: url(../obrazky/slider/pivnica-interier.jpg);
 }
-.slider-item.vinica{
+.slider-item.vinica::before{
     background-image: url(../obrazky/slider/vinica.jpg);
 }
 

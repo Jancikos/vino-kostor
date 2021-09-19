@@ -41,15 +41,59 @@ body {
     grid-area: header;
 }
 header {
-    background: var(--main-color);
-    color: white;
-    border-bottom: var(--dark-color) 0.5vh solid;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+
+    height: 5rem;
+
 }
-header h1 {
-    font-size: 4vh;
+/* pripravene na to ked budem chceit dorabat aj menu */
+/* header::after {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 5rem;
+
+    background: var(--main-color-lighter);
+    opacity: 25%;
+} */
+
+.logo{
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    color: white;
+    opacity: 1;
     text-align: center;
-    margin: 0;
-    padding: 0;
+    font-size: 1.6rem;
+    line-height: 110%;
+    
+    width: 8rem;
+    height: 8rem;
+    padding: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    border: .3rem solid white;
+    border-radius: 50%;
+}
+.logo span{
+    display: block;
+    font-weight: bold;
+}
+.logo i{
+    font-size: 200%;
+    margin-bottom: .5rem;
 }
 
 
