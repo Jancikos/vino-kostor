@@ -51,7 +51,7 @@ header {
 
 }
 /* pripravene na to ked budem chceit dorabat aj menu */
-/* header::after {
+header::after {
     content: '';
 
     position: absolute;
@@ -60,16 +60,17 @@ header {
     left: 0;
     height: 5rem;
 
-    background: var(--main-color-lighter);
+    background: var(--main-color);
     opacity: 25%;
-} */
+}
 
 .logo{
     position: absolute;
     top: 5px;
     left: 50%;
     transform: translateX(-50%);
-    
+    z-index: 11;    
+    background: var(--main-color);
     color: white;
     opacity: 1;
     text-align: center;
@@ -84,7 +85,7 @@ header {
     flex-direction: column;
     justify-content: center;
     
-    border: .3rem solid white;
+    border: .3rem solid var(--main-color-lighter);
     border-radius: 50%;
 }
 .logo span{
