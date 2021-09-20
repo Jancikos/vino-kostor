@@ -124,11 +124,10 @@
 /* texty nad obrázkami */
 #slider .slider-text{
     position: absolute;
-
     
     bottom: 45px;
     
-    left: 5%;  
+    left: 5%;
 }
 #slider .slider-text .title{
     display: inline-block;

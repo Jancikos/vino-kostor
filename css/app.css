@@ -34,6 +34,40 @@ body {
     padding: 16px;
 }
 
+/* ikonky pred linkami */
+/* telefon/volania */
+a[href^="tel"]{
+    text-decoration: underline;
+}
+a[href^="tel"]::before,
+a[href^="tel"]::after{
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 600;
+    content: '\f095';
+    margin: 0 8px;
+
+    text-decoration: none;
+    display: inline-block;
+    transform: rotate(360deg);
+}
+a[href^="tel"]::after{
+    transform: rotate(90deg);
+}
+/* mapa */
+a.map-link{
+    text-decoration: underline;
+}
+a.map-link::before,
+a.map-link::after{
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 600;
+    content: '\f5a0';
+    margin: 0 8px;
+
+    text-decoration: none;
+    display: inline-block;
+    transform: rotate(360deg);
+}
 
 /* header */
 
@@ -45,7 +79,7 @@ header {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 10;
+    z-index: 1;
 
     height: 5rem;
 
@@ -72,7 +106,7 @@ header::after {
     z-index: 11;    
     background: var(--main-color);
     color: white;
-    opacity: 1;
+    opacity: 0.95;
     text-align: center;
     font-size: 1.6rem;
     line-height: 110%;
@@ -88,6 +122,10 @@ header::after {
     border: .3rem solid var(--main-color-lighter);
     border-radius: 50%;
 }
+.logo a{
+    color: white;
+    text-decoration: none;
+}
 .logo span{
     display: block;
     font-weight: bold;
@@ -97,6 +135,25 @@ header::after {
     margin-bottom: .5rem;
 }
 
+
+header .navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    padding: 2em;
+    
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+header .navbar a{
+    color: white;
+    font-size: 1.75em;
+    text-decoration: underline;
+}
 
 #pageWrapper footer {
     grid-area: footer;
@@ -201,7 +258,11 @@ header::after {
             "contact contact contact"
             "find-us find-us find-us"
             "footer footer footer";
-    }    
+    }
+    
+    header .navbar {
+        display: none;
+    }
 }
 /* animacie na slidnutie zo spodku */
 @keyframes slide-bottom {
