@@ -68,6 +68,21 @@ a.map-link::after{
     display: inline-block;
     transform: rotate(360deg);
 }
+/* mail */
+a[href^="mailto"]{
+    text-decoration: underline;
+}
+a[href^="mailto"]::before,
+a[href^="mailto"]::after{
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 600;
+    content: '\f0e0';
+    margin: 0 8px;
+
+    text-decoration: none;
+    display: inline-block;
+    transform: rotate(360deg);
+}
 
 /* header */
 
@@ -79,10 +94,9 @@ header {
     top: 0;
     right: 0;
     left: 0;
-    z-index: 1;
+    z-index: 11;
 
     height: 5rem;
-
 }
 /* pripravene na to ked budem chceit dorabat aj menu */
 header::after {
@@ -135,25 +149,105 @@ header::after {
     margin-bottom: .5rem;
 }
 
-
-header .navbar{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    padding: 2em;
-    
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-}
-
 header .navbar a{
     color: white;
     font-size: 1.75em;
     text-decoration: underline;
 }
+
+header .navbar {
+    padding: 2em;
+    
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 11;
+}
+
+header .navbar #desktop-navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+header .navbar #mobile-navbar{
+    display: none;
+
+    font-size: 1.7em;
+    color: white;
+
+    transition-duration: 2s;
+}
+header .navbar #mobile-navbar > span{
+    position: absolute;
+
+    top: 50%;
+    right: 1em;
+    transform: translateY(-50%);
+}
+header .navbar #mobile-navbar #show-menu-button::after{
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 600;
+    content: '\f0c9';
+}
+
+#hide-menu-button{
+    display: none;
+    position: absolute;
+
+    top: 1em;
+    right: 1em;
+}
+#hide-menu-button::after{
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 600;
+    content: '\f057';
+    color: white;
+}
+
+#modal-menu{
+    position: fixed;
+    z-index: 10;
+
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    overflow: auto;
+    background: #00000088;
+
+    display: none;
+}
+#modal-menu #menu-content{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    font-size: 150%;
+    color: white;
+    text-align: center;
+
+    margin-bottom: 2em;
+}
+#modal-menu #menu-content .menu-item{
+    color: white;
+
+    margin-top: 0.3em;
+}
+#modal-menu #menu-content .menu-item a{
+    display: block;
+    
+    font-weight: bold;
+    color: white;
+}
+#modal-menu #menu-content .menu-item small{
+    display: block;
+    margin-bottom: -.3em;
+    font-size: 60%;
+}
+
 
 #pageWrapper footer {
     grid-area: footer;
@@ -260,8 +354,12 @@ header .navbar a{
             "footer footer footer";
     }
     
-    header .navbar {
+    header .navbar #desktop-navbar {
         display: none;
+    }
+    
+    header .navbar #mobile-navbar {
+        display: block;
     }
 }
 /* animacie na slidnutie zo spodku */

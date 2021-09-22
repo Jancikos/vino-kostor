@@ -15,6 +15,24 @@
 
 
 <body id="pageWrapper">
+    
+    <!-- mobile modal menu -->
+    <div id="modal-menu">
+        <div id="menu-content">
+            <div class="menu-item">
+                <small>volajte</small>
+                <a href="tel:0902200593" target="blank">0902 200 593</a>
+            </div>
+            <div class="menu-item">
+                <small>píšte</small>
+                <a href="mailto:ko.janci@gmail.com?subject=Dal by som si vínko&body=Dobrý deň, mám záujem o vínko z vašej ponuky. Môžte ma prosím spätne kontaktovať na tento mail? Ďakujem." target="blank">ko.janci@gmail.com</a>
+            </div>
+            <div class="menu-item">
+                <small>alebo k nám rovno prídite :)</small>
+                <a href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank" class="map-link"> Ladzany 6/45 </a>
+            </div>
+        </div>
+    </div>
     <section id="header">
         <header>
             <div class="logo">
@@ -24,8 +42,14 @@
                 </a>
             </div>
             <div class="navbar">
-                <a href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank" class="map-link"> Ladzany 6/45 </a>
-                <a href="tel:0902200593" target="blank">0902 200 593</a>
+                <div id="desktop-navbar">
+                    <a href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank" class="map-link"> Ladzany 6/45 </a>
+                    <a href="tel:0902200593" target="blank">0902 200 593</a>
+                </div>
+                <div id="mobile-navbar">
+                    <span id="show-menu-button"></span>
+                    <span id="hide-menu-button"></span>
+                </div>
             </div>
         </header>
 
@@ -81,7 +105,7 @@
                 <h4>Vicevincúr</h4>
                 <a href="tel:0902200593" target="blank">0902 200 593</a>
                 <br>
-                <a href="mailto:ko.janci@gmail.com" target="blank"><i class="fa fa-envelope"></i> ko.janci@gmail.com <i class="fa fa-envelope"></i></a>
+                <a href="mailto:ko.janci@gmail.com?subject=Dal by som si vínko&body=Dobrý deň, mám záujem o vínko z vašej ponuky. Môžte ma prosím spätne kontaktovať na tento mail? Ďakujem." target="blank">ko.janci@gmail.com</a>
             </div>
         </div>
     </section>
@@ -102,5 +126,6 @@
 
 <script src="./js/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 <script src="./js/slider.js"></script>
+<script src="./js/app.js"></script>
 
 </html>
