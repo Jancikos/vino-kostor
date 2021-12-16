@@ -1,0 +1,62 @@
+#showcase {
+    height: 100vh;
+}
+
+.showcaseItem {
+    height: 100vh;
+    width: 100%;
+
+    background-color: var(--white-color);
+}
+
+.showcaseItem {
+    position: relative;
+    height: 100vh;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.showcaseItem.pivnicaExterier {
+    background-image: url("../images/showcase/pivnicaExterier.jpg");
+}
+.showcaseItem.pivnicaInterier {
+    background-image: url("../images/showcase/pivnicaInterier.jpg");
+}
+.showcaseItem.vinica {
+    background-image: url("../images/showcase/vinica.jpg");
+}
+
+
+
+
+.showcaseItem .showcaseDescription {
+    position: absolute;
+
+    left: 5%;
+    bottom: 10%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    font-size: 1.3em;
+    color: white;
+}
+
+.showcaseItem p {
+    padding: .5rem 1rem;
+    margin: 0;
+}
+
+.showcaseItem .showcaseDescription .showcaseTitle {
+    font-size: 1.8em;
+    background: rgba(196, 158, 89, 0.75);
+
+    margin-bottom: 30px;
+}
+
+.showcaseItem .showcaseDescription .showcaseText {
+    background: var(--main-color-opacity);
+}

@@ -1,23 +1,21 @@
 import React from "react";
 
 import { Header } from "./sections/header/Header.js";
+import { Showcase } from "./sections/showcase/Showcase.js";
 import "./css/app.css"
 
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// // import { fab } from '@fortawesome/free-brands-svg-icons'
-// import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
-
-// library.add(faCheckSquare, faCoffee)
 export class App extends React.Component{
     render() {
         return(
-            <Header title="No jojoo" />
-            // header
-            // slider
-            // kontakt
-            // recencie
-            // mapa
-            // pata
+            <div style={{height: "100%"}}>
+                <Header  />
+                <Showcase />
+                {/*
+                 // kontakt
+                // recencie
+                // mapa
+                // pata */}
+            </div>
         );
     }
 }
