@@ -14,19 +14,8 @@
 
     font-size: 1.75em;
     font-weight: bold;
-}
-/* pripravene na to ked budem chceit dorabat aj menu */
-#header::after {
-    content: '';
-
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 100%;
-
-    background: var(--main-color);
-    opacity: 25%;
+    
+    background: var(--main-color-opacity);
 }
 
 .logo{
@@ -77,5 +66,5 @@
     justify-content: space-between;
     align-items: center;
 
-    color: black;
+    color: white;
 }

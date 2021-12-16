@@ -21,7 +21,7 @@ export class Header extends React.Component{
                 </div>
                 <div id="navbar">
                     <div id="desktop-navbar">
-                        <MapLink title="Ladzany 6/45" href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" />
+                        <MapLink title="Ladzany 6/45" link="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" />
                         <TelLink number="0902 200 593" />
                     </div>
                 </div>
