@@ -1,7 +1,6 @@
-#header{
-    grid-area: header;
-}
 #header {
+    grid-area: header;
+
     position: fixed;
     top: 0;
     right: 0;
@@ -9,8 +8,12 @@
     z-index: 11;
 
     margin: 0;
+    padding: 0.1em 1em;
 
     height: 5rem;
+
+    font-size: 1.75em;
+    font-weight: bold;
 }
 /* pripravene na to ked budem chceit dorabat aj menu */
 #header::after {
@@ -20,7 +23,7 @@
     top: 0;
     right: 0;
     left: 0;
-    height: 5rem;
+    height: 100%;
 
     background: var(--main-color);
     opacity: 25%;
@@ -74,5 +77,5 @@
     justify-content: space-between;
     align-items: center;
 
-    color: rgb(53, 34, 34);
+    color: black;
 }

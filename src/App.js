@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Header } from "./sections/Header";
+import { Header } from "./sections/header/Header.js";
 import "./css/app.css"
 
 // import { library } from '@fortawesome/fontawesome-svg-core'

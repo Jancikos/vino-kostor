@@ -4,15 +4,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
 
 
-import { TelLink} from '../components/links/TelLink';
-import { MapLink} from '../components/links/MapLink';
+import { TelLink} from '../../components/links/TelLink';
+import { MapLink} from '../../components/links/MapLink';
 
-import "../css/header.css"
+import "../../css/header.css"
 
 export class Header extends React.Component{
     render(){
         return (
-            <h1 id="header"> 
+            <div id="header"> 
                 <div className="logo">
                     <a href="http://vinokostor.sk">
                         <FontAwesomeIcon icon={faWineGlass} className="icon" />
@@ -25,7 +25,7 @@ export class Header extends React.Component{
                         <TelLink number="0902 200 593" />
                     </div>
                 </div>
-            </h1>
+            </div>
         );  
     }
 }

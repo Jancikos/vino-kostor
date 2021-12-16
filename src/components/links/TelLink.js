@@ -5,7 +5,7 @@ import * as fa from '@fortawesome/free-solid-svg-icons'
 import {Link} from './Link';
 
 export function TelLink(props) {
-    return (
+    return ( 
         <Link 
             href={"tel:" + props.number.replaceAll(' ', '')}
             title={props.number}
