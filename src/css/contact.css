@@ -1,0 +1,35 @@
+#contact{
+    grid-area: contact;
+
+    text-align: center;
+
+    background-color: var(--main-color-lighter);
+}
+
+#contact h1 {
+    color: white;
+
+    margin: 0;
+    padding: 24px 0 0px 0;
+}
+#contactPeople{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.contactPerson{
+    margin: 64px;
+    padding: 32px;
+
+    background-color: var(--white-color);
+    border: solid var(--main-color) 24px;
+}
+
+
+
+.contactPerson img{
+    width: 300px;
+    height: 300px;
+}
