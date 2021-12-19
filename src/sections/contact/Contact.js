@@ -35,6 +35,10 @@ export class Contact extends React.Component {
                         photo={imgSimon}
                         />
                 </div>
+                <div id="map">
+                        <iframe src="https://maps.google.com/maps?q=V%C3%ADno%20Kostor&t=k&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy">
+                        </iframe>
+                </div>
             </div>
         )
     }
