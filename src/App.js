@@ -6,19 +6,21 @@ import { Showcase } from "./sections/showcase/Showcase.js";
 import { Landing } from "./sections/landing/Landing.js";
 import { Contact } from "./sections/contact/Contact.js";
 import { Footer } from "./sections/footer/Footer.js";
+import { Map } from "./sections/contact/Map.js";
 import "./css/app.css"
 
 export class App extends React.Component {
     render() {
         return (
-            <div style={{ height: "100%" }}>
                 <Header />
+                {/* <Header /> */}
                 <Landing />
                 <About />
                 <Contact />
                 {/*
-                // recencie
+                // recenciedr
                 // pata */}
+                <Map/>
                 <Footer />
             </div>
         );

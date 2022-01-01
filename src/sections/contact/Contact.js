@@ -7,37 +7,38 @@ import '../../css/contact.css';
 import imgLubko from '..//../images/lubko.jpg';
 import imgJanko from '..//../images/janko.jpg';
 import imgSimon from '..//../images/simonko.jpg';
+import { Heading } from "../../components/texts/Heading";
 
 export class Contact extends React.Component {
 
     render(){
         return(
-            <div id="contact">
-                <h1> S radosťou nás kontaktujte </h1>
-                <div id="contactPeople">
-                    <ContactPerson 
-                        name="Ľubo Kostor"
-                        subtitle="hlavný vincúr"
-                        phone="0903 548 162"                        
-                        photo={imgLubko}
-                        />
-                    <ContactPerson 
-                        name="Janko Kostor"
-                        subtitle="vicevincúr"
-                        email="janko@vinokostor.sk"
-                        phone="0902 200 593"                        
-                        photo={imgJanko}
-                        />
-                    <ContactPerson 
-                        name="Šimonko Kostor"
-                        subtitle="vicevincúr vo výčbe"
-                        email="simon@vinokostor.sk"
-                        photo={imgSimon}
-                        />
-                </div>
-                <div id="map">
-                        <iframe src="https://maps.google.com/maps?q=V%C3%ADno%20Kostor&t=k&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy">
-                        </iframe>
+            <div className="container section">
+                <div id="contact">
+                    <Heading title="S radosťou nás kontaktujte" />
+                    <div id="contactPeople">
+                        <ContactPerson 
+                            name="Ľubo Kostor"
+                            subtitle="hlavný vincúr"
+                            motto=""
+                            phone="0903 548 162"                        
+                            photo={imgLubko}
+                            />
+                        <ContactPerson 
+                            name="Janko Kostor"
+                            subtitle="vicevincúr"
+                            motto=""
+                            email="janko@vinokostor.sk"
+                            phone="0902 200 593"                        
+                            photo={imgJanko}
+                            />
+                        {/* <ContactPerson 
+                            name="Šimonko Kostor"
+                            subtitle="vicevincúr vo výčbe"
+                            email="simon@vinokostor.sk"
+                            photo={imgSimon}
+                            /> */}
+                    </div>
                 </div>
             </div>
         )
