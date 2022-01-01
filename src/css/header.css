@@ -9,13 +9,11 @@
 
     margin: 0;
     padding: 0.1em 1em;
-
-    height: 5rem;
-
-    font-size: 1.75em;
     font-weight: bold;
-    
-    background: var(--main-color-opacity);
+
+    background: var(--secondary-color-50);
+
+    height: 3rem;    
 }
 
 .logo{
@@ -24,22 +22,22 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 11;    
-    background: var(--main-color);
+    background: var(--primary-color-75);
     color: white;
     opacity: 0.95;
     text-align: center;
-    font-size: 1.6rem;
+    font-size: var(--step-0);
     line-height: 110%;
     
-    width: 8rem;
-    height: 8rem;
+    width: 6rem;
+    height: 6rem;
     padding: 0.5rem;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     
-    border: .3rem solid var(--main-color-lighter);
+    border: .3rem solid var(--primary-color-75);
     border-radius: 50%;
 }
 .logo a{
@@ -51,7 +49,7 @@
     font-weight: bold;
 }
 .logo .icon{
-    font-size: 200%;
+    font-size: var(--step-4);
     margin-bottom: .5rem;
 }
 

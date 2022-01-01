@@ -1,6 +1,12 @@
 :root{
-    --primary-color: #ffffff;
-    --secondary-color: #c4c4c4;
+    --primary-color: rgb(255, 255, 255);
+    --primary-color-75: rgb(255, 255, 255, .75);
+    --primary-color-50: rgb(255, 255, 255, .50);
+
+    --secondary-color: rgb(179, 179, 179);    --secondary-color-75: rgb(179, 179, 179, .75);
+    --secondary-color-50: rgb(179, 179, 179, .50);
+
+
 
     --dark-color: #2B1112af;
     --white-color: #F2EAB9;
@@ -14,6 +20,8 @@
     --step-3: clamp(1.73rem, 1.45rem + 1.39vw, 2.44rem);
     --step-4: clamp(2.07rem, 1.69rem + 1.91vw, 3.05rem);
     --step-5: clamp(2.49rem, 1.97rem + 2.59vw, 3.82rem);
+
+    scroll-behavior: smooth;
 }
 
 
@@ -27,7 +35,7 @@ html, body{
 }
 
 .section{
-    min-height: min(100vh, 150wh);
+    min-height: min(100vh, 150vw);
     margin: auto auto;
 
     box-sizing: border-box;
@@ -41,9 +49,16 @@ html, body{
 
 @media screen and (max-width: 1000px) {
     .section {
-        min-height: autos;
+        min-height: auto;
     }
 }
+
+/*** HELPERS ***/
+.hide{
+    display: none;
+}
+
+/******/ 
 
 
 /*** COMPONENTS ***/
