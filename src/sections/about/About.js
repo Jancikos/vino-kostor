@@ -9,7 +9,8 @@ export class About extends React.Component {
 
     render() {
         return (
-            <div className="container section">
+            <div id="aboutSection" className="container section">
+                <h1 id="aboutHeading" className="hide">O v skratke o nás</h1>
                 <div id="about">
                     <img src={imgMy} alt="Fotka nás" />
                     <div className="about-text-wrapper">
