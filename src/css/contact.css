@@ -1,38 +1,118 @@
 #contact{
     grid-area: contact;
+    width: 100%;
+    background-color: var(--secondary-color);
 
-    text-align: center;
-
-    background-color: var(--main-color-lighter);
+    text-align: center
 }
 
-#contact h1 {
-    color: white;
-
-    margin: 0;
-    padding: 24px 0 0px 0;
-}
 #contactPeople{
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    flex-direction: column;
+    /* justify-content: space-around; */
 
 }
 
 .contactPerson{
-    margin: 64px;
-    padding: 32px;
+    margin: 1em 0;
+    padding: 2em;
 
-    background-color: var(--white-color);
-    border: solid var(--main-color) 24px;
+    background-color: var(--primary-color);
+    /* border: solid var(--secondary-color) 24px; */
+    border-radius: 1em;
+
+    display: grid;
+    grid-template-columns: 50% auto;
+    column-gap: 5%;
+    grid-template-areas: "img text";
 }
-
-
 
 .contactPerson img{
-    width: 300px;
-    height: 300px;
+    grid-area: img;
+
+    margin: auto 0;
+    width: 90%;    
+
+    border-radius: 1em;
 }
+
+.contactPerson .text{
+    grid-area: text;
+
+    width: min(100%, 40ch);
+
+    display: flex;
+    flex-direction: column;
+
+    text-align: left;
+}
+
+.contactPerson .text p{
+    margin: 0;
+}
+
+.contactPerson .text .title{
+    font-size: var(--step-3);
+}
+
+.contactPerson .text small{
+    font-size: var(--step-0);
+    opacity: 0.75;
+}
+
+.contactPerson .text .motto{
+    /* flex-grow: 1; */
+
+    margin: auto 0;
+    vertical-align: middle;
+
+    font-size: var(--step-2);
+    font-style: italic;
+}
+
+.contactPerson .text .motto::before{
+    content: '"';
+}
+.contactPerson .text .motto::after{
+    content: '"';
+}
+
+.contactPerson .links{
+    font-size: var(--step-1);
+}
+
+
+@media screen and (max-width: 1000px) {
+    .contactPerson{
+        grid-template-columns: 100%;
+        grid-template-areas: 
+            "img"
+            "text";
+    }
+
+    .contactPerson .text {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .contactPerson .text .motto {
+        font-size: var(--step-2) !important;
+    }
+
+    .contactPerson img{
+        height: auto;
+        width: 80%;
+
+        margin: 0 auto 1.5rem auto;
+    }
+}
+
+
+
+
+
+
+
 
 #map, #map iframe{
     width: 100%;

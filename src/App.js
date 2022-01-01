@@ -12,8 +12,8 @@ import "./css/app.css"
 export class App extends React.Component {
     render() {
         return (
+            <div>
                 <Header />
-                {/* <Header /> */}
                 <Landing />
                 <About />
                 <Contact />

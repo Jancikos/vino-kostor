@@ -1,7 +1,6 @@
 #about{
     display: grid;
     grid-template-columns: 50% 50%;
-    /* grid-template-rows: ; */
     column-gap: 5%;
     grid-template-areas: "img text";
 }

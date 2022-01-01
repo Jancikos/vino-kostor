@@ -8,12 +8,19 @@ export class ContactPerson extends React.Component {
     render(){
         return(
             <div className="contactPerson">
+                {/* pre page navigatora */}
+                <h2 className="hide"> {this.props.name} </h2> 
+                
                 <img src={this.props.photo}/>
-                <h2> {this.props.name} </h2>
-                <small> {this.props.subtitle} </small>
-                <div>
-                    {this.props.phone ? (<TelLink number={this.props.phone} />) : ""}        
-                    {this.props.email ? (<MailLink title={this.props.email} />) : ""}        
+                
+                <div className="text">
+                    <p className="title"> {this.props.name} </p>
+                    <small> {this.props.subtitle} </small>
+                    <p className="motto" style={{fontSize: "var(--step-" + (this.props.motto.length < 60 ? "4" : "2") + ")"}}>{ this.props.motto }</p>
+                    <div className="links">
+                        {this.props.phone ? (<TelLink number={this.props.phone} />) : ""}        
+                        {this.props.email ? (<MailLink title={this.props.email} />) : ""}        
+                    </div>
                 </div>
             </div>
         )
