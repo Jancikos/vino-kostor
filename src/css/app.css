@@ -35,7 +35,7 @@ html, body{
 }
 
 .section{
-    min-height: min(100vh, 150vw);
+    min-height: min(100vh, 900px);
     margin: auto auto;
 
     box-sizing: border-box;
