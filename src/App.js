@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Header } from "./sections/header/Header.js";
+import { About } from "./sections/about/About.js";
 import { Showcase } from "./sections/showcase/Showcase.js";
 import { Contact } from "./sections/contact/Contact.js";
 import { Footer } from "./sections/footer/Footer.js";
@@ -10,8 +11,9 @@ export class App extends React.Component {
     render() {
         return (
             <div style={{ height: "100%" }}>
-                <Header />
+                {/* <Header /> */}
                 <Showcase />
+                <About />
                 <Contact />
                 {/*
                 // recencie
