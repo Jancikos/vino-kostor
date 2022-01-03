@@ -8,6 +8,7 @@ import { Contact } from "./sections/contact/Contact.js";
 import { Footer } from "./sections/footer/Footer.js";
 import { Map } from "./sections/contact/Map.js";
 import "./css/app.css"
+import { Products } from "./sections/products/Products.js";
 
 export class App extends React.Component {
     render() {
@@ -16,6 +17,7 @@ export class App extends React.Component {
                 <Header />
                 <Landing />
                 <About />
+                <Products />
                 <Contact />
                 {/*
                 // recenciedr

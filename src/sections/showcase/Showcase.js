@@ -5,7 +5,7 @@ import { ShowcaseItem } from './ShowcaseItem';
 import "../../css/showcase.css";
 
 export class Showcase extends React.Component {
-
+    // zaimplementovat tento slider - https://github.com/akiran/react-slick
     render() {
         return (
             <div id="showcase">
