@@ -6,39 +6,50 @@
     right: 0;
     left: 0;
     z-index: 11;
-
+    
+    height: 3rem;    
     margin: 0;
     padding: 0.1em 1em;
     font-weight: bold;
+    
+    box-shadow: var(--primary-color-50) 0px 5px 15px;
+}
 
-    background: var(--primary-color-50);
+#header > #background {
+    background: var(--secondary-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 
-    height: 3rem;    
+    z-index: 10;
+}
+
+#header > .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    z-index: 15;
+    height: 100%;
 }
 
 .logo{
-    position: absolute;
-    top: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 11;    
-    background: var(--primary-color);
-    color: white;
-    opacity: 0.95;
-    text-align: center;
-    font-size: var(--step--1);
-    line-height: 110%;
-    
-    width: 6rem;
-    height: 6rem;
-    padding: 0.5rem;
-
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     
-    border: .3rem solid var(--primary-color-dark);
-    border-radius: 50%;
+    flex-direction: row;
+    align-items: center;
+    gap: .5em;
+
+    z-index: 15;
+    
+    color: white;
+    font-size: var(--step-1);
+    text-align: center;
+    text-decoration: none;
+    line-height: 110%;
 }
 .logo a{
     color: white;
@@ -49,20 +60,27 @@
     font-weight: bold;
 }
 .logo .icon{
-    font-size: var(--step-4);
-    margin-bottom: .5rem;
+    font-size: var(--step-2);
+    /* margin-bottom: .5rem; */
 }
 
 #navbar{
-    height: 100%;
+    z-index: 15;
 }
 
 #desktop-navbar{
-    height: 100%;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1em;
+
+    color: white;
+    list-style: none;
+}
+
+#desktop-navbar a{
+    text-decoration: none;
 
     color: white;
 }
+

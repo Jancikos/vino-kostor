@@ -7,8 +7,8 @@ export class Landing extends React.Component {
 
     render() {
         return (
-            <div id="landing">
-                <JumpToLink link="#aboutSection" />                
+            <div id="landing" ref={this.props.setRef}>
+                <JumpToLink link="#about" />                
             </div>
         )
     }

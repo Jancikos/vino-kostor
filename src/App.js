@@ -11,11 +11,54 @@ import "./css/app.css"
 import { Products } from "./sections/products/Products.js";
 
 export class App extends React.Component {
+    state = {
+        headerOpacity: 0.75
+    }
+    
+    
+    componentDidMount = () => {
+        window.addEventListener('scroll', this.handleScroll);
+        // this.handleScroll();
+    };
+
+    handleScroll = () => {
+        if(!this.state.scrollRef){
+            return;
+        }
+
+        let opacity = this.state.headerOpacity;
+        const { top } = this.state.scrollRef.getBoundingClientRect();
+
+        if(top < -100){
+            opacity = 0.80;
+        }
+
+        if(top < -200){
+            opacity = 0.90;
+        }
+
+        if(top < -300){
+            opacity = 1;
+        }
+
+
+        this.setState({
+            headerOpacity: opacity
+        })
+    
+    }
+
+    setWrapRef = ref => {
+        this.setState({
+            scrollRef: ref
+        });
+    }
+
     render() {
         return (
             <div>
-                <Header />
-                <Landing />
+                <Header opacity={this.state.headerOpacity}/>
+                <Landing setRef={this.setWrapRef}/>
                 <About />
                 <Products />
                 <Contact />
