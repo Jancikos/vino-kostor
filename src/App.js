@@ -18,7 +18,6 @@ export class App extends React.Component {
     
     componentDidMount = () => {
         window.addEventListener('scroll', this.handleScroll);
-        // this.handleScroll();
     };
 
     handleScroll = () => {
@@ -41,11 +40,13 @@ export class App extends React.Component {
             opacity = 1;
         }
 
-
         this.setState({
             headerOpacity: opacity
-        })
-    
+        })    
+    }
+
+    loadSections = () => { 
+        
     }
 
     setWrapRef = ref => {

@@ -7,7 +7,7 @@ export class Product extends React.Component {
 
     render(){
         return(
-            <div className="productCard">
+            <div className="productCard shadow">
                 {/* pre page navigatora */}
                 <h2 className="hide"> {this.props.title} </h2> 
                 
@@ -15,7 +15,7 @@ export class Product extends React.Component {
                 
                 <p className="title">{this.props.title}</p>
                 <small> {this.props.subtitle} </small>
-                <span className="price">{this.props.price}</span>
+                {/* <span className="price">{this.props.price}</span> */}
             </div>
         )
     }

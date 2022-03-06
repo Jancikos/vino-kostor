@@ -79,11 +79,18 @@
 }
 
 #desktop-navbar a{
-    text-decoration: none;
-
+    text-decoration: underline 0.15em rgba(0, 0, 0, 0);
+    
     color: white;
+    transition: 450ms;
+    
 }
 
+#desktop-navbar .navbar-item.active a,
+#desktop-navbar a:hover{
+    text-decoration-color: rgba(255, 255, 255, 1);
+    
+}
 
 @media screen and (max-width: 600px) {
     #header > .container {

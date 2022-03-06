@@ -22,13 +22,13 @@
 
 .productCard{
     width: fit-content;
+    max-height: 70vh;
 
     margin: 1em auto;
     padding: 1.5em;
 
     background: var(--white-color);
     border-radius: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px .5rem 1rem;
     
     display: flex;
     flex-direction: column;
@@ -39,7 +39,7 @@
 }
 
 .productCard img{
-    height: min(50vh, 50vw);
+    height: min(45vh, 45vw);
     /* flex-grow: 1; */
 
     border-radius: 1rem;

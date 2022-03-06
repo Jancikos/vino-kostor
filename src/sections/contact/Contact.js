@@ -13,7 +13,7 @@ export class Contact extends React.Component {
     render(){
         return(
             <div id="contact">
-                <div className="container section">
+                <div className="container section" data-href="#contact" data-nav-title="Kontakt">
                     <Heading title="S radosťou nás kontaktujte" />
                     <div id="contactPeople">
                         <ContactPerson 

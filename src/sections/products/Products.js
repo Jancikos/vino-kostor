@@ -37,7 +37,7 @@ export class Products extends React.Component {
 
         return (
             <div id="products">
-                <div className="container section">
+                <div className="container section" data-href="#products" data-nav-title="Ponuka">
                     <Heading title="Naša aktuálna ponuka" />
                     <div id="productList">
                         <Slider {...sliderSettings}>

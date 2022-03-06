@@ -11,7 +11,7 @@ export class ContactPerson extends React.Component {
                 {/* pre page navigatora */}
                 <h2 className="hide"> {this.props.name} </h2> 
                 
-                <img src={this.props.photo}/>
+                <img className="shadow" src={this.props.photo} alt={this.props.name}/>
                 
                 <div className="text">
                     <p className="title"> {this.props.name} </p>

@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWineGlass } from '@fortawesome/free-solid-svg-icons'
 
 
-import { TelLink } from '../../components/links/TelLink';
-import { MapLink } from '../../components/links/MapLink';
+import { Navbar } from './Navbar';
 
 import "../../css/header.css"
 
@@ -19,19 +18,7 @@ export class Header extends React.Component {
                         <FontAwesomeIcon icon={faWineGlass} className="icon" />
                         <span>Víno Kostor</span>
                     </a>
-                    <div id="navbar">
-                        <nav id="desktop-navbar">
-                            <li className="navbar-item">
-                                <a href="#aboutSection">O nás</a>
-                            </li>
-                            <li className="navbar-item">
-                                <a href="#products">Ponuka</a>
-                            </li>
-                            <li className="navbar-item">
-                                <a href="#contact">Kontakt</a>
-                            </li>
-                        </nav>
-                    </div>
+                    <Navbar />
                 </div>
             </div>
         );
