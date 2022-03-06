@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Heading } from "../../components/texts/Heading";
+import { JumpToLink } from "../../components/links/JumpToLink";
 import '../../css/about.css';
 
 import imgMy from '../../images/simonko.jpg';
@@ -28,6 +29,7 @@ export class About extends React.Component {
                         </div>
                     </div>
                 </div>
+                <JumpToLink link="#products" />                
             </div>
         )
     }

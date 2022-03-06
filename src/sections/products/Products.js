@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { Product } from './Product';
 import { Heading } from "../../components/texts/Heading";
+import { JumpToLink } from "../../components/links/JumpToLink";
 import '../../css/products.css';
 
 import biele_2020 from '../../images/products/biele_2020.jpg';
@@ -54,7 +55,8 @@ export class Products extends React.Component {
                             />
                         </Slider>
                     </div>
-                </div>
+                    <JumpToLink link="#contact" />                
+               </div>
             </div>
         )
     }

@@ -7,7 +7,7 @@ export class Footer extends React.Component {
     render(){
         return(
             <div id="footer">
-                <p> &copy Kostorovci 2021</p>
+                <p> &copy; Kostorovci 2021</p>
             </div>
         )
     }

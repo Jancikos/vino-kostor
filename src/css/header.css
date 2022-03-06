@@ -11,7 +11,7 @@
     padding: 0.1em 1em;
     font-weight: bold;
 
-    background: var(--secondary-color-50);
+    background: var(--primary-color-50);
 
     height: 3rem;    
 }
@@ -22,11 +22,11 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 11;    
-    background: var(--primary-color-75);
+    background: var(--primary-color);
     color: white;
     opacity: 0.95;
     text-align: center;
-    font-size: var(--step-0);
+    font-size: var(--step--1);
     line-height: 110%;
     
     width: 6rem;
@@ -37,7 +37,7 @@
     flex-direction: column;
     justify-content: center;
     
-    border: .3rem solid var(--primary-color-75);
+    border: .3rem solid var(--primary-color-dark);
     border-radius: 50%;
 }
 .logo a{
