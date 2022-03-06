@@ -12,18 +12,18 @@
     padding: 0.1em 1em;
     font-weight: bold;
     
-    box-shadow: var(--primary-color-50) 0px 5px 15px;
 }
 
 #header > #background {
-    background: var(--secondary-color);
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
     bottom: 0;
-
     z-index: 10;
+    
+    background: var(--primary-color);
+    box-shadow: rgba(0, 0, 0, 0.50) 0px 5px 15px;
 }
 
 #header > .container {
@@ -84,3 +84,13 @@
     color: white;
 }
 
+
+@media screen and (max-width: 600px) {
+    #header > .container {
+        justify-content: center;
+    }
+
+    #desktop-navbar {
+        display: none;
+    }
+}
