@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-    background-color: rgb(208, 174, 174);
+    @apply bg-sky-500 text-white;
 }

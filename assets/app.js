@@ -15,5 +15,5 @@ global.$ = global.jQuery = $;
 
 // function runned on page load
 $(function() {
-    alert("JQuery is working!");
+    // alert("JQuery is working!");
 });
