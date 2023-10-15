@@ -1,0 +1,6 @@
+<database name="custom_database_name" defaultIdMethod="native"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          namespace="App\Model"
+        >
+        
+</database>

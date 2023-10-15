@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "composer update",
+            "type": "shell",
+            "command": "composer update",
+            "problemMatcher": []
+        },
+        {
+            "label": "symfony server start",
+            "type": "shell",
+            "command": "symfony server:start",
+            "problemMatcher": []
+        },
+        {
+            "label": "symfony server stop",
+            "type": "shell",
+            "command": "symfony server:stop",
+            "problemMatcher": []
+        },
+        {
+            "label": "npm run build",
+            "type": "shell",
+            "command": "npm run build",
+            "problemMatcher": []
+        },
+        {
+            "label": "npm run watch",
+            "type": "shell",
+            "command": "npm run watch",
+            "problemMatcher": []
+        },
+        {
+            "label": "propel make migration",
+            "type": "shell",
+            "command": "php .\\vendor\\propel\\propel\\bin\\propel.php migrate --config-dir ./config/propel",
+            "problemMatcher": []
+        },
+        {
+            "label": "propel make diff",
+            "type": "shell",
+            "command": "php .\\vendor\\propel\\propel\\bin\\propel.php diff --config-dir ./config/propel",
+            "problemMatcher": []
+        },
+        {
+            "label": "propel build sql",
+            "type": "shell",
+            "command": "php .\\vendor\\propel\\propel\\bin\\propel.php sql:build --config-dir ./config/propel",
+            "problemMatcher": []
+        },
+        {
+            "label": "propel build models",
+            "type": "shell",
+            "command": "php .\\vendor\\propel\\propel\\bin\\propel.php model:build --config-dir ./config/propel",
+            "problemMatcher": []
+        }
+    ]
+}
