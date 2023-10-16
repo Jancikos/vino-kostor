@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* navbar section */
+.navbar-item {
+    @apply 
+        block py-2 px-2 text-gray-900 rounded 
+        hover:bg-gray-100;
+    
+    @apply
+        md:hover:bg-transparent md:hover:text-blue-700 md:px-4 md:py-2;
+}
+.navbar-item.selected {
+    @apply text-white bg-blue-700 rounded;
+}
