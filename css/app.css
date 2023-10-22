@@ -25,10 +25,10 @@ h2 {
         hover:bg-gray-100;
     
     @apply
-        md:hover:bg-primary md:hover:text-blue-700 md:px-4 md:py-2;
+        md:hover:bg-primary md:hover:text-secondary md:px-4 md:py-2;
 }
 .navbar-item.selected {
-    @apply text-white bg-blue-700 rounded;
+    @apply text-white md:hover:bg-primary rounded;
 }
 
 /* about us */
