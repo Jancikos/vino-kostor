@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 /* general */
+:root {
+    scroll-behavior: smooth;
+}
 section {
     @apply min-h-screen px-8 py-12 box-border bg-primary;
 }
@@ -22,7 +25,7 @@ h2 {
         hover:bg-gray-100;
     
     @apply
-        md:hover:bg-transparent md:hover:text-blue-700 md:px-4 md:py-2;
+        md:hover:bg-primary md:hover:text-blue-700 md:px-4 md:py-2;
 }
 .navbar-item.selected {
     @apply text-white bg-blue-700 rounded;
@@ -100,7 +103,7 @@ h2 {
 
 /* footer */
 footer {
-    @apply w-screen bg-primary max-h-screen;
+    @apply w-full bg-primary max-h-screen;
     @apply flex flex-col md:flex-row items-center justify-around;
     @apply text-secondary text-center text-xl;
 }
