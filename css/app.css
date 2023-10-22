@@ -33,12 +33,12 @@ h2 {
 
 /* about us */
 #about-us p {
-    @apply mb-4 text-lg first-letter:text-2xl first-letter:font-bold;
+    @apply mb-4 text-lg md:text-2xl first-letter:text-2xl first-letter:font-bold first-letter:text-primary;
 }
 
 /* products */
 #products .product-card {
-    @apply max-w-sm max-h-full p-4;
+    @apply max-w-sm h-full p-4;
     @apply bg-secondary border-2 border-gray-200 rounded-lg shadow-xl;
     @apply text-center;
 }
@@ -55,10 +55,6 @@ h2 {
 }
 
 /* contact */
-#contact {
-    
-}
-
 #contact .contact-card {
     @apply w-full max-w-6xl max-h-full p-4 md:p-8;
     @apply flex flex-col md:flex-row justify-between gap-4 md:gap-12;
@@ -95,6 +91,7 @@ h2 {
 
 #contact .contact-card .contact-details a.contact-phone {
     @apply italic font-bold;
+    @apply hover:underline;
 }
 #contact .contact-card .contact-details a.contact-phone::before,
 #contact .contact-card .contact-details a.contact-phone::after {
