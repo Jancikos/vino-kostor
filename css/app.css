@@ -4,15 +4,14 @@
 
 /* general */
 section {
-    @apply h-screen px-8 py-12 box-border;
+    @apply h-screen px-8 py-12 box-border bg-primary;
 }
-
-div, img {
-    @apply box-border;
+section:nth-child(odd) {
+    @apply bg-secondary;
 }
 
 h2 {
-    @apply text-4xl font-bold;
+    @apply text-center text-4xl font-bold;
     @apply mb-4;
 }
 
@@ -32,4 +31,22 @@ h2 {
 /* about us */
 #about-us p {
     @apply mb-4 text-lg first-letter:text-2xl first-letter:font-bold;
+}
+
+/* products */
+#products .product-card {
+    @apply max-w-sm max-h-full p-4;
+    @apply bg-secondary border-2 border-gray-200 rounded-lg shadow-xl;
+    @apply text-center;
+}
+#products .product-card h3 {
+    @apply text-center text-2xl font-bold;
+    @apply mb-0;
+}
+#products .product-card img {
+    @apply rounded-t-lg max-h-full;
+    @apply mb-2;
+}
+#products .product-card p {
+    @apply font-normal text-gray-700;
 }
