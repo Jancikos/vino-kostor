@@ -97,3 +97,14 @@ h2 {
 #contact .contact-card .contact-details a.contact-phone::after {
     content: "📞";
 }
+
+/* footer */
+footer {
+    @apply w-screen bg-primary max-h-screen;
+    @apply flex flex-col md:flex-row items-center justify-around;
+    @apply text-secondary text-center text-xl;
+}
+footer a {
+    @apply py-4 px-6;
+    @apply hover:text-red-200 hover:underline;
+}
