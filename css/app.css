@@ -106,5 +106,5 @@ footer {
 }
 footer a {
     @apply py-4 px-6;
-    @apply hover:text-red-200 hover:underline;
+    @apply hover:text-black hover:underline;
 }
