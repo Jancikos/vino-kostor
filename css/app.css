@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* general */
+section {
+    @apply h-screen px-8 py-12 box-border;
+}
+
+div, img {
+    @apply box-border;
+}
+
+h2 {
+    @apply text-4xl font-bold;
+    @apply mb-4;
+}
+
 /* navbar section */
 .navbar-item {
     @apply 
@@ -13,4 +27,9 @@
 }
 .navbar-item.selected {
     @apply text-white bg-blue-700 rounded;
+}
+
+/* about us */
+#about-us p {
+    @apply mb-4 text-lg first-letter:text-2xl first-letter:font-bold;
 }
