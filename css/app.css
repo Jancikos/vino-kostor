@@ -4,7 +4,7 @@
 
 /* general */
 section {
-    @apply h-screen px-8 py-12 box-border bg-primary;
+    @apply min-h-screen px-8 py-12 box-border bg-primary;
 }
 section:nth-child(odd) {
     @apply bg-secondary;
