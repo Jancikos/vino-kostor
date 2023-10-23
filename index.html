@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Víno Kostor</title>
     
+    <link href="./css/fa-all.css" rel="stylesheet" >
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="dist/output.css">
@@ -14,15 +15,7 @@
     <nav class="bg-primary bg-opacity-75 border-gray-200 absolute top-0 w-full box-border">
         <div class="max-w-screen-xl flex flex-wrap justify-between mx-auto p-4">
             <a href="http://vinokostor.sk/" class="flex items-center">
-                <svg id="svg4170" class="w-10 h-10 mr-1" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="282.22mm" width="142.06mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 503.37047 1000">
-                    <g id="layer1" transform="translate(1548.8 487.64)">
-                    <g id="g4144" transform="matrix(8.7568 0 0 8.7568 -5379 -7084.1)">
-                    <path id="path3406" d="m466.11 866.99h0.056-21.237c-0.40103-1.5335 8.0645-3.6744 10.304-4.8324 7.7178-3.991 8.6453-6.3559 8.7878-22.408 0.14935-16.821-0.74072-20.59-5.3304-22.57-15.367-6.6283-22.422-18.13-20.479-33.386 0.69321-5.4435 6.9537-27.788 8.3208-30h19.606 19.606c1.3671 2.2121 7.6276 24.557 8.3208 30 1.9428 15.256-5.1122 26.758-20.479 33.386-4.5896 1.9797-5.4797 5.7484-5.3304 22.57 0.14253 16.052 1.07 18.417 8.7878 22.408 2.2393 1.158 10.705 3.2988 10.304 4.8324h-21.237z" stroke="#000" fill="none"/>
-                    <path id="path4139" d="m50.135 40.15c-1.0053 14.149 6.0859 24.859 20.695 31.16 4.5897 1.98 5.4794 5.7474 5.3301 22.568-0.1425 16.052-1.0693 18.417-8.7871 22.408-2.2395 1.158-10.706 3.2985-10.305 4.832h21.238 21.182c0.401-1.5336-8.0654-3.674-10.305-4.832-7.7178-3.991-8.6446-6.3562-8.7871-22.408-0.1493-16.822 0.74048-20.589 5.3301-22.568 14.614-6.303 21.704-17.012 20.694-31.162h-56.287z" transform="translate(387.86,745.87)"/>
-                    </g>
-                    </g>
-                    </svg>
-                    
+                <i class="fas fa-wine-glass-alt text-3xl mr-3"></i>
                 <span class="self-center text-2xl font-semibold whitespace-nowrap">Víno Kostor</span>
             </a>
             <div class="flex">
@@ -63,16 +56,14 @@
             <h1 class="text-2xl text-white mt-auto">Víno Kostor</h1>
             <h2 class="text-l text-white mt-4">domáce vínko z Hontu</h2>
 
-            <div class="flex flex-col px-8 py-2 mt-auto mb-2 bg-transparent border-gray-600 border-2 rounded-md text-center text-white hover:bg-gray-400">
-                <a href="#about-us">⬇️ zistite viac ⬇️</a>
+            <div class="flex flex-col px-4 py-1 mt-auto bg-transparent border-gray-600 border-2 rounded-md text-center text-white hover:bg-gray-400">
+                <a href="#about-us"><i class="fas fa-angle-down text-2xl"></i></a>
             </div>
         </div>
     </section>
 
-    
     <section id="about-us" class="min-h-screen md:h-screen flex flex-col md:flex-row items-stretch gap-12">
-
-        <div class="bg-primary p-6 mx-8 mb-4 rounded-xl drop-shadow-2xl max-h-full ">
+        <div class="bg-primary p-6 mx-8 mb-4 rounded-xl drop-shadow-2xl max-h-full">
             <img class="rounded-xl max-h-full" src="obrazky/my.jpg" alt="V skratke o nás">
         </div>
 
@@ -152,12 +143,12 @@
     </iframe>
 
     <footer>
-        <a href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank"> Ladzany 6/45 </a>
+        <a class="contact-map" href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank"> Ladzany 6/45 </a>
         <div>
             <a href="http://vinokostor.sk">www.vinokostor.sk</a>
             <small class="block mt-0 text-sm">creared by <a href="https://kostor.sk" class="text-sm p-0 text-blue-100">Ján Kostor</a> created by </small>
         </div>
-        <a href="tel:0902 200 593">0902 200 593</a>
+        <a class="contact-phone" href="tel:0902 200 593">0902 200 593</a>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>

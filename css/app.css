@@ -18,6 +18,28 @@ h2 {
     @apply mb-4;
 }
 
+/* tel icons */
+a.contact-phone::before,
+a.contact-phone::after {
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    content: '\f095';
+
+    @apply mx-2 font-bold;
+}
+a.contact-phone::after {
+    transform: scaleX(-1);
+}
+/* map icon */
+a.contact-map::before,
+a.contact-map::after{
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    content: '\f5a0';
+
+    @apply mx-2 font-bold;
+}
+
 /* navbar section */
 .navbar-item {
     @apply 
@@ -92,10 +114,6 @@ h2 {
 #contact .contact-card .contact-details a.contact-phone {
     @apply italic font-bold;
     @apply hover:underline;
-}
-#contact .contact-card .contact-details a.contact-phone::before,
-#contact .contact-card .contact-details a.contact-phone::after {
-    content: "📞";
 }
 
 /* footer */
