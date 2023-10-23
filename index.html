@@ -3,131 +3,155 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/app.css">
-    <link rel="stylesheet" href="./css/slider.css">
-    <link href="./css/fa-all.css" rel="stylesheet" >
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"> -->
-
     <title>Víno Kostor</title>
+    
+    <link href="./css/fa-all.css" rel="stylesheet" >
+    <link href="./css/flowbite.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="dist/output.css">
 </head>
 
-
-<body id="pageWrapper">
+    <nav class="bg-primary bg-opacity-75 border-gray-200 absolute top-0 w-full box-border">
+        <div class="max-w-screen-xl flex flex-wrap justify-between mx-auto p-4">
+            <a href="http://vinokostor.sk/" class="flex items-center">
+                <i class="fas fa-wine-glass-alt text-3xl mr-3"></i>
+                <span class="self-center text-2xl font-semibold whitespace-nowrap">Víno Kostor</span>
+            </a>
+            <div class="flex">
+                <button data-collapse-toggle="navbar-cta" type="button"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="navbar-cta" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 1h15M1 7h15M1 13h15" />
+                    </svg>
+                </button>
+            </div>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto" id="navbar-cta">
+                <ul
+                    class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
+                    <li>
+                        <a href="#about-us"
+                            class="navbar-item"
+                            aria-current="page">O nás</a>
+                    </li>
+                    <li>
+                        <a href="#products"
+                            class="navbar-item">Ponuka</a>
+                    </li>
+                    <li>
+                        <a href="#contact"
+                            class="navbar-item">Kontakt</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     
-    <!-- mobile modal menu -->
-    <div id="modal-menu">
-        <div id="menu-content">
-            <div class="menu-item">
-                <small>volajte</small>
-                <a href="tel:0902200593" target="blank">0902 200 593</a>
-            </div>
-            <div class="menu-item">
-                <small>píšte</small>
-                <a href="mailto:kontakt@vinokostor.sk?subject=Dal by som si vínko&body=Dobrý deň, mám záujem o vínko z vašej ponuky. Môžete ma prosím spätne kontaktovať na tento mail? Ďakujem." target="blank">kontakt@vinokostor.sk</a>
-            </div>
-            <div class="menu-item">
-                <small>alebo k nám rovno prídite :)</small>
-                <a href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank" class="map-link"> Ladzany 6/45 </a>
-            </div>
-        </div>
-    </div>
-    <section id="header">
-        <header>
-            <div class="logo">
-                <a href="http://vinokostor.sk">
-                    <i class="fas fa-wine-glass-alt"></i>
-                    <span>Víno<br>Kostor</span>
-                </a>
-            </div>
-            <div class="navbar">
-                <div id="desktop-navbar">
-                    <a href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank" class="map-link"> Ladzany 6/45 </a>
-                    <a href="tel:0902200593" target="blank">0902 200 593</a>
-                </div>
-                <div id="mobile-navbar">
-                    <span id="show-menu-button"></span>
-                    <span id="hide-menu-button"></span>
-                </div>
-            </div>
-        </header>
+    <section id="landing" class="bg-cover bg-center h-screen" style="background-image: url('obrazky/pivnica-exterier.jpg');">
+        <div class="h-full flex items-center justify-center flex-col">
+            <h1 class="text-2xl text-white mt-auto">Víno Kostor</h1>
+            <h2 class="text-l text-white mt-4">domáce vínko z Hontu</h2>
 
-        <div id="slider">
-            <div class="slider-item pivnica-exterier active" style="display: block;">
-                <div class="slider-text">
-                    <div class="title">
-                        <span>Pivnička</span>
-                    </div>
-                    <p class="text">Naše vínko tvoríme aj skladujeme v pivničke, ktorá sa nachádza vo vinárskej
-                        osade <b>Biele Dráhy</b> pri obci <b>Ladzany</b>.</p>
-                </div>
+            <div class="flex flex-col px-4 py-1 mt-auto bg-transparent border-gray-600 border-2 rounded-md text-center text-white hover:bg-gray-400">
+                <a href="#about-us"><i class="fas fa-angle-down text-2xl"></i></a>
             </div>
-            <div class="slider-item pivnica-interier">
-                <div class="slider-text">
-                    <div class="title">
-                        <span>Posedenie pri vínku</span>
-                    </div>
-                    <p class="text"> Koštovku našej práce môžeme aj s pohostením absolovať v príjemne zariadenej
-                        miestnosti priamo pri vstupe do "hrtanu" pivnice.</p>
-                </div>
-            </div>
-            <div class="slider-item vinica">
-                <div class="slider-text">
-                    <div class="title">
-                        <span>Vinohrad</span>
-                    </div>
-                    <p class="text">Naše víno vyrábame výhradne z doma vypestovaného hrozna.</p>
-                </div>
-            </div>
-            <div id="slider-navigation">
-                <button class="slider-radio active"></button>
-                <button class="slider-radio"></button>
-                <button class="slider-radio"></button>
-            </div>
-            <button id="slider-next" class="slider-button"><i class="fa fa-angle-right"></i></button>
-            <button id="slider-previous" class="slider-button"><i class="fa fa-angle-left"></i></button>
         </div>
     </section>
 
-    <section id="contact" class="container">
-        <h1>S radosťou nás kontaktujte</h1>
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+    <section id="about-us" class="min-h-screen md:h-screen flex flex-col md:flex-row items-stretch gap-12">
+        <div class="bg-primary p-6 mx-8 mb-4 rounded-xl drop-shadow-2xl max-h-full">
+            <img class="rounded-xl max-h-full" src="obrazky/my.jpg" alt="V skratke o nás">
+        </div>
+
+        <div class="max-w-2xl flex-1 flex flex-col justify-between">
+            <h2 class="text-left">V skratke o nás</h2>
+            <p>Pod značku Víno Kostor sa schováva príbeh rodiny z regiónu Hont, v ktorej sa už po mnohé generácie vyrábalo domáce víno  z vlastnoručne obrábaného samorodného viniča, ktorý rastie a dozrieva na úpätí bývalého sopečného pohoria Štiavnické vrchy.</p>
+            <p>Aktuálne sa má pri tvorbe nášho vína hlavné slovo Ľubo Kostor, ktorého pravou rukou sa stali  jeho dvaja synovania Jano a Šimon.</p>
+            <p>Práve najmladšia generácia Kostorovcov popri hodinách trávených vo vinici prišla s nápadom  spropagovať našu tvrdú prácu a zároveň dopriať okoliu poctivé stredoslovenské vínko s cieľom naučiť slovákov na slovenské vína s príbehom.</p>
+        </div>
+    </section>
+
+    <section id="products" class="flex flex-col">
+        <h2>Naša aktuálna ponuka</h2>
+
+        <div class="flex-1 flex flex-col md:flex-row gap-8 justify-around items-center">
+            <div class="product-card">
+                <img src="/obrazky/produkty/cervene_2020.jpg" alt="cervene 2020" />
+                <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">červené domáce vínko</h3>
+                <p class="dark:text-gray-400">ročník 2020</p>
+            </div>
+
+            <div class="product-card">
+                <img src="/obrazky/produkty/biele_2020.jpg" alt="biele 2020" />
+                <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">biele domáce vínko</h3>
+                <p class="dark:text-gray-400">ročník 2020</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="reviews" class="flex flex-col">
+        <h2>Hodnotenia od vás</h2>
+
+        <div class="flex-1 flex justify-center items-center">
+            <p>Ešte len pribudnú :)</p>
+        </div>
+
+    </section>
+
+    <section id="contact" class="flex flex-col">
+        <h2>Kontaktujte nás</h2>
+
+        <div class="flex flex-col gap-8 items-center">
+
             <div class="contact-card">
-                <img src="./obrazky/lubko.jpg" alt="Ľubko" class="contact-photo">
-                <h2>Ľubo Kostor</h2>
-                <h4>Hlavný vincúr</h4>
-                <a href="tel:0903548162" target="blank">0903 548 162</a>
-                <br>
-                <a href="mailto:lubo@vinokostor.sk?subject=Dal by som si vínko&body=Dobrý deň, mám záujem o vínko z vašej ponuky. Môžete ma prosím spätne kontaktovať na tento mail? Ďakujem." target="blank">lubo@vinokostor.sk</a>
+                <div class="flex flex-row justify-center">
+                    <img src="obrazky/lubko.jpg" alt="lubo kostor">
+                </div>
+
+                <div class="contact-details">
+                    <h3>Ľubko Kostor</h3>
+                    <p class="contact-job">hlavný vincúr</p>
+                    
+                    <div class="contact-quote"><p class="md:text-5xl">Víno a hlavne vinica je mojou celoživotnou záľubou.</p></div>
+
+                    <a class="contact-phone" href="tel:0903 548 162" >0903 548 162</a>
+                </div>
             </div>
+
             <div class="contact-card">
-                <img src="./obrazky/janko.jpg" alt="Janko" class="contact-photo">
-                <h2>Janko Kostor</h2>
-                <h4>Vicevincúr</h4>
-                <a href="tel:0902200593" target="blank">0902 200 593</a>
-                <br>
-                <a href="mailto:janko@vinokostor.sk?subject=Dal by som si vínko&body=Dobrý deň, mám záujem o vínko z vašej ponuky. Môžete ma prosím spätne kontaktovať na tento mail? Ďakujem." target="blank">janko@vinokostor.sk</a>
+                <div class="flex flex-row justify-center">
+                    <img src="obrazky/janko.jpg" alt="lubo kostor">
+                </div>
+
+                <div class="contact-details">
+                    <h3>Janko Kostor</h3>
+                    <p class="contact-job">vicevincúr</p>
+                    
+                    <div class="contact-quote"><p class="md:text-3xl">Oco ma k vinárstvu viedol od malička. No prv ako som mohol naše vínko aspoň privoňať, som si túto odmenu musel odslúžiť v našej vinici...  </p></div>
+
+                    <a class="contact-phone" href="tel:0902 200 593" >0902 200 593</a>
+                </div>
             </div>
-        </div>
+        </div> 
     </section>
 
-    <section id="find-us" class="container">
-        <h1>Kde nás nájdete</h1>
-        <div class="map">
-            <iframe src="https://maps.google.com/maps?q=V%C3%ADno%20Kostor&t=k&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy">
-            </iframe>
-        </div>
-        <p> V prípade potreby sa vieme dohodnúť, že vínko privezieme až k Vám domov. Stačí nám zavolať. </p>
-    </section>
+    <iframe class="h-96 max-h-screen w-full box-border" src="https://maps.google.com/maps?q=V%C3%ADno%20Kostor&t=k&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy">
+    </iframe>
+
     <footer>
-        <p> Bratia Kostorovci © 2021 </p>
-        <p><small> Pite dobré víno! </small>     </p>
+        <a class="contact-map" href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank"> Ladzany 6/45 </a>
+        <div>
+            <a href="http://vinokostor.sk">www.vinokostor.sk</a>
+            <small class="block mt-0 text-sm">creared by <a href="https://kostor.sk" class="text-sm p-0 text-blue-100">Ján Kostor</a> created by </small>
+        </div>
+        <a class="contact-phone" href="tel:0902 200 593">0902 200 593</a>
     </footer>
-</body>
 
-<script src="./js/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
-<script src="./js/slider.js"></script>
-<script src="./js/app.js"></script>
+    <script src="./js/flowbite.min.js"></script>
+</body>
 
 </html>
