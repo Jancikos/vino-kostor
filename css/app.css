@@ -18,6 +18,14 @@ h2 {
     @apply mb-4;
 }
 
+.btn-scroll {
+    @apply bg-gray-200 px-2 py-2 rounded-full;
+    @apply hover:bg-gray-300;
+}
+.btn-scroll > i {
+    @apply text-3xl;
+}
+
 /* tel icons */
 a.contact-phone::before,
 a.contact-phone::after {
@@ -59,13 +67,21 @@ a.contact-map::after{
 }
 
 /* products */
+section#products {
+    @apply px-0;
+}
+
 #products .product-card {
-    @apply max-w-sm h-full p-4;
-    @apply bg-secondary border-2 border-gray-200 rounded-lg shadow-xl;
+    @apply w-80 h-full mx-4 p-4 overflow-hidden shrink-0;
+    @apply bg-secondary border-2 border-gray-200 rounded-lg shadow-lg;
     @apply text-center;
 }
+#products-wrapper :nth-child(0) {
+    @apply ml-0;
+}
 #products .product-card h3 {
-    @apply text-center text-xl md:text-2xl font-bold;
+    @apply mb-2;
+    @apply text-gray-900 text-center text-xl md:text-2xl font-bold tracking-tighter;
     @apply mb-0;
 }
 #products .product-card img {
