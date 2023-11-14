@@ -12,6 +12,10 @@ import './styles/app.css';
 import $ from 'jquery';
 global.$ = global.jQuery = $;
 
+// alpine setup
+import Alpine from 'alpinejs';
+global.Alpine = Alpine;
+Alpine.start();
 
 // function runned on page load
 $(function() {
