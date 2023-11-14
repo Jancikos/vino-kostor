@@ -14,6 +14,8 @@ global.$ = global.jQuery = $;
 
 // alpine setup
 import Alpine from 'alpinejs';
+import persist from '@alpinejs/persist'
+Alpine.plugin(persist);
 global.Alpine = Alpine;
 Alpine.start();
 
