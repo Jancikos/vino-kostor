@@ -1,0 +1,10 @@
+{% extends "admin\\taildmin_base.html.twig" %}
+
+
+{% block body %}
+    <ul x-data="{ items: Array.from({ length: 10 }, (_, index) => index + 1) }">
+        <template x-for="item in items" :key="item">
+            <li x-text="item"></li>
+        </template>
+    </ul>
+{% endblock body %}

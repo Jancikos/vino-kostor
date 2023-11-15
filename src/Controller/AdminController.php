@@ -13,7 +13,8 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('admin/taildmin.html.twig', [
+        return $this->render('admin/admin_index.html.twig', [
+            'title' => 'Admin dashboard',
             'controller_name' => 'MainController',
         ]);
     }

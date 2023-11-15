@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        {{ title }} | Víno Kostor
+    </title>
+    <link rel="icon" href="favicon.ico">
+
+    {% block stylesheets %}
+    {{ encore_entry_link_tags('taildmin') }}
+    {% endblock %}
+
+    {% block javascripts %}
+    {{ encore_entry_script_tags('taildmin') }}
+    {% endblock %}
+</head>
+
+<body
+    x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
+    x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+    :class="{'dark text-bodydark bg-boxdark-2': darkMode === true}">
+
+    <!-- ===== Page Wrapper Start ===== -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- ===== Sidebar Area Start ===== -->
+        {% include "admin\\components\\taildmin_sidebar.html.twig" %}
+        <!-- ===== SideBar Area End ===== -->
+
+
+
+        <!-- ===== Content Area Start ===== -->
+        <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+            <!-- ===== Header Start ===== -->
+            {% include "admin\\components\\taildmin_header.html.twig" %}
+            <!-- ===== Header End ===== -->
+
+            <!-- ===== Main Content Start ===== -->
+            <main>
+                <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+                    {% block body %}
+                    <h2 class="mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Dashboard</h2>
+                    {% endblock body %}
+                </div>
+            </main>
+            <!-- ===== Main Content End ===== -->
+        </div>
+        <!-- ===== Content Area End ===== -->
+    </div>
+</body>
+
+</html>
