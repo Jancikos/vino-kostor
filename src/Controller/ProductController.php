@@ -16,7 +16,6 @@ class ProductController extends AdminController
      */
     public function index(): Response
     {
-
         return $this->renderAdminPage(
             'Produkty',
             'products', [
@@ -34,7 +33,7 @@ class ProductController extends AdminController
         return $this->renderAdminPage(
             'Produkt - formulár',
             'product_form', [
-
+                
             ]
         );
     }

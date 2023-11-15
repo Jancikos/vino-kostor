@@ -38,6 +38,12 @@
             "problemMatcher": []
         },
         {
+            "label": "propel convert config",
+            "type": "shell",
+            "command": "php .\\vendor\\propel\\propel\\bin\\propel.php config:convert --config-dir ./config/propel",
+            "problemMatcher": []
+        },
+        {
             "label": "propel make diff",
             "type": "shell",
             "command": "php .\\vendor\\propel\\propel\\bin\\propel.php diff --config-dir ./config/propel",
