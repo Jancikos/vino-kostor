@@ -8,6 +8,9 @@ import './styles/taildmin.css';
 // alpine setup
 import Alpine from 'alpinejs';
 import persist from '@alpinejs/persist'
+import mask from '@alpinejs/mask'
+ 
+Alpine.plugin(mask)
 Alpine.plugin(persist);
 global.Alpine = Alpine;
 Alpine.start();

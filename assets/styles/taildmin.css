@@ -29,15 +29,66 @@
     .sidebar-menu li a>svg {
         @apply w-6 h-6;
     }
+
+    /* butttons */
+    .btn-row {
+        @apply flex items-center gap-2.5;
+        @apply mb-4;
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2.5;
+        @apply bg-black rounded-xl py-2 px-4 duration-300 ease-in-out;
+        @apply text-lg font-medium text-bodydark1;
+        @apply hover:bg-graydark hover:text-gray-2;
+    }
+    .btn svg {
+        @apply w-6 h-6;
+        @apply hover:fill-gray-2;
+    }
+
+    /* form */
+    .form-wrapper {
+        @apply rounded-sm border border-stroke bg-white shadow-default;
+        @apply p-6.5;
+    }
+    .form-wrapper label {
+        @apply block mb-2.5 text-black;
+    }
+    .form-wrapper input {        
+        @apply w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5;
+        @apply font-medium outline-none transition;
+        @apply focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary;
+    }
+    
+    .form-row {
+        @apply mb-4.5;
+    }
+
+    .form-wrapper .form-row:last-child {
+        @apply mb-0;
+    }
+    
+    /* checkbox input */
+    label.checkbox {
+        @apply flex cursor-pointer;
+    }
+    label.checkbox input[type='checkbox']:checked ~ .box span {
+        @apply opacity-100;
+    }
+    label.checkbox input[type='checkbox']:checked ~ .box {
+        @apply border-primary bg-primary dark:border-primary;
+    }
+  
 }
 
 @layer utilities {
-
+    
     /* Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
         display: none;
     }
-
+    
     .no-scrollbar {
         -ms-overflow-style: none;
         /* IE and Edge */
@@ -48,8 +99,14 @@
     .chat-height {
         @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
     }
-
+    
     .inbox-height {
         @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
+    }
+    
+    /* icon in a */
+    a > svg {
+        @apply w-6 h-6;
+        @apply fill-bodydark1;
     }
 }

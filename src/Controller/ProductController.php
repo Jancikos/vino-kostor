@@ -25,4 +25,18 @@ class ProductController extends AdminController
         );
     }
 
+    /**
+     * @Route("/form", name="form")
+     */
+    public function form(): Response
+    {
+
+        return $this->renderAdminPage(
+            'Produkt - formulár',
+            'product_form', [
+
+            ]
+        );
+    }
+
 }
