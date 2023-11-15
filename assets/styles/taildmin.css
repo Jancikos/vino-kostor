@@ -80,6 +80,34 @@
         @apply border-primary bg-primary dark:border-primary;
     }
   
+    /* table */
+    .table-wrapper {
+        @apply max-w-full overflow-x-auto;
+    }
+
+    .table-wrapper table {
+        @apply w-full table-auto;
+    }
+    .table-wrapper table thead tr {
+        @apply bg-gray-2;
+    }
+    .table-wrapper table thead tr th {
+        @apply py-4 px-4 font-semibold text-black;
+    }
+    
+    .table-wrapper table tbody tr {
+        @apply border-b border-[#eee];
+    }
+    
+    .table-wrapper table tbody tr td {
+        @apply py-5 px-4;
+        @apply text-black;
+    }
+    
+    .table-wrapper table thead tr th:first-child,
+    .table-wrapper table tbody tr td:first-child {
+        @apply xl:pl-11;
+    }
 }
 
 @layer utilities {

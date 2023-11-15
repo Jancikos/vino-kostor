@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Model\ProductQuery;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,7 +20,7 @@ class ProductController extends AdminController
         return $this->renderAdminPage(
             'Produkty',
             'products', [
-
+                'products' => ProductQuery::create()->find()
             ]
         );
     }
