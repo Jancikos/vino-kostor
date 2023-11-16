@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Model\Product;
 use App\Model\ProductQuery;
+use App\Utils\JsonResponse\FlashMessageType;
+use App\Utils\JsonResponse\JsonValidationResponse;
 use Propel\Runtime\Map\TableMap;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,22 +50,25 @@ class ProductController extends AdminController
      */
     public function save(Request $request): Response
     {
-        $data = $request->request->all();
-
         /** @var Product $product */
         $product = ProductQuery::create()->findPk($request->request->get('pk_'));
+        $isNew = false;
         if ($product === null) {
             $product = new Product();
+            $isNew = true;
         }
 
         $product->setTitle($request->request->get('title'));
         $product->setPrice($request->request->get('price'));
         $product->setActive($request->request->get('active') == 'on' ? 1 : 0);
 
-        $product->save();
+        $validationResponse = JsonValidationResponse::ValidateModel($product);
 
-        $this->addFlash('success', 'Produkt bol ' . ($product->isNew() ? 'vytvorený' : 'upravený') . '.');
+        if ($validationResponse->getSuccess()) {
+            $product->save();
+            $this->addFlash(FlashMessageType::SUCCESS, 'Produkt bol ' . ($isNew ? 'vytvorený' : 'upravený') . '.');
+        }
         
-        return new JsonResponse(['success' => true]);
+        return $validationResponse->toJsonResponse();
     }
 }

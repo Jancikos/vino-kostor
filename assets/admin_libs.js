@@ -34,8 +34,10 @@ export default class Form {
                     window.location.href = form.attr('data-redirect');
                 } else {
                     // show error messages to inputs
-                    for (var key in response.errors) {
-                        productForm.addInputError(key, response.errors[key]);
+                    for (const [column, messages] of Object.entries(response.errorMessages)) {
+                        for (const message of messages) {
+                            productForm.addInputError(column, message);
+                        }
                     }
                 }
             },
