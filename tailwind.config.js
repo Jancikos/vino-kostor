@@ -50,9 +50,9 @@ module.exports = {
             'meta-7': '#FF6766',
             'meta-8': '#F0950C',
             'meta-9': '#E5E7EB',
-            success: '#219653',
-            danger: '#D34053',
-            warning: '#FFA70B'
+            success: '#34d399',
+            danger: '#f87171',
+            warning: '#ffdb9b'
         },
         extend: {
             fontSize: {

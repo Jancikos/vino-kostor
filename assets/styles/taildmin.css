@@ -114,6 +114,38 @@
     .table-wrapper table tbody tr td:first-child {
         @apply xl:pl-11;
     }
+
+    /* alerts */
+    .alert {
+        @apply flex items-center w-full duration-1000;
+        @apply border-l-6 border-boxdark bg-boxdark !bg-opacity-[15%] p-4 shadow-md md:p-6;
+    }
+    .alert > .icon {
+        @apply mr-5 flex h-9 w-full max-w-[36px] items-center justify-center rounded-lg bg-boxdark;
+    }
+    .alert > .body {
+        @apply w-full;
+    }
+    .alert > .body h5 {
+        @apply text-lg font-bold text-black leading-tight;
+    }
+    .alert > .body p {
+        @apply text-base text-body;
+    }
+
+    .alert.success, 
+    .alert.success > .icon {
+        @apply border-success bg-success ;
+    }
+    .alert.danger,
+    .alert.danger > .icon {
+        @apply border-danger bg-danger;
+    }
+    .alert.warning,
+    .alert.warning > .icon {
+        @apply border-warning bg-warning;
+    }
+
 }
 
 @layer utilities {
