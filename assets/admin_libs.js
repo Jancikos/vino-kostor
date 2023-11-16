@@ -18,6 +18,32 @@ export default class Form {
         }).get();
     }
     
+    submit() {
+        if (!productForm.validate()) {
+            return;
+        }
+    
+        var form = productForm.getForm();
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: form.serialize(),
+            success: function(response) {
+                if (response.success) {
+                    // redirect to home page
+                    window.location.href = form.attr('data-redirect');
+                } else {
+                    // show error messages to inputs
+                    for (var key in response.errors) {
+                        productForm.addInputError(key, response.errors[key]);
+                    }
+                }
+            },
+            error: function(response) {
+                alert('Pri ukladaní došlo k chybe. Skúste to prosím znova.');
+            }
+        });
+    }   
     validate() {
         let valid = true;
         this.inputs.forEach((inputName) => {

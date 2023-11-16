@@ -21,7 +21,7 @@
 
 {# formular #}
 
-<form action="{{ path("app_index") }}" id="product-form" class="form-wrapper" @submit.prevent="productForm.submit()">
+<form action="{{ path("admin_products_save") }}" data-redirect="{{ path('admin_products_index') }}" id="product-form" class="form-wrapper" @submit.prevent="productForm.submit()">
     <div class="form-row">
         <label>Názov</label>
         <input type="text" name="title" placeholder="Zadajte názov produktu">
@@ -29,12 +29,12 @@
 
     <div class="form-row">
         <label>Cena €</label>
-        <input name="price" class="flex-1"  x-mask:dynamic="$money($input, ',', ' ', 2)" placeholder="Zadajte cenu produktu v €">
+        <input name="price" class="flex-1"  x-mask:dynamic="$money($input, '.', '', 2)" placeholder="Zadajte cenu produktu v €">
     </div>
 
     <div class="form-row">
         <label class="checkbox">
-            <input type="checkbox" name="actual" class="sr-only" />
+            <input type="checkbox" name="active" class="sr-only" />
             <div
                 class="box mr-3 flex h-5 w-5 items-center justify-center rounded border border-stroke">
                 <span class="text-white opacity-0">

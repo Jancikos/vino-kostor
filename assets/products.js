@@ -37,35 +37,4 @@ productForm.validation['price'] = function() {
     return valid;
 }
 
-productForm.submit = function() {
-    if (!productForm.validate()) {
-        return;
-    }
-
-    alert("Produkt bol úspešne zvalidovany.");
-
-    // $.ajax({
-    //     url: '/admin/products',
-    //     method: 'POST',
-    //     data: productForm.getForm().serialize(),
-    //     success: function(response) {
-    //         console.log(response);
-    //         if (response.success) {
-    //             alert('Produkt bol úspešne pridaný.');
-    //             productForm.getForm()[0].reset();
-
-    //             // redirect to home page
-    //             window.location.href = '/admin';
-    //         } else {
-    //             alert('Pri ukladaní produktu došlo k chybe.');
-    //         }
-    //     },
-    //     error: function() {
-    //         alert('Pri ukladaní produktu došlo k chybe.');
-    //     }
-    // });
-}
-
-
-
 global.productForm = productForm;
