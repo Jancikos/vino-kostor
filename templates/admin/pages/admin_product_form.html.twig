@@ -1,11 +1,15 @@
 {% extends "admin\\taildmin_base.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('products') }}
+{% endblock javascripts %}
 
 {% block body %}
 
 {# buttons row #}
 <div class="btn-row">
-    <a href="#" class="btn">
+    <a href="#" class="btn" @click.prevent="productForm.submit()">
         <svg xmlns="http://www.w3.org/2000/svg" height="1em"
             viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
             <path
@@ -17,10 +21,10 @@
 
 {# formular #}
 
-<form action="#" class="form-wrapper">
+<form action="{{ path("app_index") }}" id="product-form" class="form-wrapper" @submit.prevent="productForm.submit()">
     <div class="form-row">
         <label>Názov</label>
-        <input type="text" name="title" placeholder="Zadajte názov produktu" class="">
+        <input type="text" name="title" placeholder="Zadajte názov produktu">
     </div>
 
     <div class="form-row">
@@ -45,5 +49,7 @@
             <p>Aktuálne v ponuke</p>
         </label>
     </div>
+    {# aby sa formular dal submitnut eneterom #}
+    <input type="submit" hidden /> 
 </form>
 {% endblock body %}

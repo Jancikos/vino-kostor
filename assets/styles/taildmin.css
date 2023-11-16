@@ -60,6 +60,12 @@
         @apply font-medium outline-none transition;
         @apply focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary;
     }
+    .form-wrapper input.invalid {        
+        @apply border-2 border-danger;
+    }
+    span.error-msg {
+        @apply block mt-1 text-sm text-danger;
+    }
     
     .form-row {
         @apply mb-4.5;
