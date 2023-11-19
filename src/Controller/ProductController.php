@@ -19,6 +19,11 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProductController extends AdminController
 {
+    public function __construct()
+    {
+        $this->addBreadcrumb('Produkty', 'admin_products_index');
+    }
+
     /**
      * @Route("/", name="index")
      */
@@ -48,6 +53,9 @@ class ProductController extends AdminController
 
             $product = new Product();
             $editMode = false;
+            $this->addBreadcrumb('Nový produkt', 'admin_products_form');
+        } else {
+            $this->addBreadcrumb('Produkt ' . $product->getTitle(), 'admin_products_form');
         }
 
         return $this->renderAdminPage(

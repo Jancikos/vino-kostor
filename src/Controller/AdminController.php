@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Utils\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin", name="admin_")
  */
-class AdminController extends AbstractController
+class AdminController extends BaseController
 {
     /**
      * @Route("/", name="index")
@@ -38,6 +38,7 @@ class AdminController extends AbstractController
     {
         return $this->render("admin/pages/admin_$page.html.twig", [
             'title' => $title,
+            'breadcrumbs' => $this->getBreadcrumbs(),
         ] + $params);
     }
 }
