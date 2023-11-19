@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\Product;
 use App\Model\ProductQuery;
 use App\Utils\JsonResponse\FlashMessageType;
+use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
 use Propel\Runtime\Map\TableMap;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -70,5 +71,23 @@ class ProductController extends AdminController
         }
         
         return $validationResponse->toJsonResponse();
+    }
+    
+    /**
+     * @Route("/delete", name="delete", methods={"POST"})
+     */
+    public function delete(Request $request): Response
+    {
+        /** @var Product $product */
+        $product = ProductQuery::create()->findPk($request->request->get('pk_'));
+        
+        if ($product !== null) {
+            return JsonDataResponse::FailedResponse("Produkt nebol nájdený.")->toJsonResponse();
+        }
+
+        $product->delete();
+        $this->addFlash(FlashMessageType::SUCCESS, 'Produkt bol vymazaný.');
+        
+        return JsonDataResponse::SuccessResponse()->toJsonResponse();
     }
 }

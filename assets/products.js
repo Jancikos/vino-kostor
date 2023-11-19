@@ -1,7 +1,7 @@
 import Form from './admin_libs.js';
 
+// product form
 var productForm = new Form('product-form');
-
 productForm.validation['title'] = function() {
     productForm.clearInputErrors('title');
     let input = productForm.getFormInput('title');
@@ -36,5 +36,30 @@ productForm.validation['price'] = function() {
 
     return valid;
 }
-
 global.productForm = productForm;
+
+// products table actions
+global.productDelete = function (itemPk) {
+    if (!confirm('Naozaj chcete vymazať tento produkt?')) {
+        return;
+    }
+
+    $.ajax({
+        url: $("#table-products").attr('data-delete-url'),
+        method: 'POST',
+        data: {
+            pk_: itemPk
+        },
+        success: function(response) {
+            if (!response.success) {
+                alert(response.title);
+                return;
+            }
+
+            window.location.reload();
+        },
+        error: function(response) {
+            alert('Pri vymazávaní došlo k chybe. Skúste to prosím znova.');
+        }
+    });
+}

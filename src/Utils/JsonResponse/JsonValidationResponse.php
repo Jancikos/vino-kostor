@@ -9,16 +9,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * sluzi na zjednodusnie tvorby json odpovede pri validacii formularov
  */
-class JsonValidationResponse
+class JsonValidationResponse extends JsonDataResponse
 {
-    /** @var bool ci validacia presla */
-    private bool $success;
-
     /** @var array [FIELD => MESSAGES[]] pole s chybovymi spravami */
     private array $errorMessages = [];
-    /** @var array [KEY => VALUE] pole s dodatocnymi datamai */
-    private array $data = [];
-
+ 
     /**
      * @param IValidableModel $model
      * @return self zvaliduje model a vrati instanciu tejto triedy
@@ -37,38 +32,11 @@ class JsonValidationResponse
         return $response;
     }
 
-    public function __construct($success = true, $errorMessages = [], $data = [])
+    public function __construct($success = true, $errorMessages = [], $data = []) 
     {
-        $this->success = $success;
+        parent::__construct($success, "", $data);
         $this->errorMessages = $errorMessages;
-        $this->data = $data;
     }
-
-	/**
-	 * @return bool
-	 */
-	public function getSuccess() : bool
-	{
-		return $this->success;
-	}
-
-	/**
-     * @param bool $succes default true
-	 * @return self
-	 */
-	public function setSuccess(bool $succes = true) : self
-	{
-		$this->success = true;
-		return $this;
-	}
-    /**
-	 * @return self
-	 */
-	public function setFailed() : self
-	{
-		$this->success = false;
-		return $this;
-	}
     
     /**
      * @return array
@@ -103,42 +71,15 @@ class JsonValidationResponse
     }
 
     /**
-     * @return array
-     */
-    public function getData(): array
-    {
-        return $this->data;
-    }
-    
-    /**
-     * @param array $data
-     * @return self
-     */
-    public function setData(array $data): self
-    {
-        $this->data = $data;
-        return $this;
-    }
-    
-    /**
-     * @param string $key
-     * @param string $value
-     * @return self
-     */
-    public function addData(string $key, string $value): self
-    {
-        $this->data[$key] = $value;
-        return $this;
-    }
-
-    /**
+     * @todo zlepsi navrh
+     * 
      * @return JsonResponse
      */
     public function toJsonResponse() : JsonResponse {
         return new JsonResponse([
-            'success' => $this->success,
-            'errorMessages' => $this->errorMessages,
-            'data' => $this->data
-        ]);        
+            'success' => $this->getSuccess(),
+            'errorMessages' => $this->geterrorMessages(),
+            'data' => $this->getData()
+        ]);
     }
 }
