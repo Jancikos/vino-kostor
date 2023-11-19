@@ -63,3 +63,6 @@ global.productDelete = function (itemPk) {
         }
     });
 }
+global.productEdit = function (itemPk) {
+    window.location.href = $("#table-products").attr('data-form-url') + '/' + itemPk;
+}

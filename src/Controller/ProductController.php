@@ -34,15 +34,29 @@ class ProductController extends AdminController
     }
 
     /**
-     * @Route("/form", name="form")
+     * @Route("/form/{pk}", name="form", defaults={"pk": 0})
      */
-    public function form(): Response
+    public function form($pk = 0): Response
     {
+        $product = ProductQuery::create()->findPk($pk);
+        $editMode = true;
+        if ($product === null) {
+            if ($pk !== 0) {
+                $this->addFlash(FlashMessageType::DANGER, 'Produkt nebol nájdený.');
+                return $this->redirectToRoute('admin_products_index');
+            }
+
+            $product = new Product();
+            $editMode = false;
+        }
 
         return $this->renderAdminPage(
             'Produkt - formulár',
             'product_form',
-            []
+            [
+                'product' => $product,
+                'editMode' => $editMode
+            ]
         );
     }
 
@@ -52,7 +66,7 @@ class ProductController extends AdminController
     public function save(Request $request): Response
     {
         /** @var Product $product */
-        $product = ProductQuery::create()->findPk($request->request->get('pk_'));
+        $product = ProductQuery::create()->findPk($request->request->get('pk'));
         $isNew = false;
         if ($product === null) {
             $product = new Product();
@@ -81,7 +95,7 @@ class ProductController extends AdminController
         /** @var Product $product */
         $product = ProductQuery::create()->findPk($request->request->get('pk_'));
         
-        if ($product !== null) {
+        if ($product === null) {
             return JsonDataResponse::FailedResponse("Produkt nebol nájdený.")->toJsonResponse();
         }
 
