@@ -78,6 +78,7 @@ class UserController extends AdminController
         if ($user === null) {
             $user = new User();
             $isNew = true;
+            $user->setRoles(['ROLE_ADMIN']);
         }
 
         $user->setUsername($request->request->get('username'));

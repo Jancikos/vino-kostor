@@ -96,9 +96,16 @@ abstract class User implements ActiveRecordInterface
     /**
      * The value for the roles field.
      *
-     * @var        string|null
+     * @var        array|null
      */
     protected $roles;
+
+    /**
+     * The unserialized $roles value - i.e. the persisted object.
+     * This is necessary to avoid repeated calls to unserialize() at runtime.
+     * @var object
+     */
+    protected $roles_unserialized;
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -384,11 +391,19 @@ abstract class User implements ActiveRecordInterface
     /**
      * Get the [roles] column value.
      *
-     * @return string|null
+     * @return array|null
      */
     public function getRoles()
     {
-        return $this->roles;
+        if (null === $this->roles_unserialized) {
+            $this->roles_unserialized = [];
+        }
+        if (!$this->roles_unserialized && null !== $this->roles) {
+            $roles_unserialized = substr($this->roles, 2, -2);
+            $this->roles_unserialized = '' !== $roles_unserialized ? explode(' | ', $roles_unserialized) : array();
+        }
+
+        return $this->roles_unserialized;
     }
 
     /**
@@ -454,17 +469,14 @@ abstract class User implements ActiveRecordInterface
     /**
      * Set the value of [roles] column.
      *
-     * @param string|null $v New value
+     * @param array|null $v New value
      * @return $this The current object (for fluent API support)
      */
     public function setRoles($v)
     {
-        if ($v !== null) {
-            $v = (string) $v;
-        }
-
-        if ($this->roles !== $v) {
-            $this->roles = $v;
+        if ($this->roles_unserialized !== $v) {
+            $this->roles_unserialized = $v;
+            $this->roles = '| ' . implode(' | ', $v) . ' |';
             $this->modifiedColumns[UserTableMap::COL_ROLES] = true;
         }
 
@@ -517,7 +529,8 @@ abstract class User implements ActiveRecordInterface
             $this->password = (null !== $col) ? (string) $col : null;
 
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : UserTableMap::translateFieldName('Roles', TableMap::TYPE_PHPNAME, $indexType)];
-            $this->roles = (null !== $col) ? (string) $col : null;
+            $this->roles = $col;
+            $this->roles_unserialized = null;
 
             $this->resetModified();
             $this->setNew(false);
@@ -923,6 +936,10 @@ abstract class User implements ActiveRecordInterface
                 $this->setPassword($value);
                 break;
             case 3:
+                if (!is_array($value)) {
+                    $v = trim(substr($value, 2, -2));
+                    $value = $v ? explode(' | ', $v) : array();
+                }
                 $this->setRoles($value);
                 break;
         } // switch()
@@ -1150,6 +1167,7 @@ abstract class User implements ActiveRecordInterface
         $this->username = null;
         $this->password = null;
         $this->roles = null;
+        $this->roles_unserialized = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->resetModified();

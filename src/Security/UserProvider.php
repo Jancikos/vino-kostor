@@ -28,7 +28,12 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         // The $identifier argument may not actually be a username:
         // it is whatever value is being returned by the getUserIdentifier()
         // method in your User class.
-        return UserQuery::create()->findOneByUsername($identifier);
+        $user = UserQuery::create()->findOneByUsername($identifier);
+        if ($user == null) {
+            throw new UserNotFoundException();
+        }
+
+        return $user;
     }
 
     /**
@@ -59,7 +64,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
         // Return a User object after making sure its data is "fresh".
         // Or throw a UsernameNotFoundException if the user no longer exists.
         /** @var ?User */
-        $refreshedUser = UserQuery::create()->findByPk($user->getPk());
+        $refreshedUser = UserQuery::create()->findOneByPk($user->getPk());
         if ($refreshedUser == null) {
             throw new UserNotFoundException();
         } 

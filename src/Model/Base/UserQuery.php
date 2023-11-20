@@ -41,7 +41,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUser|null findOneByPk(int $PK_) Return the first ChildUser filtered by the PK_ column
  * @method     ChildUser|null findOneByUsername(string $USERNAME) Return the first ChildUser filtered by the USERNAME column
  * @method     ChildUser|null findOneByPassword(string $PASSWORD) Return the first ChildUser filtered by the PASSWORD column
- * @method     ChildUser|null findOneByRoles(string $ROLES) Return the first ChildUser filtered by the ROLES column
+ * @method     ChildUser|null findOneByRoles(array $ROLES) Return the first ChildUser filtered by the ROLES column
  *
  * @method     ChildUser requirePk($key, ?ConnectionInterface $con = null) Return the ChildUser by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOne(?ConnectionInterface $con = null) Return the first ChildUser matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
@@ -49,7 +49,7 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildUser requireOneByPk(int $PK_) Return the first ChildUser filtered by the PK_ column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOneByUsername(string $USERNAME) Return the first ChildUser filtered by the USERNAME column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildUser requireOneByPassword(string $PASSWORD) Return the first ChildUser filtered by the PASSWORD column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildUser requireOneByRoles(string $ROLES) Return the first ChildUser filtered by the ROLES column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildUser requireOneByRoles(array $ROLES) Return the first ChildUser filtered by the ROLES column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildUser[]|Collection find(?ConnectionInterface $con = null) Return ChildUser objects based on current ModelCriteria
  * @psalm-method Collection&\Traversable<ChildUser> find(?ConnectionInterface $con = null) Return ChildUser objects based on current ModelCriteria
@@ -60,8 +60,8 @@ use Propel\Runtime\Exception\PropelException;
  * @psalm-method Collection&\Traversable<ChildUser> findByUsername(string|array<string> $USERNAME) Return ChildUser objects filtered by the USERNAME column
  * @method     ChildUser[]|Collection findByPassword(string|array<string> $PASSWORD) Return ChildUser objects filtered by the PASSWORD column
  * @psalm-method Collection&\Traversable<ChildUser> findByPassword(string|array<string> $PASSWORD) Return ChildUser objects filtered by the PASSWORD column
- * @method     ChildUser[]|Collection findByRoles(string|array<string> $ROLES) Return ChildUser objects filtered by the ROLES column
- * @psalm-method Collection&\Traversable<ChildUser> findByRoles(string|array<string> $ROLES) Return ChildUser objects filtered by the ROLES column
+ * @method     ChildUser[]|Collection findByRoles(array|array<array> $ROLES) Return ChildUser objects filtered by the ROLES column
+ * @psalm-method Collection&\Traversable<ChildUser> findByRoles(array|array<array> $ROLES) Return ChildUser objects filtered by the ROLES column
  *
  * @method     ChildUser[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ?ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  * @psalm-method \Propel\Runtime\Util\PropelModelPager&\Traversable<ChildUser> paginate($page = 1, $maxPerPage = 10, ?ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -357,24 +357,48 @@ abstract class UserQuery extends ModelCriteria
     /**
      * Filter the query on the ROLES column
      *
-     * Example usage:
-     * <code>
-     * $query->filterByRoles('fooValue');   // WHERE ROLES = 'fooValue'
-     * $query->filterByRoles('%fooValue%', Criteria::LIKE); // WHERE ROLES LIKE '%fooValue%'
-     * $query->filterByRoles(['foo', 'bar']); // WHERE ROLES IN ('foo', 'bar')
-     * </code>
-     *
-     * @param string|string[] $roles The value to use as filter.
+     * @param array $roles The values to use as filter.
      * @param string|null $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return $this The current query, for fluid interface
      */
     public function filterByRoles($roles = null, ?string $comparison = null)
     {
-        if (null === $comparison) {
-            if (is_array($roles)) {
-                $comparison = Criteria::IN;
+        $key = $this->getAliasedColName(UserTableMap::COL_ROLES);
+        if (null === $comparison || $comparison == Criteria::CONTAINS_ALL) {
+            foreach ($roles as $value) {
+                $value = '%| ' . $value . ' |%';
+                if ($this->containsKey($key)) {
+                    $this->addAnd($key, $value, Criteria::LIKE);
+                } else {
+                    $this->add($key, $value, Criteria::LIKE);
+                }
             }
+
+            return $this;
+        } elseif ($comparison == Criteria::CONTAINS_SOME) {
+            foreach ($roles as $value) {
+                $value = '%| ' . $value . ' |%';
+                if ($this->containsKey($key)) {
+                    $this->addOr($key, $value, Criteria::LIKE);
+                } else {
+                    $this->add($key, $value, Criteria::LIKE);
+                }
+            }
+
+            return $this;
+        } elseif ($comparison == Criteria::CONTAINS_NONE) {
+            foreach ($roles as $value) {
+                $value = '%| ' . $value . ' |%';
+                if ($this->containsKey($key)) {
+                    $this->addAnd($key, $value, Criteria::NOT_LIKE);
+                } else {
+                    $this->add($key, $value, Criteria::NOT_LIKE);
+                }
+            }
+            $this->addOr($key, null, Criteria::ISNULL);
+
+            return $this;
         }
 
         $this->addUsingAlias(UserTableMap::COL_ROLES, $roles, $comparison);

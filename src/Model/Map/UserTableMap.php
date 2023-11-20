@@ -192,7 +192,7 @@ class UserTableMap extends TableMap
         $this->addPrimaryKey('PK_', 'Pk', 'INTEGER', true, null, null);
         $this->addColumn('USERNAME', 'Username', 'VARCHAR', true, 100, null);
         $this->addColumn('PASSWORD', 'Password', 'LONGVARCHAR', true, null, null);
-        $this->addColumn('ROLES', 'Roles', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('ROLES', 'Roles', 'ARRAY', false, null, null);
     }
 
     /**

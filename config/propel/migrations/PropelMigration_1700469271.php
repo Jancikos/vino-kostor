@@ -34,7 +34,7 @@ class PropelMigration_1700469271{
         $stmt = $con->prepare("INSERT INTO `users` (`USERNAME`, `PASSWORD`, `ROLES`) VALUES (:username, :password, :roles)");
         $stmt->bindValue(':username', 'admin');
         $stmt->bindValue(':password', '$2y$13$5OTYMjJHwyNNlNkgHVGzueYODJVUIUpHxXxGRkJb2pdGwRO7SvGua'); // admin
-        // $stmt->bindValue(':roles', '["ROLE_ADMIN"]');
+        $stmt->bindValue(':roles', '| ROLE_SUPER_ADMIN |');
 
         $stmt->execute();
     }
