@@ -110,5 +110,43 @@
 
 </section>
 
+{# contact #}
+<section id="contact" class="flex flex-col">
+    <h2>Kontaktujte nás</h2>
+
+    <div class="flex flex-col gap-8 items-center">
+
+        <div class="contact-card">
+            <div class="flex flex-row justify-center">
+                <img src="{{ asset('images/public/lubko.jpg') }}" alt="lubo kostor">
+            </div>
+
+            <div class="contact-details">
+                <h3>Ľubko Kostor</h3>
+                <p class="contact-job">hlavný vincúr</p>
+                
+                <div class="contact-quote"><p class="md:text-5xl">Víno a hlavne vinica je mojou celoživotnou záľubou.</p></div>
+
+                <a class="contact-phone" href="tel:0903548162" >0903 548 162</a>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="flex flex-row justify-center">
+                <img src="{{ asset('images/public/janko.jpg') }}" alt="lubo kostor">
+            </div>
+
+            <div class="contact-details">
+                <h3>Janko Kostor</h3>
+                <p class="contact-job">vicevincúr</p>
+                
+                <div class="contact-quote"><p class="md:text-3xl">Oco ma k vinárstvu viedol od malička. No prv ako som mohol naše vínko aspoň privoňať, som si túto odmenu musel odslúžiť v našej vinici...  </p></div>
+
+                <a class="contact-phone" href="tel:0902200593" >0902 200 593</a>
+            </div>
+        </div>
+    </div> 
+</section>
+
 
 {% endblock %}
