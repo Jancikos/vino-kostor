@@ -15,6 +15,3 @@ Alpine.plugin(persist);
 global.Alpine = Alpine;
 Alpine.start();
 
-// flowbite js setup
-import 'flowbite';
-

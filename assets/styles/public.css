@@ -15,6 +15,10 @@ section:nth-child(odd) {
     @apply bg-secondary;
 }
 
+.mycontainer {
+    @apply px-4 md:px-10 2xl:px-20;
+}
+
 h2 {
     @apply text-center text-2xl md:text-4xl font-bold;
     @apply mb-4;
@@ -43,16 +47,27 @@ a.contact-map::after{
 }
 
 /* navbar section */
-.navbar-item {
+.navbar-item { 
+    @apply m-0 w-full lg:w-auto py-2 lg:py-0;
+}
+.navbar-item > a {
     @apply 
-        block py-2 px-2 text-graydark rounded 
+        inline-block w-full py-1 px-2 bg-white rounded lg:rounded-none
+        text-lg text-graydark text-center no-underline
         hover:bg-gray-2;
     
     @apply
         md:hover:bg-primary md:hover:text-secondary md:px-4 md:py-2;
 }
-.navbar-item.selected {
-    @apply text-white md:hover:bg-primary rounded;
+.navbar-item:first-child > a {
+    @apply lg:rounded-tl lg:rounded-bl;
+}
+.navbar-item:last-child  > a{
+    @apply lg:rounded-tr lg:rounded-br;
+}
+
+.navbar-item > a.selected {
+    @apply text-white no-underline md:hover:bg-primary;
 }
 
 /* about us */
