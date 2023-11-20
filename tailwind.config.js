@@ -5,7 +5,8 @@ module.exports = {
     content: [
         './templates/**/*.html.twig',
         './assets/**/*.js',
-        './assets/**/*.css'
+        './assets/**/*.css',
+        "./node_modules/flowbite/**/*.js"
     ],
     theme: {
         fontFamily: {
@@ -293,6 +294,8 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [
+        require('flowbite/plugin')
+    ]
 }
 

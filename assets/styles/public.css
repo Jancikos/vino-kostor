@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* general */
+:root {
+    scroll-behavior: smooth;
+}
+section {
+    @apply min-h-screen px-8 py-12 box-border bg-primary;
+}
+section:nth-child(odd) {
+    @apply bg-secondary;
+}
+
+h2 {
+    @apply text-center text-2xl md:text-4xl font-bold;
+    @apply mb-4;
+}
+
+/* tel icons */
+a.contact-phone::before,
+a.contact-phone::after {
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    content: '\f095';
+
+    @apply mx-2 font-bold;
+}
+a.contact-phone::after {
+    transform: scaleX(-1);
+}
+/* map icon */
+a.contact-map::before,
+a.contact-map::after{
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    content: '\f5a0';
+
+    @apply mx-2 font-bold;
+}
+
+/* navbar section */
+.navbar-item {
+    @apply 
+        block py-2 px-2 text-graydark rounded 
+        hover:bg-gray-2;
+    
+    @apply
+        md:hover:bg-primary md:hover:text-secondary md:px-4 md:py-2;
+}
+.navbar-item.selected {
+    @apply text-white md:hover:bg-primary rounded;
+}
+
+/* about us */
+#about-us p {
+    @apply mb-4 text-lg md:text-2xl first-letter:text-2xl first-letter:font-bold first-letter:text-primary;
+}
+
+/* products */
+#products .product-card {
+    @apply max-w-sm h-full p-4;
+    @apply bg-secondary border-2 border-gray-2 rounded-lg shadow-xl;
+    @apply text-center;
+}
+#products .product-card h3 {
+    @apply text-center text-xl md:text-2xl font-bold;
+    @apply mb-0;
+}
+#products .product-card img {
+    @apply rounded-t-lg max-h-full;
+    @apply mb-2;
+}
+#products .product-card p {
+    @apply font-normal text-graydark;
+}
+
+/* contact */
+#contact .contact-card {
+    @apply w-full max-w-6xl max-h-full p-4 md:p-8;
+    @apply flex flex-col md:flex-row justify-between gap-4 md:gap-12;
+    @apply bg-secondary border-2 border-gray-2 rounded-lg shadow-xl;
+}
+#contact .contact-card img {
+    @apply h-52 md:h-80 w-52 md:w-80 object-cover rounded-lg;
+}
+
+#contact .contact-card .contact-details {
+    @apply flex flex-col flex-1;
+    @apply text-center md:text-left text-lg md:text-2xl;
+}
+
+#contact .contact-card .contact-details h3 {
+    @apply text-2xl md:text-4xl font-bold;
+    @apply mb-1;
+}
+#contact .contact-card .contact-details p.contact-job {
+    @apply text-graydark italic;
+    @apply mb-1;
+}
+#contact .contact-card .contact-details .contact-quote {
+    @apply text-graydark text-xl;
+    @apply flex-1 mb-4;
+    @apply flex flex-col justify-center;
+}
+#contact .contact-card .contact-details .contact-quote p::before {
+    content: open-quote;
+}
+#contact .contact-card .contact-details .contact-quote p::after {
+    content: close-quote;
+}
+
+#contact .contact-card .contact-details a.contact-phone {
+    @apply italic font-bold;
+    @apply hover:underline;
+}
+
+/* footer */
+footer {
+    @apply w-full bg-primary max-h-screen;
+    @apply flex flex-col md:flex-row items-center justify-around;
+    @apply text-secondary text-center text-xl;
+}
+footer a {
+    @apply py-4 px-6;
+    @apply hover:text-black hover:underline;
+}
