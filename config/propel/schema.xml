@@ -2,6 +2,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     namespace="App\Model"
 >
+    <table name="user" phpName="User">
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="USERNAME" type="varchar" size="100" required="true" unique="true" />
+        <column name="PASSWORD" type="longvarchar" required="true" />
+        <column name="ROLES" type="longvarchar" />
+        
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: username, validator: NotNull}" />
+            <parameter name="rule2"
+                value="{column: username, validator: Length, options: {max: 100, min: 2}}" />
+        </behavior>
+    </table>
 
     <table name="product" phpName="Product">
         <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />

@@ -19,11 +19,11 @@ export default class Form {
     }
     
     submit() {
-        if (!productForm.validate()) {
+        if (!this.validate()) {
             return;
         }
     
-        var form = productForm.getForm();
+        var form = this.getForm();
         $.ajax({
             url: form.attr('action'),
             method: 'POST',
@@ -36,7 +36,7 @@ export default class Form {
                     // show error messages to inputs
                     for (const [column, messages] of Object.entries(response.errorMessages)) {
                         for (const message of messages) {
-                            productForm.addInputError(column, message);
+                            this.addInputError(column, message);
                         }
                     }
                 }
