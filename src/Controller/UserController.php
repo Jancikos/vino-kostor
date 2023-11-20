@@ -61,7 +61,7 @@ class UserController extends AdminController
             'Používateľ - formulár',
             'user_form',
             [
-                'user' => $user,
+                'userModel' => $user,
                 'editMode' => $editMode
             ]
         );

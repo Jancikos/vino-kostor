@@ -75,6 +75,7 @@ class AdminController extends BaseController
     {
         return $this->render("admin/pages/admin_$page.html.twig", [
             'user' => $this->getUser(),
+            'isSuperAdmin' => $this->isSuperAdmin(),
             'title' => $title,
             'showBreadcrumbs' => $this->showBreadcrumbs,
             'breadcrumbs' => $this->getBreadcrumbs(),

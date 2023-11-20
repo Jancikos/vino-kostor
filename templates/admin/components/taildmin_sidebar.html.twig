@@ -76,7 +76,8 @@ w    @click.outside="sidebarToggle = false"
                     </li>
                     <!-- Menu Item Dashboard -->
 
-                    <!-- Menu Item Profile -->
+                    {% if isSuperAdmin %}                        
+                    <!-- Menu Item Users -->
                     <li>
                         {% set item = 'admin_users_index' %}
                         <a href="{{ path(item) }}" :class="{ 'active': (selected === '{{ item }}') }">
@@ -94,7 +95,8 @@ w    @click.outside="sidebarToggle = false"
                             Používatelia
                         </a>
                     </li>
-                    <!-- Menu Item Profile -->
+                    <!-- Menu Item Users -->
+                    {% endif %}
                     
                     <!-- Menu Item Produkty -->
                     <li>

@@ -9,7 +9,6 @@ class BaseController extends AbstractController
     /** @var array<Breadcrumb> */
     private array $breadcrumbs = [];
 
-    
     /**
      * @return array<Breadcrumb>
      */
@@ -19,5 +18,12 @@ class BaseController extends AbstractController
 
     public function addBreadcrumb($title, $route) {
         $this->breadcrumbs[] = new Breadcrumb($title, $route);
+    }
+
+    /**
+     * @return bool ci ma user rolu ROLE_SUPER_ADMIN
+     */
+    public function isSuperAdmin() : bool {
+        return $this->isGranted('ROLE_SUPER_ADMIN');
     }
 }
