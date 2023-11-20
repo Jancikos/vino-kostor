@@ -81,4 +81,23 @@
     </div>
 </section>
 
+{# products #}
+<section id="products" class="flex flex-col">
+    <h2>Naša aktuálna ponuka</h2>
+
+    <div class="flex-1 flex flex-col md:flex-row gap-8 justify-around items-center">
+        <div class="product-card">
+            <img src="{{ asset('/images/public/produkty/cervene_2020.jpg') }}" alt="cervene 2020">
+            <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">červené domáce vínko</h3>
+            <p class="dark:text-gray-400">ročník 2020</p>
+        </div>
+
+        <div class="product-card">
+            <img src="{{ asset('/images/public/produkty/biele_2020.jpg') }}" alt="biele 2020">
+            <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">biele domáce vínko</h3>
+            <p class="dark:text-gray-400">ročník 2020</p>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
