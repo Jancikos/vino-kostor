@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('public') }}
+{{ encore_entry_link_tags('public') }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
@@ -14,7 +14,11 @@
 <nav class="bg-primary bg-opacity-75 border-gray-200 absolute top-0 w-full box-border">
     <div class="max-w-screen-xl flex flex-wrap justify-between mx-auto p-4">
         <a href="http://vinokostor.sk/" class="flex items-center">
-            <svg class="text-3xl mr-3" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 0C47.4 0 33.5 12.8 32.1 29.3l-14 168.4c-6 72 42.5 135.2 109.9 150.6V448H80c-17.7 0-32 14.3-32 32s14.3 32 32 32h80 80c17.7 0 32-14.3 32-32s-14.3-32-32-32H192V348.4c67.4-15.4 115.9-78.6 109.9-150.6l-14-168.4C286.5 12.8 272.6 0 256 0H64zM81.9 203.1L93.4 64H226.6l11.6 139.1C242 248.8 205.9 288 160 288s-82-39.2-78.1-84.9z"/></svg>
+            <svg class="text-3xl mr-3" xmlns="http://www.w3.org/2000/svg" height="1em"
+                viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                    d="M64 0C47.4 0 33.5 12.8 32.1 29.3l-14 168.4c-6 72 42.5 135.2 109.9 150.6V448H80c-17.7 0-32 14.3-32 32s14.3 32 32 32h80 80c17.7 0 32-14.3 32-32s-14.3-32-32-32H192V348.4c67.4-15.4 115.9-78.6 109.9-150.6l-14-168.4C286.5 12.8 272.6 0 256 0H64zM81.9 203.1L93.4 64H226.6l11.6 139.1C242 248.8 205.9 288 160 288s-82-39.2-78.1-84.9z" />
+            </svg>
             <span class="self-center text-2xl font-semibold whitespace-nowrap">Víno Kostor</span>
         </a>
         <div class="flex">
@@ -33,17 +37,13 @@
             <ul
                 class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
                 <li>
-                    <a href="#about-us"
-                        class="navbar-item"
-                        aria-current="page">O nás</a>
+                    <a href="#about-us" class="navbar-item" aria-current="page">O nás</a>
                 </li>
                 <li>
-                    <a href="#products"
-                        class="navbar-item">Ponuka</a>
+                    <a href="#products" class="navbar-item">Ponuka</a>
                 </li>
                 <li>
-                    <a href="#contact"
-                        class="navbar-item">Kontakt</a>
+                    <a href="#contact" class="navbar-item">Kontakt</a>
                 </li>
             </ul>
         </div>
@@ -56,11 +56,29 @@
         <h1 class="text-2xl text-white mt-auto">Víno Kostor</h1>
         <h2 class="text-l text-white mt-4">domáce vínko z Hontu</h2>
 
-        <div class="flex flex-col px-4 py-1 mt-auto bg-transparent border-gray-600 border-2 rounded-md text-center text-white hover:bg-gray-400">
-            <a href="#about-us"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 fill-white" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg></a>
+        <div
+            class="flex flex-col px-4 py-1 mt-auto bg-transparent border-gray-600 border-2 rounded-md text-center text-white hover:bg-gray-400">
+            <a href="#about-us"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 fill-white"
+                    viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path
+                        d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
+                </svg></a>
         </div>
     </div>
 </section>
 
+{# about us #}
+<section id="about-us" class="min-h-screen md:h-screen flex flex-col md:flex-row items-stretch gap-12">
+    <div class="bg-primary p-6 mx-8 mb-4 rounded-xl drop-shadow-2xl max-h-full">
+        <img class="rounded-xl max-h-full" src="{{ asset('images/public/my.jpg') }}" alt="V skratke o nás">
+    </div>
+
+    <div class="max-w-2xl flex-1 flex flex-col justify-between">
+        <h2 class="text-left">V skratke o nás</h2>
+        <p>Pod značku Víno Kostor sa schováva príbeh rodiny z regiónu Hont, v ktorej sa už po mnohé generácie vyrábalo domáce víno  z vlastnoručne obrábaného samorodného viniča, ktorý rastie a dozrieva na úpätí bývalého sopečného pohoria Štiavnické vrchy.</p>
+        <p>Aktuálne sa má pri tvorbe nášho vína hlavné slovo Ľubo Kostor, ktorého pravou rukou sa stali  jeho dvaja synovania Jano a Šimon.</p>
+        <p>Práve najmladšia generácia Kostorovcov popri hodinách trávených vo vinici prišla s nápadom  spropagovať našu tvrdú prácu a zároveň dopriať okoliu poctivé stredoslovenské vínko s cieľom naučiť slovákov na slovenské vína s príbehom.</p>
+    </div>
+</section>
 
 {% endblock %}
