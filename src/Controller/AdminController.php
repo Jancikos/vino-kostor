@@ -74,6 +74,7 @@ class AdminController extends BaseController
     protected function renderAdminPage(string $title, string $page, array $params = []): Response
     {
         return $this->render("admin/pages/admin_$page.html.twig", [
+            'user' => $this->getUser(),
             'title' => $title,
             'showBreadcrumbs' => $this->showBreadcrumbs,
             'breadcrumbs' => $this->getBreadcrumbs(),

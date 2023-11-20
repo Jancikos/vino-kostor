@@ -54,4 +54,8 @@ class User extends BaseUser implements UserInterface, PasswordAuthenticatedUserI
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getRolesString() : string {
+        return implode(' | ', $this->getRoles());
+    }
 }
