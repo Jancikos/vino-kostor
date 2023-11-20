@@ -20,16 +20,18 @@
 </head>
 
 <body
-    x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
+    x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false, 'sidebarVisibility': true, 'centerBody': {{ centerBody ? 'true' : 'false' }} }"
     x-init="
          darkMode = JSON.parse(localStorage.getItem('darkMode'));
          $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
     :class="{'dark text-bodydark bg-boxdark-2': darkMode === true}">
 
     <!-- ===== Page Wrapper Start ===== -->
-    <div class="flex h-screen overflow-hidden">
+    <div class="flex h-screen overflow-hidden" :class="{'items-center': centerBody}">
         <!-- ===== Sidebar Area Start ===== -->
+        {% if showSidebar %}
         {% include "admin\\components\\taildmin_sidebar.html.twig" %}
+        {% endif %}
         <!-- ===== SideBar Area End ===== -->
 
 
@@ -37,7 +39,9 @@
         <!-- ===== Content Area Start ===== -->
         <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
             <!-- ===== Header Start ===== -->
+            {% if showHeader %}
             {% include "admin\\components\\taildmin_header.html.twig" %}
+            {% endif %}
             <!-- ===== Header End ===== -->
 
             <!-- ===== Main Content Start ===== -->
@@ -48,7 +52,7 @@
 
                     {# show flash messages if any #}
                     {% include "admin\\components\\taildmin_flashes.html.twig" %}
-                    
+
                     {% block body %}
                     <h2 class="mb-4 text-2xl font-semibold text-gray-700 dark:text-gray-200">Dashboard</h2>
                     {% endblock body %}

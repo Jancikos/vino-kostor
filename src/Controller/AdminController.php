@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Utils\Controller\BaseController;
+use App\Utils\JsonResponse\FlashMessageType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -12,6 +13,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class AdminController extends BaseController
 {
+    // nastavenia admin templatu
+    protected bool $showBreadcrumbs = true;
+    protected bool $showSidebar = true;
+    protected bool $showHeader = true;
+    protected bool $centerBody = false;
+
     /**
      * @Route("/", name="index")
      */
@@ -34,19 +41,19 @@ class AdminController extends BaseController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $this->addBreadcrumb('Login', 'admin_login');
+        $this->showHeader = false;
+        $this->showSidebar = false;
+        $this->centerBody = true;
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
-        $lastUsername = $authenticationUtils->getLastUsername();
+        if ($error) {
+            $this->addFlash(FlashMessageType::DANGER, $error->getMessage());   
+        }
 
         return $this->renderAdminPage(
             'Prihlásenie',
-            'login',
-            [
-                'last_username' => $lastUsername,
-                'error'         => $error,
-            ]
+            'login'
         );
     }
     /**
@@ -68,7 +75,11 @@ class AdminController extends BaseController
     {
         return $this->render("admin/pages/admin_$page.html.twig", [
             'title' => $title,
+            'showBreadcrumbs' => $this->showBreadcrumbs,
             'breadcrumbs' => $this->getBreadcrumbs(),
+            'showSidebar' => $this->showSidebar,
+            'showHeader' => $this->showHeader,
+            'centerBody' => $this->centerBody,
         ] + $params);
     }
 }
