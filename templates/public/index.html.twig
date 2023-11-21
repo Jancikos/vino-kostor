@@ -107,20 +107,60 @@
 </section>
 
 {# products #}
-<section id="products" class="flex flex-col">
+<section id="products" class="flex flex-col gap-2">
     <h2>Naša aktuálna ponuka</h2>
 
-    <div class="flex-1 flex flex-col md:flex-row gap-8 justify-around items-center">
-        <div class="product-card">
-            <img src="{{ asset('/images/public/produkty/cervene_2020.jpg') }}" alt="cervene 2020">
-            <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">červené domáce vínko</h3>
-            <p class="dark:text-gray-400">ročník 2020</p>
-        </div>
+    <div class="swiper flex-grow flex items-center">
+        <div id="products-slider" x-data="{ swiper: null }" x-init="swiper = new Swiper('#products-slider', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 25,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '#products-pagination',
+            },
+            navigation: {
+                nextEl: '#products-navigation-next',
+                prevEl: '#products-navigation-prev',
+            },
+        });">
 
-        <div class="product-card">
-            <img src="{{ asset('/images/public/produkty/biele_2020.jpg') }}" alt="biele 2020">
-            <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">biele domáce vínko</h3>
-            <p class="dark:text-gray-400">ročník 2020</p>
+            <div id="products-wrapper" class="swiper-wrapper">
+                <div class="product-card swiper-slide">
+                    <img src="{{ asset('/images/public/produkty/cervene_2020.jpg') }}" alt="cervene 2020">
+                    <h3>červené domáce vínko
+                    </h3>
+                    <p>ročník 2020</p>
+                </div>
+
+                <div class="product-card swiper-slide">
+                    <img src="{{ asset('/images/public/produkty/biele_2020.jpg') }}" alt="biele 2020">
+                    <h3>biele domáce vínko</h3>
+                    <p>ročník 2020</p>
+                </div>
+
+                <div class="product-card swiper-slide">
+                    <img src="{{ asset('/images/public/produkty/biele_2020.jpg') }}" alt="biele 2020">
+                    <h3>biele domáce vínko</h3>
+                    <p>ročník 2020</p>
+                </div>
+
+                <div class="product-card swiper-slide">
+                    <img src="{{ asset('/images/public/produkty/biele_2020.jpg') }}" alt="biele 2020">
+                    <h3>biele domáce vínko</h3>
+                    <p>ročník 2020</p>
+                </div>
+            </div>
+            <div id="products-pagination" class="swiper-pagination"></div>
+            <div id="products-navigation-next" class="swiper-button-next"></div>
+            <div id="products-navigation-prev" class="swiper-button-prev"></div>
         </div>
     </div>
 </section>
@@ -136,7 +176,7 @@
 </section>
 
 {# contact #}
-<section id="contact" class="flex flex-col">
+<section id="contact" class="flex flex-col px-8 py-12">
     <h2>Kontaktujte nás</h2>
 
     <div class="flex flex-col gap-8 items-center">

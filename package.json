@@ -26,6 +26,7 @@
         "@alpinejs/persist": "^3.13.2",
         "alpinejs": "^3.13.2",
         "bootstrap": "^3.4.1",
-        "jquery": "^3.7.0"
+        "jquery": "^3.7.0",
+        "swiper": "^11.0.4"
     }
 }

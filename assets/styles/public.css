@@ -82,8 +82,7 @@ a.contact-map::after{
     @apply text-center;
 }
 #products .product-card h3 {
-    @apply text-center text-xl md:text-2xl font-bold;
-    @apply mb-0;
+    @apply mb-2 text-xl md:text-2xl text-center font-bold tracking-tight text-graydark;
 }
 #products .product-card img {
     @apply rounded-t-lg max-h-full;

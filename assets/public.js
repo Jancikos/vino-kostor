@@ -9,8 +9,16 @@ global.$ = global.jQuery = $;
 import Alpine from 'alpinejs';
 import persist from '@alpinejs/persist'
 import mask from '@alpinejs/mask'
-
 Alpine.plugin(mask)
 Alpine.plugin(persist);
 global.Alpine = Alpine;
+
+
+// swiper setup
+import Swiper from 'swiper/bundle';
+import 'swiper/css/bundle';
+global.Swiper = Swiper;
+
+
+// musi byt na konci suboru, aby sa nacitali najprv vsetky pluginy a az potom inicializoval Alpine
 Alpine.start();
