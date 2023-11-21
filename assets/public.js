@@ -14,4 +14,3 @@ Alpine.plugin(mask)
 Alpine.plugin(persist);
 global.Alpine = Alpine;
 Alpine.start();
-

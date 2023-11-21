@@ -15,7 +15,7 @@
 {# header #}
 <header
     class="fixed top-0 z-999 flex items-center justify-between flex-wrap py-4 mycontainer w-full bg-bodydark bg-opacity-75 drop-shadow-1"
-    x-data="{ isOpen: $persist(false) }" @keydown.escape="isOpen = false" :class="{ 'shadow-lg' : isOpen }">
+    x-data="{ isOpen: false }" @keydown.escape="isOpen = false" :class="{ 'shadow-lg' : isOpen }">
 
     <!--Logo etc-->
     <div class="flex items-center flex-shrink-0 mr-6">
@@ -42,28 +42,37 @@
         </svg>
     </button>
 
-    <!--Menu-->
-    <div class="w-full -z-999 flex-grow lg:flex lg:items-center lg:w-auto"
-        :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" @click.away="isOpen = false"
-        x-transition x-show="isOpen">
+    {# desktop menu #}
+    <div class="hidden lg:flex lg:items-center lg:w-auto">
         <ul class="pt-6 lg:pt-0 lg:flex justify-end flex-1 items-center">
             <li class="navbar-item">
-                <a class=""
-                    href="#about-us" @click="isOpen = false">O nás
-                </a>
+                <a href="#about-us">O nás</a>
             </li>
             <li class="navbar-item">
-                <a class=""
-                    href="#products" @click="isOpen = false">Ponuka
-                </a>
+                <a href="#products">Ponuka</a>
             </li>
             <li class="navbar-item">
-                <a class=""
-                    href="#contact" @click="isOpen = false">Kontakt
-                </a>
+                <a href="#contact">Kontakt</a>
             </li>
         </ul>
     </div>
+
+    {# mobile menu - nie som spokojny s tym, ze su to osobitne elementy, ale zatial to neviem spravit ako jeden... #}
+    <div class="w-full -z-999 flex-grow"
+    :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" @click.away="isOpen = false"
+    x-transition x-show="isOpen">
+    <ul class="pt-6 lg:pt-0 lg:flex justify-end flex-1 items-center">
+        <li class="navbar-item">
+            <a href="#about-us" @click="isOpen = false">O nás </a>
+        </li>
+        <li class="navbar-item">
+            <a href="#products" @click="isOpen = false">Ponuka </a>
+        </li>
+        <li class="navbar-item">
+            <a href="#contact" @click="isOpen = false">Kontakt </a>
+        </li>
+    </ul>
+</div>
 </header>
 
 {# hero #}
