@@ -14,14 +14,14 @@
 
 {# header #}
 <header
-    class="fixed top-0 z-999 flex items-center justify-between flex-wrap py-4 mycontainer w-full bg-bodydark bg-opacity-75 drop-shadow-1"
+    class="fixed top-0 z-999 flex items-center justify-between flex-wrap py-4 mycontainer w-full bg-p-primary bg-opacity-75 drop-shadow-1"
     x-data="{ isOpen: false }" @keydown.escape="isOpen = false" :class="{ 'shadow-lg' : isOpen }">
 
     <!--Logo etc-->
     <div class="flex items-center flex-shrink-0 mr-6">
-        <a class="flex items-center gap-2 text-graydark font-semibold no-underline hover:text-white hover:no-underline"
+        <a class="flex items-center gap-2 text-p-lighter fill-p-lighter font-semibold no-underline hover:text-white hover:fill-white hover:no-underline"
             href="#">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 fill-graydark"
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 "
                 viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                 <path
                     d="M64 0C47.4 0 33.5 12.8 32.1 29.3l-14 168.4c-6 72 42.5 135.2 109.9 150.6V448H80c-17.7 0-32 14.3-32 32s14.3 32 32 32h80 80c17.7 0 32-14.3 32-32s-14.3-32-32-32H192V348.4c67.4-15.4 115.9-78.6 109.9-150.6l-14-168.4C286.5 12.8 272.6 0 256 0H64zM81.9 203.1L93.4 64H226.6l11.6 139.1C242 248.8 205.9 288 160 288s-82-39.2-78.1-84.9z" />
@@ -32,9 +32,9 @@
 
     <!--Toggle button (hidden on large screens)-->
     <button id="menu-btn" @click="isOpen = !isOpen" type="button"
-        class="block lg:hidden px-2 text-gray-500 hover:text-white focus:outline-none focus:text-white"
+        class="block lg:hidden px-2 text-gray-500 hover:text-p-lighter focus:outline-none focus:text-p-lighter"
         :class="{ 'transition transform-180': isOpen }">
-        <svg class="h-6 w-6 fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg class="h-6 w-6 fill-p-lighter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path x-show="isOpen" fill-rule="evenodd" clip-rule="evenodd"
                 d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
             <path x-show="!isOpen" fill-rule="evenodd"
@@ -94,7 +94,7 @@
 
 {# about us #}
 <section id="about-us" class="min-h-screen lg:h-screen flex flex-col lg:flex-row items-stretch gap-12">
-    <div class="bg-primary p-6 mx-8 mb-4 rounded-xl drop-shadow-2xl max-h-full">
+    <div class="bg-p-primary p-6 mx-8 mb-4 rounded-xl drop-shadow-2xl max-h-full">
         <img class="rounded-xl max-h-full" src="{{ asset('images/public/my.jpg') }}" alt="V skratke o nás">
     </div>
 
@@ -107,7 +107,7 @@
 </section>
 
 {# products #}
-<section id="products" class="max-h-full flex flex-col gap-2">
+<section id="products" class="max-h-screen flex flex-col gap-2">
     <h2>Naša aktuálna ponuka</h2>
 
     <div class="swiper flex-grow flex items-center">
@@ -132,7 +132,7 @@
             },
         });">
 
-            <div id="products-wrapper" class="swiper-wrapper">
+            <div id="products-wrapper" class="swiper-wrapper pb-12 flex items-baseline">
                 <div class="product-card swiper-slide">
                     <img src="{{ asset('/images/public/produkty/cervene_2020.jpg') }}" alt="cervene 2020">
                     <h3>červené domáce vínko
@@ -220,7 +220,7 @@
     <a class="contact-map" href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank"> Ladzany 6/45 </a>
     <div>
         <a href="{{ path("app_index") }}">www.vinokostor.sk</a>
-        <small class="block mt-0 text-sm">creared by <a href="https://kostor.sk" target="_blank" class="text-sm p-0 text-blue-100">Ján Kostor</a> </small>
+        <small class="block mt-0 text-sm">creared by <a href="https://kostor.sk" target="_blank" class="text-sm p-0">Ján Kostor</a> </small>
     </div>
     <a class="contact-phone" href="tel:0902200593">0902 200 593</a>
 </footer>

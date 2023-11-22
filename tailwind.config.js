@@ -19,6 +19,11 @@ module.exports = {
             ...defaultTheme.screens,
         },
         colors: {
+            'p-primary': '#592316',
+            'p-secondary': '#A64B37',
+            'p-darker': '#011126',
+            'p-lighter': '#FFE4CF',
+
             current: 'currentColor',
             transparent: 'transparent',
             white: '#FFFFFF',
