@@ -36,6 +36,23 @@ productForm.validation['price'] = function() {
 
     return valid;
 }
+productForm.validation['image'] = function() {
+    productForm.clearInputErrors('image');
+    let input = productForm.getFormInput('image');
+    let value = input.val();
+    let valid = true;
+
+    if (input.attr('required') === undefined) {
+        return true;
+    }
+
+    if (value.length === 0) {
+        valid = false;
+        productForm.addInputError('image', 'Obrázok musí byť nahraný.');
+    }
+
+    return valid;
+}
 global.productForm = productForm;
 
 // products table actions

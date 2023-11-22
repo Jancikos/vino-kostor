@@ -18,4 +18,17 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class Product extends BaseProduct implements IValidableModel
 {
 
+    public function getEncodedImage(): string
+    {
+        $image = $this->getImage();
+        if ($image === null) {
+            return '';
+        }
+
+        $imageData = '';
+        if (is_resource($image)) {
+            $imageData = stream_get_contents($image);
+        }
+        return base64_encode($imageData);
+    }
 }

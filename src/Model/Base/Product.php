@@ -103,6 +103,13 @@ abstract class Product implements ActiveRecordInterface
     protected $active;
 
     /**
+     * The value for the image field.
+     *
+     * @var        resource|null
+     */
+    protected $image;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
@@ -407,6 +414,16 @@ abstract class Product implements ActiveRecordInterface
     }
 
     /**
+     * Get the [image] column value.
+     *
+     * @return resource|null
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
      * Set the value of [pk_] column.
      *
      * @param int $v New value
@@ -487,6 +504,29 @@ abstract class Product implements ActiveRecordInterface
     }
 
     /**
+     * Set the value of [image] column.
+     *
+     * @param resource|null $v New value
+     * @return $this The current object (for fluent API support)
+     */
+    public function setImage($v)
+    {
+        // Because BLOB columns are streams in PDO we have to assume that they are
+        // always modified when a new value is passed in.  For example, the contents
+        // of the stream itself may have changed externally.
+        if (!is_resource($v) && $v !== null) {
+            $this->image = fopen('php://memory', 'r+');
+            fwrite($this->image, $v);
+            rewind($this->image);
+        } else { // it's already a stream
+            $this->image = $v;
+        }
+        $this->modifiedColumns[ProductTableMap::COL_IMAGE] = true;
+
+        return $this;
+    }
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -538,6 +578,15 @@ abstract class Product implements ActiveRecordInterface
             $col = $row[TableMap::TYPE_NUM == $indexType ? 3 + $startcol : ProductTableMap::translateFieldName('Active', TableMap::TYPE_PHPNAME, $indexType)];
             $this->active = (null !== $col) ? (int) $col : null;
 
+            $col = $row[TableMap::TYPE_NUM == $indexType ? 4 + $startcol : ProductTableMap::translateFieldName('Image', TableMap::TYPE_PHPNAME, $indexType)];
+            if (null !== $col) {
+                $this->image = fopen('php://memory', 'r+');
+                fwrite($this->image, $col);
+                rewind($this->image);
+            } else {
+                $this->image = null;
+            }
+
             $this->resetModified();
             $this->setNew(false);
 
@@ -545,7 +594,7 @@ abstract class Product implements ActiveRecordInterface
                 $this->ensureConsistency();
             }
 
-            return $startcol + 4; // 4 = ProductTableMap::NUM_HYDRATE_COLUMNS.
+            return $startcol + 5; // 5 = ProductTableMap::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException(sprintf('Error populating %s object', '\\App\\Model\\Product'), 0, $e);
@@ -718,6 +767,11 @@ abstract class Product implements ActiveRecordInterface
                 } else {
                     $affectedRows += $this->doUpdate($con);
                 }
+                // Rewind the image LOB column, since PDO does not rewind after inserting value.
+                if ($this->image !== null && is_resource($this->image)) {
+                    rewind($this->image);
+                }
+
                 $this->resetModified();
             }
 
@@ -759,6 +813,9 @@ abstract class Product implements ActiveRecordInterface
         if ($this->isColumnModified(ProductTableMap::COL_ACTIVE)) {
             $modifiedColumns[':p' . $index++]  = 'ACTIVE';
         }
+        if ($this->isColumnModified(ProductTableMap::COL_IMAGE)) {
+            $modifiedColumns[':p' . $index++]  = 'IMAGE';
+        }
 
         $sql = sprintf(
             'INSERT INTO product (%s) VALUES (%s)',
@@ -784,6 +841,13 @@ abstract class Product implements ActiveRecordInterface
                         break;
                     case 'ACTIVE':
                         $stmt->bindValue($identifier, $this->active, PDO::PARAM_INT);
+
+                        break;
+                    case 'IMAGE':
+                        if (is_resource($this->image)) {
+                            rewind($this->image);
+                        }
+                        $stmt->bindValue($identifier, $this->image, PDO::PARAM_LOB);
 
                         break;
                 }
@@ -860,6 +924,9 @@ abstract class Product implements ActiveRecordInterface
             case 3:
                 return $this->getActive();
 
+            case 4:
+                return $this->getImage();
+
             default:
                 return null;
         } // switch()
@@ -891,6 +958,7 @@ abstract class Product implements ActiveRecordInterface
             $keys[1] => $this->getTitle(),
             $keys[2] => $this->getPrice(),
             $keys[3] => $this->getActive(),
+            $keys[4] => $this->getImage(),
         ];
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -944,6 +1012,9 @@ abstract class Product implements ActiveRecordInterface
             case 3:
                 $this->setActive($value);
                 break;
+            case 4:
+                $this->setImage($value);
+                break;
         } // switch()
 
         return $this;
@@ -981,6 +1052,9 @@ abstract class Product implements ActiveRecordInterface
         }
         if (array_key_exists($keys[3], $arr)) {
             $this->setActive($arr[$keys[3]]);
+        }
+        if (array_key_exists($keys[4], $arr)) {
+            $this->setImage($arr[$keys[4]]);
         }
 
         return $this;
@@ -1036,6 +1110,9 @@ abstract class Product implements ActiveRecordInterface
         }
         if ($this->isColumnModified(ProductTableMap::COL_ACTIVE)) {
             $criteria->add(ProductTableMap::COL_ACTIVE, $this->active);
+        }
+        if ($this->isColumnModified(ProductTableMap::COL_IMAGE)) {
+            $criteria->add(ProductTableMap::COL_IMAGE, $this->image);
         }
 
         return $criteria;
@@ -1128,6 +1205,7 @@ abstract class Product implements ActiveRecordInterface
         $copyObj->setTitle($this->getTitle());
         $copyObj->setPrice($this->getPrice());
         $copyObj->setActive($this->getActive());
+        $copyObj->setImage($this->getImage());
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setPk(NULL); // this is a auto-increment column, so set to default value
@@ -1169,6 +1247,7 @@ abstract class Product implements ActiveRecordInterface
         $this->title = null;
         $this->price = null;
         $this->active = null;
+        $this->image = null;
         $this->alreadyInSave = false;
         $this->clearAllReferences();
         $this->applyDefaultValues();

@@ -27,7 +27,9 @@ export default class Form {
         $.ajax({
             url: form.attr('action'),
             method: 'POST',
-            data: form.serialize(),
+            data: (new FormData(this.getForm()[0])),
+            processData: false,
+            contentType: false,
             success: function(response) {
                 if (response.success) {
                     // redirect to home page

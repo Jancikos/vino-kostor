@@ -7,7 +7,7 @@
         <column name="USERNAME" type="varchar" size="100" required="true" unique="true" />
         <column name="PASSWORD" type="longvarchar" required="true" />
         <column name="ROLES" type="array" />
-        
+
         <behavior name="validate">
             <parameter name="rule1" value="{column: username, validator: NotNull}" />
             <parameter name="rule2"
@@ -21,6 +21,7 @@
         <column name="PRICE" type="double" required="true" />
         <column name="ACTIVE" type="tinyint" required="false" defaultValue="1"
             description="ci je produkt este v ponuke" />
+        <column name="IMAGE" type="blob" required="false" />
 
         <behavior name="validate">
             <parameter name="rule1" value="{column: title, validator: NotNull}" />

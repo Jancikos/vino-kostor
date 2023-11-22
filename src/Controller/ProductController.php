@@ -84,6 +84,12 @@ class ProductController extends AdminController
         $product->setTitle($request->request->get('title'));
         $product->setPrice($request->request->get('price'));
         $product->setActive($request->request->get('active') == 'on' ? 1 : 0);
+        
+        // get file 'image' from request and save it to the $product
+        $image = $request->files->get('image');
+        if ($image !== null) {
+            $product->setImage(file_get_contents($image));
+        }
 
         $validationResponse = JsonValidationResponse::ValidateModel($product);
 

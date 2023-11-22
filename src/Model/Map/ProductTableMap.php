@@ -63,7 +63,7 @@ class ProductTableMap extends TableMap
     /**
      * The total number of columns
      */
-    public const NUM_COLUMNS = 4;
+    public const NUM_COLUMNS = 5;
 
     /**
      * The number of lazy-loaded columns
@@ -73,7 +73,7 @@ class ProductTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    public const NUM_HYDRATE_COLUMNS = 4;
+    public const NUM_HYDRATE_COLUMNS = 5;
 
     /**
      * the column name for the PK_ field
@@ -96,6 +96,11 @@ class ProductTableMap extends TableMap
     public const COL_ACTIVE = 'product.ACTIVE';
 
     /**
+     * the column name for the IMAGE field
+     */
+    public const COL_IMAGE = 'product.IMAGE';
+
+    /**
      * The default string format for model objects of the related table
      */
     public const DEFAULT_STRING_FORMAT = 'YAML';
@@ -109,11 +114,11 @@ class ProductTableMap extends TableMap
      * @var array<string, mixed>
      */
     protected static $fieldNames = [
-        self::TYPE_PHPNAME       => ['Pk', 'Title', 'Price', 'Active', ],
-        self::TYPE_CAMELNAME     => ['pk', 'title', 'price', 'active', ],
-        self::TYPE_COLNAME       => [ProductTableMap::COL_PK_, ProductTableMap::COL_TITLE, ProductTableMap::COL_PRICE, ProductTableMap::COL_ACTIVE, ],
-        self::TYPE_FIELDNAME     => ['PK_', 'TITLE', 'PRICE', 'ACTIVE', ],
-        self::TYPE_NUM           => [0, 1, 2, 3, ]
+        self::TYPE_PHPNAME       => ['Pk', 'Title', 'Price', 'Active', 'Image', ],
+        self::TYPE_CAMELNAME     => ['pk', 'title', 'price', 'active', 'image', ],
+        self::TYPE_COLNAME       => [ProductTableMap::COL_PK_, ProductTableMap::COL_TITLE, ProductTableMap::COL_PRICE, ProductTableMap::COL_ACTIVE, ProductTableMap::COL_IMAGE, ],
+        self::TYPE_FIELDNAME     => ['PK_', 'TITLE', 'PRICE', 'ACTIVE', 'IMAGE', ],
+        self::TYPE_NUM           => [0, 1, 2, 3, 4, ]
     ];
 
     /**
@@ -125,11 +130,11 @@ class ProductTableMap extends TableMap
      * @var array<string, mixed>
      */
     protected static $fieldKeys = [
-        self::TYPE_PHPNAME       => ['Pk' => 0, 'Title' => 1, 'Price' => 2, 'Active' => 3, ],
-        self::TYPE_CAMELNAME     => ['pk' => 0, 'title' => 1, 'price' => 2, 'active' => 3, ],
-        self::TYPE_COLNAME       => [ProductTableMap::COL_PK_ => 0, ProductTableMap::COL_TITLE => 1, ProductTableMap::COL_PRICE => 2, ProductTableMap::COL_ACTIVE => 3, ],
-        self::TYPE_FIELDNAME     => ['PK_' => 0, 'TITLE' => 1, 'PRICE' => 2, 'ACTIVE' => 3, ],
-        self::TYPE_NUM           => [0, 1, 2, 3, ]
+        self::TYPE_PHPNAME       => ['Pk' => 0, 'Title' => 1, 'Price' => 2, 'Active' => 3, 'Image' => 4, ],
+        self::TYPE_CAMELNAME     => ['pk' => 0, 'title' => 1, 'price' => 2, 'active' => 3, 'image' => 4, ],
+        self::TYPE_COLNAME       => [ProductTableMap::COL_PK_ => 0, ProductTableMap::COL_TITLE => 1, ProductTableMap::COL_PRICE => 2, ProductTableMap::COL_ACTIVE => 3, ProductTableMap::COL_IMAGE => 4, ],
+        self::TYPE_FIELDNAME     => ['PK_' => 0, 'TITLE' => 1, 'PRICE' => 2, 'ACTIVE' => 3, 'IMAGE' => 4, ],
+        self::TYPE_NUM           => [0, 1, 2, 3, 4, ]
     ];
 
     /**
@@ -170,6 +175,14 @@ class ProductTableMap extends TableMap
         'COL_ACTIVE' => 'ACTIVE',
         'ACTIVE' => 'ACTIVE',
         'product.ACTIVE' => 'ACTIVE',
+        'Image' => 'IMAGE',
+        'Product.Image' => 'IMAGE',
+        'image' => 'IMAGE',
+        'product.image' => 'IMAGE',
+        'ProductTableMap::COL_IMAGE' => 'IMAGE',
+        'COL_IMAGE' => 'IMAGE',
+        'IMAGE' => 'IMAGE',
+        'product.IMAGE' => 'IMAGE',
     ];
 
     /**
@@ -193,6 +206,7 @@ class ProductTableMap extends TableMap
         $this->addColumn('TITLE', 'Title', 'VARCHAR', true, 100, null);
         $this->addColumn('PRICE', 'Price', 'DOUBLE', true, null, null);
         $this->addColumn('ACTIVE', 'Active', 'TINYINT', false, null, 1);
+        $this->addColumn('IMAGE', 'Image', 'BLOB', false, null, null);
     }
 
     /**
@@ -363,11 +377,13 @@ class ProductTableMap extends TableMap
             $criteria->addSelectColumn(ProductTableMap::COL_TITLE);
             $criteria->addSelectColumn(ProductTableMap::COL_PRICE);
             $criteria->addSelectColumn(ProductTableMap::COL_ACTIVE);
+            $criteria->addSelectColumn(ProductTableMap::COL_IMAGE);
         } else {
             $criteria->addSelectColumn($alias . '.PK_');
             $criteria->addSelectColumn($alias . '.TITLE');
             $criteria->addSelectColumn($alias . '.PRICE');
             $criteria->addSelectColumn($alias . '.ACTIVE');
+            $criteria->addSelectColumn($alias . '.IMAGE');
         }
     }
 
@@ -390,11 +406,13 @@ class ProductTableMap extends TableMap
             $criteria->removeSelectColumn(ProductTableMap::COL_TITLE);
             $criteria->removeSelectColumn(ProductTableMap::COL_PRICE);
             $criteria->removeSelectColumn(ProductTableMap::COL_ACTIVE);
+            $criteria->removeSelectColumn(ProductTableMap::COL_IMAGE);
         } else {
             $criteria->removeSelectColumn($alias . '.PK_');
             $criteria->removeSelectColumn($alias . '.TITLE');
             $criteria->removeSelectColumn($alias . '.PRICE');
             $criteria->removeSelectColumn($alias . '.ACTIVE');
+            $criteria->removeSelectColumn($alias . '.IMAGE');
         }
     }
 
