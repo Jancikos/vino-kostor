@@ -9,7 +9,7 @@
     scroll-behavior: smooth;
 }
 section {
-    @apply min-h-screen px-8 py-12 box-border bg-primary;
+    @apply min-h-screen px-8 py-12  pt-20 box-border bg-primary overflow-hidden;
 }
 section:nth-child(odd) {
     @apply bg-secondary;
@@ -72,12 +72,12 @@ a.contact-map::after{
 
 /* about us */
 #about-us p {
-    @apply mb-4 text-lg md:text-2xl first-letter:text-2xl first-letter:font-bold first-letter:text-primary;
+    @apply mb-4 text-lg lg:text-2xl first-letter:text-2xl first-letter:font-bold first-letter:text-primary;
 }
 
 /* products */
 #products .product-card {
-    @apply max-w-sm h-full p-4;
+    @apply max-w-sm max-h-full p-4 flex flex-col;
     @apply bg-secondary border-2 border-gray-2 rounded-lg shadow-xl;
     @apply text-center;
 }
@@ -85,7 +85,7 @@ a.contact-map::after{
     @apply mb-2 text-xl md:text-2xl text-center font-bold tracking-tight text-graydark;
 }
 #products .product-card img {
-    @apply rounded-t-lg max-h-full;
+    @apply rounded-t-lg max-w-full flex-grow;
     @apply mb-2;
 }
 #products .product-card p {
