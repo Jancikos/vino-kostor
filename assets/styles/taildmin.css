@@ -89,6 +89,7 @@
     /* table */
     .table-wrapper {
         @apply max-w-full overflow-x-auto;
+        @apply rounded-sm border border-stroke bg-white shadow-default;
     }
 
     .table-wrapper table {
