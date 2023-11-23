@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply relative z-1 bg-whiten font-satoshi text-base font-normal text-body;
+    }
+}
+
+@layer components {
+
+    /* sidebar */
+    .sidebar-menu {
+        @apply mb-6 flex flex-col gap-1.5;
+    }
+
+    .sidebar-menu li a {
+        @apply relative flex items-center gap-2.5;
+        @apply font-medium text-bodydark1;
+        @apply rounded-sm py-2 px-4 duration-300 ease-in-out;
+        @apply hover:bg-graydark hover:text-gray-2;
+    }
+    .sidebar-menu li a.active {
+        @apply bg-graydark dark:bg-meta-4;
+    }
+    .sidebar-menu li a>svg {
+        @apply w-6 h-6;
+    }
+
+    /* butttons */
+    .btn-row {
+        @apply flex items-center gap-2.5;
+        @apply mb-4;
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2.5;
+        @apply bg-black rounded-xl py-2 px-4 duration-300 ease-in-out;
+        @apply text-lg font-medium text-bodydark1;
+        @apply hover:bg-graydark hover:text-gray-2;
+    }
+    .btn svg {
+        @apply w-6 h-6;
+        @apply hover:fill-gray-2;
+    }
+
+    /* form */
+    .form-wrapper {
+        @apply rounded-sm border border-stroke bg-white shadow-default;
+        @apply p-6.5;
+    }
+    .form-wrapper label {
+        @apply block mb-2.5 text-black;
+    }
+    .form-wrapper input {        
+        @apply w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5;
+        @apply font-medium outline-none transition;
+        @apply focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary;
+    }
+    .form-wrapper input.invalid {        
+        @apply border-2 border-danger;
+    }
+    span.error-msg {
+        @apply block mt-1 text-sm text-danger;
+    }
+    
+    .form-row {
+        @apply mb-4.5;
+    }
+
+    .form-wrapper .form-row:last-child {
+        @apply mb-0;
+    }
+    
+    /* checkbox input */
+    label.checkbox {
+        @apply flex cursor-pointer;
+    }
+    label.checkbox input[type='checkbox']:checked ~ .box span {
+        @apply opacity-100;
+    }
+    label.checkbox input[type='checkbox']:checked ~ .box {
+        @apply border-primary bg-primary dark:border-primary;
+    }
+  
+    /* table */
+    .table-wrapper {
+        @apply max-w-full overflow-x-auto;
+        @apply rounded-sm border border-stroke bg-white shadow-default;
+    }
+
+    .table-wrapper table {
+        @apply w-full table-auto;
+    }
+    .table-wrapper table thead tr {
+        @apply bg-gray-2;
+    }
+    .table-wrapper table thead tr th {
+        @apply py-4 px-4 font-semibold text-black;
+    }
+    
+    .table-wrapper table tbody tr {
+        @apply border-b border-[#eee];
+    }
+    
+    .table-wrapper table tbody tr td {
+        @apply py-5 px-4;
+        @apply text-black;
+    }
+    
+    .table-wrapper table thead tr th:first-child,
+    .table-wrapper table tbody tr td:first-child {
+        @apply xl:pl-11;
+    }
+
+    /* alerts */
+    .alert {
+        @apply flex items-center w-full duration-1000;
+        @apply border-l-6 border-boxdark bg-boxdark !bg-opacity-[15%] p-4 shadow-md md:p-6;
+    }
+    .alert > .icon {
+        @apply mr-5 flex h-9 w-full max-w-[36px] items-center justify-center rounded-lg bg-boxdark;
+    }
+    .alert > .body {
+        @apply w-full;
+    }
+    .alert > .body h5 {
+        @apply text-lg font-bold text-black leading-tight;
+    }
+    .alert > .body p {
+        @apply text-base text-body;
+    }
+
+    .alert.success, 
+    .alert.success > .icon {
+        @apply border-success bg-success ;
+    }
+    .alert.danger,
+    .alert.danger > .icon {
+        @apply border-danger bg-danger;
+    }
+    .alert.warning,
+    .alert.warning > .icon {
+        @apply border-warning bg-warning;
+    }
+
+}
+
+@layer utilities {
+    
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    .chat-height {
+        @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
+    }
+    
+    .inbox-height {
+        @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
+    }
+    
+    /* icon in a */
+    a > svg {
+        @apply w-6 h-6;
+        @apply fill-bodydark1;
+    }
+}

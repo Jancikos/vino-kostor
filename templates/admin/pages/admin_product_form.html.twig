@@ -1,0 +1,102 @@
+{% extends "admin\\pages\\admin_products.html.twig" %}
+
+{% block body %}
+
+{# buttons row #}
+<div class="btn-row">
+    <a href="#" class="btn" @click.prevent="productForm.submit()">
+        {% if editMode %}
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+            viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+                d="M48 96V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V170.5c0-4.2-1.7-8.3-4.7-11.3l33.9-33.9c12 12 18.7 28.3 18.7 45.3V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96C0 60.7 28.7 32 64 32H309.5c17 0 33.3 6.7 45.3 18.7l74.5 74.5-33.9 33.9L320.8 84.7c-.3-.3-.5-.5-.8-.8V184c0 13.3-10.7 24-24 24H104c-13.3 0-24-10.7-24-24V80H64c-8.8 0-16 7.2-16 16zm80-16v80H272V80H128zm32 240a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z" />
+        </svg>
+        Uložiť produkt
+        {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+            viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+                d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+        </svg>
+        Pridať produkt
+        {% endif %}
+    </a>
+</div>
+
+{# formular #}
+
+<form action="{{ path("admin_products_save") }}" data-redirect="{{ path('admin_products_index') }}" id="product-form"
+    class="form-wrapper" @submit.prevent="productForm.submit()">
+    <input type="hidden" name="pk" value="{{ product.pk }}" />
+
+    <div class="form-row">
+        <label>Nadpis</label>
+        <input type="text" name="title" placeholder="Zadajte nadpis produktu" value="{{ product.title }}">
+    </div>
+    
+    <div class="form-row">
+        <label>Podnadpis</label>
+        <input type="text" name="subtitle" placeholder="Zadajte podnadpis produktu" value="{{ product.subtitle }}">
+    </div>
+
+    <div class="form-row">
+        <label>Cena €</label>
+        <input name="price" class="flex-1" x-mask:dynamic="$money($input, '.', '', 2)"
+            placeholder="Zadajte cenu produktu v €" value="{{ product.price }}">
+    </div>
+
+    <div class="form-row">
+        <label class="checkbox">
+            <input type="checkbox" name="active" class="sr-only" {{ product.active ? "checked" }} />
+            <div class="box mr-3 flex h-5 w-5 items-center justify-center rounded border border-stroke">
+                <span class="text-white opacity-0">
+                    <svg class="fill-current" width="10" height="7" viewBox="0 0 10 7" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M9.70685 0.292804C9.89455 0.480344 10 0.734667 10 0.999847C10 1.26503 9.89455 1.51935 9.70685 1.70689L4.70059 6.7072C4.51283 6.89468 4.2582 7 3.9927 7C3.72721 7 3.47258 6.89468 3.28482 6.7072L0.281063 3.70701C0.0986771 3.5184 -0.00224342 3.26578 3.785e-05 3.00357C0.00231912 2.74136 0.10762 2.49053 0.29326 2.30511C0.4789 2.11969 0.730026 2.01451 0.992551 2.01224C1.25508 2.00996 1.50799 2.11076 1.69683 2.29293L3.9927 4.58607L8.29108 0.292804C8.47884 0.105322 8.73347 0 8.99896 0C9.26446 0 9.51908 0.105322 9.70685 0.292804Z"
+                            fill="" />
+                    </svg>
+                </span>
+            </div>
+            <p>Aktuálne v ponuke</p>
+        </label>
+    </div>
+
+    {# foto #}
+    
+    <div class="form-row flex items-stretch">
+        {% set hasImage = product.image != null %}
+
+        {% if hasImage %}
+        {# zobraz aktualny obrazok #}
+        {% set imageTitle = "Nový obrázok" %}
+        <div class="rounded-sm border border-stroke bg-white">
+            <div class="border-b border-stroke py-4 px-6.5">
+                <h3 class="font-medium text-black">
+                    Aktuálny obrázok
+                </h3>
+            </div>
+            <div class="flex justify-center">
+                <img src="data:image/jpeg;base64,{{ product.getEncodedImage() }}" alt="Product Image"  class="max-h-80" />
+            </div>
+        </div>
+        {% endif %}
+        
+        {# nahraj novy obrazok #}
+        <div class="rounded-sm border border-stroke bg-white flex-1">
+            <div class="border-b border-stroke py-4 px-6.5">
+                <h3 class="font-medium text-black">
+                    {{ hasImage ? "Nový obrázok" : "Obrázok" }}
+                </h3>
+            </div>
+            <div>
+                <input type="file" name="image"
+                    class="w-full cursor-pointer rounded-lg border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-3 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary" {{ not hasImage ? 'required' }} />
+            </div>
+        </div>
+    </div>
+
+    {# aby sa formular dal submitnut eneterom #}
+    <input type="submit" hidden />
+</form>
+{% endblock body %}

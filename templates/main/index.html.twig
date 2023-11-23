@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+
+<h1 class="pt-10 text-5xl text-center font-serif font-bold">
+    Hello tailwind css!
+</h1>
+
+<h1 x-data="{ message: 'I ❤️ Alpine' }" x-text="message"></h1>
+
+<ul x-data="{ items: Array.from({ length: 10 }, (_, index) => index + 1) }">
+    <template x-for="item in items" :key="item">
+        <li x-text="item"></li>
+    </template>
+</ul>
+
+{% endblock %}

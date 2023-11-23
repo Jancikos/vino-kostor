@@ -1,0 +1,211 @@
+{% set indexUrl = path("app_index") %}
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+{{ encore_entry_link_tags('public') }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('public') }}
+{% endblock %}
+
+{% block body %}
+
+{# header #}
+<header
+    class="fixed top-0 z-999 flex items-center justify-between flex-wrap py-4 mycontainer w-full bg-p-primary bg-opacity-75 drop-shadow-1"
+    x-data="{ isOpen: false }" @keydown.escape="isOpen = false" :class="{ 'shadow-lg' : isOpen }">
+
+    <!--Logo etc-->
+    <div class="flex items-center flex-shrink-0 mr-6">
+        <a class="flex items-center gap-2 text-p-lighter fill-p-lighter font-semibold no-underline hover:text-white hover:fill-white hover:no-underline"
+            href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 "
+                viewBox="0 0 320 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                <path
+                    d="M64 0C47.4 0 33.5 12.8 32.1 29.3l-14 168.4c-6 72 42.5 135.2 109.9 150.6V448H80c-17.7 0-32 14.3-32 32s14.3 32 32 32h80 80c17.7 0 32-14.3 32-32s-14.3-32-32-32H192V348.4c67.4-15.4 115.9-78.6 109.9-150.6l-14-168.4C286.5 12.8 272.6 0 256 0H64zM81.9 203.1L93.4 64H226.6l11.6 139.1C242 248.8 205.9 288 160 288s-82-39.2-78.1-84.9z" />
+            </svg>
+            <span class="text-2xl pl-2">Víno Kostor</span>
+        </a>
+    </div>
+
+    <!--Toggle button (hidden on large screens)-->
+    <button id="menu-btn" @click="isOpen = !isOpen" type="button"
+        class="block lg:hidden px-2 text-gray-500 hover:text-p-lighter focus:outline-none focus:text-p-lighter"
+        :class="{ 'transition transform-180': isOpen }">
+        <svg class="h-6 w-6 fill-p-lighter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path x-show="isOpen" fill-rule="evenodd" clip-rule="evenodd"
+                d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
+            <path x-show="!isOpen" fill-rule="evenodd"
+                d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
+        </svg>
+    </button>
+
+    {# desktop menu #}
+    <div class="hidden lg:flex lg:items-center lg:w-auto">
+        <ul class="pt-6 lg:pt-0 lg:flex justify-end flex-1 items-center">
+            <li class="navbar-item">
+                <a href="#about-us">O nás</a>
+            </li>
+            <li class="navbar-item">
+                <a href="#products">Ponuka</a>
+            </li>
+            <li class="navbar-item">
+                <a href="#contact">Kontakt</a>
+            </li>
+        </ul>
+    </div>
+
+    {# mobile menu - nie som spokojny s tym, ze su to osobitne elementy, ale zatial to neviem spravit ako jeden... #}
+    <div class="w-full -z-999 flex-grow"
+    :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" @click.away="isOpen = false"
+    x-transition x-show="isOpen">
+    <ul class="pt-6 lg:pt-0 lg:flex justify-end flex-1 items-center">
+        <li class="navbar-item">
+            <a href="#about-us" @click="isOpen = false">O nás </a>
+        </li>
+        <li class="navbar-item">
+            <a href="#products" @click="isOpen = false">Ponuka </a>
+        </li>
+        <li class="navbar-item">
+            <a href="#contact" @click="isOpen = false">Kontakt </a>
+        </li>
+    </ul>
+</div>
+</header>
+
+{# hero #}
+<section id="landing" class="bg-cover bg-center h-screen" style="background-image: url('{{ asset("images/public/pivnica-exterier.jpg") }}');">
+    <div class="h-full flex items-center justify-center flex-col">
+        <h1 class="text-2xl text-white mt-auto">Víno Kostor</h1>
+        <h2 class="text-l text-white mt-4">domáce vínko z Hontu</h2>
+
+        <div
+            class="flex flex-col px-4 py-1 mt-auto bg-transparent border-gray-600 border-2 rounded-md text-center text-white hover:bg-gray-400">
+            <a href="#about-us"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 fill-white"
+                    viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                    <path
+                        d="M201.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 274.7 86.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
+                </svg></a>
+        </div>
+    </div>
+</section>
+
+{# about us #}
+<section id="about-us" class="min-h-screen lg:h-screen flex flex-col lg:flex-row items-stretch gap-12">
+    <div class="bg-p-primary p-6 mx-8 mb-4 rounded-xl drop-shadow-2xl max-h-full">
+        <img class="rounded-xl max-h-full" src="{{ asset('images/public/my.jpg') }}" alt="V skratke o nás">
+    </div>
+
+    <div class="max-w-2xl flex-1 flex flex-col justify-between">
+        <h2 class="text-left">V skratke o nás</h2>
+        <p>Pod značku Víno Kostor sa schováva príbeh rodiny z regiónu Hont, v ktorej sa už po mnohé generácie vyrábalo domáce víno  z vlastnoručne obrábaného samorodného viniča, ktorý rastie a dozrieva na úpätí bývalého sopečného pohoria Štiavnické vrchy.</p>
+        <p>Aktuálne sa má pri tvorbe nášho vína hlavné slovo Ľubo Kostor, ktorého pravou rukou sa stali  jeho dvaja synovania Jano a Šimon.</p>
+        <p>Práve najmladšia generácia Kostorovcov popri hodinách trávených vo vinici prišla s nápadom  spropagovať našu tvrdú prácu a zároveň dopriať okoliu poctivé stredoslovenské vínko s cieľom naučiť slovákov na slovenské vína s príbehom.</p>
+    </div>
+</section>
+
+{# products #}
+<section id="products" class="max-h-screen flex flex-col gap-2">
+    <h2>Naša aktuálna ponuka</h2>
+
+    <div class="swiper flex-grow flex items-center">
+        <div id="products-slider" x-data="{ swiper: null }" x-init="swiper = new Swiper('#products-slider', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 25,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: '#products-pagination',
+            },
+            navigation: {
+                nextEl: '#products-navigation-next',
+                prevEl: '#products-navigation-prev',
+            },
+        });">
+
+            <div id="products-wrapper" class="swiper-wrapper pb-12 flex items-baseline">
+                {% for product in products %}
+                <div class="product-card swiper-slide">
+                    <img src="data:image/jpeg;base64,{{ product.getEncodedImage() }}" alt="Product Image"/>
+                    <h3>{{ product.title }}</h3>
+                    <p>{{ product.subtitle }}</p>
+                </div>
+                {% endfor %}
+            </div>
+            <div id="products-pagination" class="swiper-pagination"></div>
+            <div id="products-navigation-next" class="swiper-button-next"></div>
+            <div id="products-navigation-prev" class="swiper-button-prev"></div>
+        </div>
+    </div>
+</section>
+
+{# reviews #}
+<section id="reviews" class="flex flex-col">
+    <h2>Hodnotenia od vás</h2>
+
+    <div class="flex-1 flex justify-center items-center">
+        <p>Ešte len pribudnú :)</p>
+    </div>
+
+</section>
+
+{# contact #}
+<section id="contact" class="flex flex-col">
+    <h2>Kontaktujte nás</h2>
+
+    <div class="flex flex-col gap-8 items-center">
+
+        <div class="contact-card">
+            <div class="flex flex-row justify-center">
+                <img src="{{ asset('images/public/lubko.jpg') }}" alt="lubo kostor">
+            </div>
+
+            <div class="contact-details">
+                <h3>Ľubko Kostor</h3>
+                <p class="contact-job">hlavný vincúr</p>
+                
+                <div class="contact-quote"><p class="md:text-5xl">Víno a hlavne vinica je mojou celoživotnou záľubou.</p></div>
+
+                <a class="contact-phone" href="tel:0903548162" >0903 548 162</a>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="flex flex-row justify-center">
+                <img src="{{ asset('images/public/janko.jpg') }}" alt="lubo kostor">
+            </div>
+
+            <div class="contact-details">
+                <h3>Janko Kostor</h3>
+                <p class="contact-job">vicevincúr</p>
+                
+                <div class="contact-quote"><p class="md:text-3xl">Oco ma k vinárstvu viedol od malička. No prv ako som mohol naše vínko aspoň privoňať, som si túto odmenu musel odslúžiť v našej vinici...  </p></div>
+
+                <a class="contact-phone" href="tel:0902200593" >0902 200 593</a>
+            </div>
+        </div>
+    </div> 
+</section>
+
+<iframe class="h-96 max-h-screen w-full box-border" src="https://maps.google.com/maps?q=V%C3%ADno%20Kostor&t=k&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy">
+</iframe>
+
+<footer>
+    <a class="contact-map" href="https://www.google.sk/maps/place/V%C3%ADno+Kostor/@48.2701849,18.9030187,17z/data=!3m1!4b1!4m5!3m4!1s0x476ac736d91aaf8b:0x2677a7da21b59c3!8m2!3d48.2701814!4d18.9052074" target="blank"> Ladzany 6/45 </a>
+    <div>
+        <a href="{{ path("app_index") }}">www.vinokostor.sk</a>
+        <small class="block mt-0 text-sm">creared by <a href="https://kostor.sk" target="_blank" class="text-sm p-0">Ján Kostor</a> </small>
+    </div>
+    <a class="contact-phone" href="tel:0902200593">0902 200 593</a>
+</footer>
+
+{% endblock %}

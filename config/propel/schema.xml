@@ -1,0 +1,40 @@
+<database name="connection_1" defaultIdMethod="native"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    namespace="App\Model"
+>
+    <table name="user" phpName="User">
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="USERNAME" type="varchar" size="100" required="true" unique="true" />
+        <column name="PASSWORD" type="longvarchar" required="true" />
+        <column name="ROLES" type="array" />
+
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: username, validator: NotNull}" />
+            <parameter name="rule2"
+                value="{column: username, validator: Length, options: {max: 100, min: 2}}" />
+        </behavior>
+    </table>
+
+    <table name="product" phpName="Product">
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="TITLE" type="varchar" size="100" required="true" />
+        <column name="SUBTITLE" type="varchar" size="50" />
+        <column name="PRICE" type="double" required="true" />
+        <column name="ACTIVE" type="tinyint" required="false" defaultValue="1"
+            description="ci je produkt este v ponuke" />
+        <column name="IMAGE" type="longvarbinary" required="false" />
+
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: title, validator: NotNull}" />
+            <parameter name="rule2"
+                value="{column: title, validator: Length, options: {max: 100}}" />
+            <parameter name="rule3" value="{column: price, validator: NotNull}" />
+            <parameter name="rule4"
+                value="{column: price, validator: GreaterThan, options: {value: 0}}" />
+            <parameter name="rule5"
+                value="{column: subtitle, validator: Length, options: {max: 50}}" />
+        </behavior>
+    </table>
+
+
+</database>

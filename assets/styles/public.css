@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+/* general */
+:root {
+    scroll-behavior: smooth;
+}
+section {
+    @apply min-h-screen px-8 py-12  pt-20 box-border bg-p-primary text-p-lighter overflow-hidden;
+}
+section:nth-child(odd) {
+    @apply bg-p-secondary;
+}
+
+.mycontainer {
+    @apply px-4 md:px-10 2xl:px-20;
+}
+
+h2 {
+    @apply text-center text-2xl md:text-4xl font-bold;
+    @apply mb-4;
+}
+
+/* tel icons */
+a.contact-phone::before,
+a.contact-phone::after {
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    content: '\f095';
+
+    @apply mx-2 font-bold;
+}
+a.contact-phone::after {
+    transform: scaleX(-1);
+}
+/* map icon */
+a.contact-map::before,
+a.contact-map::after{
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    content: '\f5a0';
+
+    @apply mx-2 font-bold;
+}
+/* swiper */
+.swiper-pagination-bullet-active {
+    @apply bg-p-lighter;
+}
+.swiper-button-next,
+.swiper-button-prev {
+    @apply text-p-lighter;
+}
+
+/* navbar section */
+.navbar-item { 
+    @apply m-0 w-full lg:w-auto py-2 lg:py-0;
+}
+.navbar-item > a {
+    @apply 
+        inline-block w-full py-1 px-2 bg-p-lighter rounded lg:rounded-none
+        text-lg text-p-darker text-center no-underline
+        hover:bg-p-lighter border-p-lighter
+        md:hover:bg-p-primary md:hover:text-p-lighter md:px-4 md:py-2;
+}
+.navbar-item:first-child > a {
+    @apply lg:rounded-tl lg:rounded-bl;
+}
+.navbar-item:last-child  > a{
+    @apply lg:rounded-tr lg:rounded-br;
+}
+
+.navbar-item > a.selected {
+    @apply text-white no-underline md:hover:bg-p-primary;
+}
+
+/* about us */
+#about-us p {
+    @apply mb-4 text-lg lg:text-2xl first-letter:text-2xl first-letter:font-bold first-letter:text-p-primary;
+}
+
+/* products */
+#products .product-card {
+    @apply max-w-sm p-4 flex-grow flex flex-col;
+    @apply bg-p-secondary border-2 border-p-lighter rounded-lg shadow-xl;
+    @apply text-center;
+}
+#products .product-card h3 {
+    @apply mb-2 text-xl md:text-2xl text-center font-bold tracking-tight text-p-lighter;
+}
+#products .product-card img {
+    @apply rounded-t-lg flex-1;
+    @apply mb-2;
+}
+#products .product-card p {
+    @apply font-normal text-p-lighter;
+}
+
+/* contact */
+#contact .contact-card {
+    @apply w-full max-w-6xl max-h-full p-4 md:p-8;
+    @apply flex flex-col md:flex-row justify-between gap-4 md:gap-12;
+    @apply bg-p-secondary border-2 border-p-lighter rounded-lg shadow-xl text-p-lighter;
+}
+#contact .contact-card img {
+    @apply h-52 md:h-80 w-52 md:w-80 object-cover rounded-lg;
+}
+
+#contact .contact-card .contact-details {
+    @apply flex flex-col flex-1;
+    @apply text-center md:text-left text-lg md:text-2xl;
+}
+
+#contact .contact-card .contact-details h3 {
+    @apply text-2xl md:text-4xl font-bold;
+    @apply mb-1;
+}
+#contact .contact-card .contact-details p.contact-job {
+    @apply italic;
+    @apply mb-1;
+}
+#contact .contact-card .contact-details .contact-quote {
+    @apply text-p-lighter text-xl;
+    @apply flex-1 mb-4;
+    @apply flex flex-col justify-center;
+}
+#contact .contact-card .contact-details .contact-quote p::before {
+    content: open-quote;
+}
+#contact .contact-card .contact-details .contact-quote p::after {
+    content: close-quote;
+}
+
+#contact .contact-card .contact-details a.contact-phone {
+    @apply italic font-bold;
+    @apply hover:underline;
+}
+
+/* footer */
+footer {
+    @apply w-full bg-p-primary max-h-screen;
+    @apply flex flex-col md:flex-row items-center justify-around;
+    @apply text-p-lighter text-center text-xl;
+}
+footer a {
+    @apply py-4 px-6;
+    @apply hover:text-white hover:underline;
+}
