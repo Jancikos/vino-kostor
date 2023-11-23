@@ -1,4 +1,4 @@
-import Form from './admin_libs.js';
+import Form from '../libs/form.js';
 
 // product form
 var productForm = new Form('product-form');

@@ -1,4 +1,3 @@
-
 // forms setup
 export default class Form {
     constructor(id) {

@@ -20,11 +20,11 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/app.js')
-    .addEntry('taildmin', './assets/taildmin.js')
-    .addEntry('products', './assets/products.js')
-    .addEntry('users', './assets/users.js')
-    .addEntry('public', './assets/public.js')
+    .addEntry('app', './assets/scripts/app.js')
+    .addEntry('taildmin', './assets/scripts/taildmin.js')
+    .addEntry('products', './assets/scripts/pages/products.js')
+    .addEntry('users', './assets/scripts/pages/users.js')
+    .addEntry('public', './assets/scripts/pages/public.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
