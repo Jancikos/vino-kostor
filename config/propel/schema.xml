@@ -18,10 +18,11 @@
     <table name="product" phpName="Product">
         <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="TITLE" type="varchar" size="100" required="true" />
+        <column name="SUBTITLE" type="varchar" size="50" />
         <column name="PRICE" type="double" required="true" />
         <column name="ACTIVE" type="tinyint" required="false" defaultValue="1"
             description="ci je produkt este v ponuke" />
-        <column name="IMAGE" type="blob" required="false" />
+        <column name="IMAGE" type="longvarbinary" required="false" />
 
         <behavior name="validate">
             <parameter name="rule1" value="{column: title, validator: NotNull}" />
@@ -30,6 +31,8 @@
             <parameter name="rule3" value="{column: price, validator: NotNull}" />
             <parameter name="rule4"
                 value="{column: price, validator: GreaterThan, options: {value: 0}}" />
+            <parameter name="rule5"
+                value="{column: subtitle, validator: Length, options: {max: 50}}" />
         </behavior>
     </table>
 

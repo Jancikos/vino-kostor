@@ -63,7 +63,7 @@ class ProductTableMap extends TableMap
     /**
      * The total number of columns
      */
-    public const NUM_COLUMNS = 5;
+    public const NUM_COLUMNS = 6;
 
     /**
      * The number of lazy-loaded columns
@@ -73,7 +73,7 @@ class ProductTableMap extends TableMap
     /**
      * The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS)
      */
-    public const NUM_HYDRATE_COLUMNS = 5;
+    public const NUM_HYDRATE_COLUMNS = 6;
 
     /**
      * the column name for the PK_ field
@@ -84,6 +84,11 @@ class ProductTableMap extends TableMap
      * the column name for the TITLE field
      */
     public const COL_TITLE = 'product.TITLE';
+
+    /**
+     * the column name for the SUBTITLE field
+     */
+    public const COL_SUBTITLE = 'product.SUBTITLE';
 
     /**
      * the column name for the PRICE field
@@ -114,11 +119,11 @@ class ProductTableMap extends TableMap
      * @var array<string, mixed>
      */
     protected static $fieldNames = [
-        self::TYPE_PHPNAME       => ['Pk', 'Title', 'Price', 'Active', 'Image', ],
-        self::TYPE_CAMELNAME     => ['pk', 'title', 'price', 'active', 'image', ],
-        self::TYPE_COLNAME       => [ProductTableMap::COL_PK_, ProductTableMap::COL_TITLE, ProductTableMap::COL_PRICE, ProductTableMap::COL_ACTIVE, ProductTableMap::COL_IMAGE, ],
-        self::TYPE_FIELDNAME     => ['PK_', 'TITLE', 'PRICE', 'ACTIVE', 'IMAGE', ],
-        self::TYPE_NUM           => [0, 1, 2, 3, 4, ]
+        self::TYPE_PHPNAME       => ['Pk', 'Title', 'Subtitle', 'Price', 'Active', 'Image', ],
+        self::TYPE_CAMELNAME     => ['pk', 'title', 'subtitle', 'price', 'active', 'image', ],
+        self::TYPE_COLNAME       => [ProductTableMap::COL_PK_, ProductTableMap::COL_TITLE, ProductTableMap::COL_SUBTITLE, ProductTableMap::COL_PRICE, ProductTableMap::COL_ACTIVE, ProductTableMap::COL_IMAGE, ],
+        self::TYPE_FIELDNAME     => ['PK_', 'TITLE', 'SUBTITLE', 'PRICE', 'ACTIVE', 'IMAGE', ],
+        self::TYPE_NUM           => [0, 1, 2, 3, 4, 5, ]
     ];
 
     /**
@@ -130,11 +135,11 @@ class ProductTableMap extends TableMap
      * @var array<string, mixed>
      */
     protected static $fieldKeys = [
-        self::TYPE_PHPNAME       => ['Pk' => 0, 'Title' => 1, 'Price' => 2, 'Active' => 3, 'Image' => 4, ],
-        self::TYPE_CAMELNAME     => ['pk' => 0, 'title' => 1, 'price' => 2, 'active' => 3, 'image' => 4, ],
-        self::TYPE_COLNAME       => [ProductTableMap::COL_PK_ => 0, ProductTableMap::COL_TITLE => 1, ProductTableMap::COL_PRICE => 2, ProductTableMap::COL_ACTIVE => 3, ProductTableMap::COL_IMAGE => 4, ],
-        self::TYPE_FIELDNAME     => ['PK_' => 0, 'TITLE' => 1, 'PRICE' => 2, 'ACTIVE' => 3, 'IMAGE' => 4, ],
-        self::TYPE_NUM           => [0, 1, 2, 3, 4, ]
+        self::TYPE_PHPNAME       => ['Pk' => 0, 'Title' => 1, 'Subtitle' => 2, 'Price' => 3, 'Active' => 4, 'Image' => 5, ],
+        self::TYPE_CAMELNAME     => ['pk' => 0, 'title' => 1, 'subtitle' => 2, 'price' => 3, 'active' => 4, 'image' => 5, ],
+        self::TYPE_COLNAME       => [ProductTableMap::COL_PK_ => 0, ProductTableMap::COL_TITLE => 1, ProductTableMap::COL_SUBTITLE => 2, ProductTableMap::COL_PRICE => 3, ProductTableMap::COL_ACTIVE => 4, ProductTableMap::COL_IMAGE => 5, ],
+        self::TYPE_FIELDNAME     => ['PK_' => 0, 'TITLE' => 1, 'SUBTITLE' => 2, 'PRICE' => 3, 'ACTIVE' => 4, 'IMAGE' => 5, ],
+        self::TYPE_NUM           => [0, 1, 2, 3, 4, 5, ]
     ];
 
     /**
@@ -159,6 +164,14 @@ class ProductTableMap extends TableMap
         'COL_TITLE' => 'TITLE',
         'TITLE' => 'TITLE',
         'product.TITLE' => 'TITLE',
+        'Subtitle' => 'SUBTITLE',
+        'Product.Subtitle' => 'SUBTITLE',
+        'subtitle' => 'SUBTITLE',
+        'product.subtitle' => 'SUBTITLE',
+        'ProductTableMap::COL_SUBTITLE' => 'SUBTITLE',
+        'COL_SUBTITLE' => 'SUBTITLE',
+        'SUBTITLE' => 'SUBTITLE',
+        'product.SUBTITLE' => 'SUBTITLE',
         'Price' => 'PRICE',
         'Product.Price' => 'PRICE',
         'price' => 'PRICE',
@@ -204,9 +217,10 @@ class ProductTableMap extends TableMap
         // columns
         $this->addPrimaryKey('PK_', 'Pk', 'INTEGER', true, null, null);
         $this->addColumn('TITLE', 'Title', 'VARCHAR', true, 100, null);
+        $this->addColumn('SUBTITLE', 'Subtitle', 'VARCHAR', false, 50, null);
         $this->addColumn('PRICE', 'Price', 'DOUBLE', true, null, null);
         $this->addColumn('ACTIVE', 'Active', 'TINYINT', false, null, 1);
-        $this->addColumn('IMAGE', 'Image', 'BLOB', false, null, null);
+        $this->addColumn('IMAGE', 'Image', 'LONGVARBINARY', false, null, null);
     }
 
     /**
@@ -227,7 +241,7 @@ class ProductTableMap extends TableMap
     public function getBehaviors(): array
     {
         return [
-            'validate' => ['rule1' => ['column' => 'title', 'validator' => 'NotNull'], 'rule2' => ['column' => 'title', 'validator' => 'Length', 'options' => ['max' => 100]], 'rule3' => ['column' => 'price', 'validator' => 'NotNull'], 'rule4' => ['column' => 'price', 'validator' => 'GreaterThan', 'options' => ['value' => 0]]],
+            'validate' => ['rule1' => ['column' => 'title', 'validator' => 'NotNull'], 'rule2' => ['column' => 'title', 'validator' => 'Length', 'options' => ['max' => 100]], 'rule3' => ['column' => 'price', 'validator' => 'NotNull'], 'rule4' => ['column' => 'price', 'validator' => 'GreaterThan', 'options' => ['value' => 0]], 'rule5' => ['column' => 'subtitle', 'validator' => 'Length', 'options' => ['max' => 50]]],
         ];
     }
 
@@ -375,12 +389,14 @@ class ProductTableMap extends TableMap
         if (null === $alias) {
             $criteria->addSelectColumn(ProductTableMap::COL_PK_);
             $criteria->addSelectColumn(ProductTableMap::COL_TITLE);
+            $criteria->addSelectColumn(ProductTableMap::COL_SUBTITLE);
             $criteria->addSelectColumn(ProductTableMap::COL_PRICE);
             $criteria->addSelectColumn(ProductTableMap::COL_ACTIVE);
             $criteria->addSelectColumn(ProductTableMap::COL_IMAGE);
         } else {
             $criteria->addSelectColumn($alias . '.PK_');
             $criteria->addSelectColumn($alias . '.TITLE');
+            $criteria->addSelectColumn($alias . '.SUBTITLE');
             $criteria->addSelectColumn($alias . '.PRICE');
             $criteria->addSelectColumn($alias . '.ACTIVE');
             $criteria->addSelectColumn($alias . '.IMAGE');
@@ -404,12 +420,14 @@ class ProductTableMap extends TableMap
         if (null === $alias) {
             $criteria->removeSelectColumn(ProductTableMap::COL_PK_);
             $criteria->removeSelectColumn(ProductTableMap::COL_TITLE);
+            $criteria->removeSelectColumn(ProductTableMap::COL_SUBTITLE);
             $criteria->removeSelectColumn(ProductTableMap::COL_PRICE);
             $criteria->removeSelectColumn(ProductTableMap::COL_ACTIVE);
             $criteria->removeSelectColumn(ProductTableMap::COL_IMAGE);
         } else {
             $criteria->removeSelectColumn($alias . '.PK_');
             $criteria->removeSelectColumn($alias . '.TITLE');
+            $criteria->removeSelectColumn($alias . '.SUBTITLE');
             $criteria->removeSelectColumn($alias . '.PRICE');
             $criteria->removeSelectColumn($alias . '.ACTIVE');
             $criteria->removeSelectColumn($alias . '.IMAGE');

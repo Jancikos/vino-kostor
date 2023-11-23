@@ -19,12 +19,14 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildProductQuery orderByPk($order = Criteria::ASC) Order by the PK_ column
  * @method     ChildProductQuery orderByTitle($order = Criteria::ASC) Order by the TITLE column
+ * @method     ChildProductQuery orderBySubtitle($order = Criteria::ASC) Order by the SUBTITLE column
  * @method     ChildProductQuery orderByPrice($order = Criteria::ASC) Order by the PRICE column
  * @method     ChildProductQuery orderByActive($order = Criteria::ASC) Order by the ACTIVE column
  * @method     ChildProductQuery orderByImage($order = Criteria::ASC) Order by the IMAGE column
  *
  * @method     ChildProductQuery groupByPk() Group by the PK_ column
  * @method     ChildProductQuery groupByTitle() Group by the TITLE column
+ * @method     ChildProductQuery groupBySubtitle() Group by the SUBTITLE column
  * @method     ChildProductQuery groupByPrice() Group by the PRICE column
  * @method     ChildProductQuery groupByActive() Group by the ACTIVE column
  * @method     ChildProductQuery groupByImage() Group by the IMAGE column
@@ -42,18 +44,20 @@ use Propel\Runtime\Exception\PropelException;
  *
  * @method     ChildProduct|null findOneByPk(int $PK_) Return the first ChildProduct filtered by the PK_ column
  * @method     ChildProduct|null findOneByTitle(string $TITLE) Return the first ChildProduct filtered by the TITLE column
+ * @method     ChildProduct|null findOneBySubtitle(string $SUBTITLE) Return the first ChildProduct filtered by the SUBTITLE column
  * @method     ChildProduct|null findOneByPrice(double $PRICE) Return the first ChildProduct filtered by the PRICE column
  * @method     ChildProduct|null findOneByActive(int $ACTIVE) Return the first ChildProduct filtered by the ACTIVE column
- * @method     ChildProduct|null findOneByImage(resource $IMAGE) Return the first ChildProduct filtered by the IMAGE column
+ * @method     ChildProduct|null findOneByImage(string $IMAGE) Return the first ChildProduct filtered by the IMAGE column
  *
  * @method     ChildProduct requirePk($key, ?ConnectionInterface $con = null) Return the ChildProduct by primary key and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildProduct requireOne(?ConnectionInterface $con = null) Return the first ChildProduct matching the query and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildProduct requireOneByPk(int $PK_) Return the first ChildProduct filtered by the PK_ column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildProduct requireOneByTitle(string $TITLE) Return the first ChildProduct filtered by the TITLE column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildProduct requireOneBySubtitle(string $SUBTITLE) Return the first ChildProduct filtered by the SUBTITLE column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildProduct requireOneByPrice(double $PRICE) Return the first ChildProduct filtered by the PRICE column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  * @method     ChildProduct requireOneByActive(int $ACTIVE) Return the first ChildProduct filtered by the ACTIVE column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
- * @method     ChildProduct requireOneByImage(resource $IMAGE) Return the first ChildProduct filtered by the IMAGE column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
+ * @method     ChildProduct requireOneByImage(string $IMAGE) Return the first ChildProduct filtered by the IMAGE column and throws \Propel\Runtime\Exception\EntityNotFoundException when not found
  *
  * @method     ChildProduct[]|Collection find(?ConnectionInterface $con = null) Return ChildProduct objects based on current ModelCriteria
  * @psalm-method Collection&\Traversable<ChildProduct> find(?ConnectionInterface $con = null) Return ChildProduct objects based on current ModelCriteria
@@ -62,12 +66,14 @@ use Propel\Runtime\Exception\PropelException;
  * @psalm-method Collection&\Traversable<ChildProduct> findByPk(int|array<int> $PK_) Return ChildProduct objects filtered by the PK_ column
  * @method     ChildProduct[]|Collection findByTitle(string|array<string> $TITLE) Return ChildProduct objects filtered by the TITLE column
  * @psalm-method Collection&\Traversable<ChildProduct> findByTitle(string|array<string> $TITLE) Return ChildProduct objects filtered by the TITLE column
+ * @method     ChildProduct[]|Collection findBySubtitle(string|array<string> $SUBTITLE) Return ChildProduct objects filtered by the SUBTITLE column
+ * @psalm-method Collection&\Traversable<ChildProduct> findBySubtitle(string|array<string> $SUBTITLE) Return ChildProduct objects filtered by the SUBTITLE column
  * @method     ChildProduct[]|Collection findByPrice(double|array<double> $PRICE) Return ChildProduct objects filtered by the PRICE column
  * @psalm-method Collection&\Traversable<ChildProduct> findByPrice(double|array<double> $PRICE) Return ChildProduct objects filtered by the PRICE column
  * @method     ChildProduct[]|Collection findByActive(int|array<int> $ACTIVE) Return ChildProduct objects filtered by the ACTIVE column
  * @psalm-method Collection&\Traversable<ChildProduct> findByActive(int|array<int> $ACTIVE) Return ChildProduct objects filtered by the ACTIVE column
- * @method     ChildProduct[]|Collection findByImage(resource|array<resource> $IMAGE) Return ChildProduct objects filtered by the IMAGE column
- * @psalm-method Collection&\Traversable<ChildProduct> findByImage(resource|array<resource> $IMAGE) Return ChildProduct objects filtered by the IMAGE column
+ * @method     ChildProduct[]|Collection findByImage(string|array<string> $IMAGE) Return ChildProduct objects filtered by the IMAGE column
+ * @psalm-method Collection&\Traversable<ChildProduct> findByImage(string|array<string> $IMAGE) Return ChildProduct objects filtered by the IMAGE column
  *
  * @method     ChildProduct[]|\Propel\Runtime\Util\PropelModelPager paginate($page = 1, $maxPerPage = 10, ?ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
  * @psalm-method \Propel\Runtime\Util\PropelModelPager&\Traversable<ChildProduct> paginate($page = 1, $maxPerPage = 10, ?ConnectionInterface $con = null) Issue a SELECT query based on the current ModelCriteria and uses a page and a maximum number of results per page to compute an offset and a limit
@@ -167,7 +173,7 @@ abstract class ProductQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT PK_, TITLE, PRICE, ACTIVE, IMAGE FROM product WHERE PK_ = :p0';
+        $sql = 'SELECT PK_, TITLE, SUBTITLE, PRICE, ACTIVE, IMAGE FROM product WHERE PK_ = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -328,6 +334,34 @@ abstract class ProductQuery extends ModelCriteria
         }
 
         $this->addUsingAlias(ProductTableMap::COL_TITLE, $title, $comparison);
+
+        return $this;
+    }
+
+    /**
+     * Filter the query on the SUBTITLE column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterBySubtitle('fooValue');   // WHERE SUBTITLE = 'fooValue'
+     * $query->filterBySubtitle('%fooValue%', Criteria::LIKE); // WHERE SUBTITLE LIKE '%fooValue%'
+     * $query->filterBySubtitle(['foo', 'bar']); // WHERE SUBTITLE IN ('foo', 'bar')
+     * </code>
+     *
+     * @param string|string[] $subtitle The value to use as filter.
+     * @param string|null $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return $this The current query, for fluid interface
+     */
+    public function filterBySubtitle($subtitle = null, ?string $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($subtitle)) {
+                $comparison = Criteria::IN;
+            }
+        }
+
+        $this->addUsingAlias(ProductTableMap::COL_SUBTITLE, $subtitle, $comparison);
 
         return $this;
     }

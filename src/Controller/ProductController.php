@@ -82,6 +82,7 @@ class ProductController extends AdminController
         }
 
         $product->setTitle($request->request->get('title'));
+        $product->setSubtitle($request->request->get('subtitle'));
         $product->setPrice($request->request->get('price'));
         $product->setActive($request->request->get('active') == 'on' ? 1 : 0);
         

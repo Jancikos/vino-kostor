@@ -10,15 +10,28 @@ productForm.validation['title'] = function() {
 
     if (value.length === 0) {
         valid = false;
-        productForm.addInputError('title', 'Názov musí byť vyplený.');
+        productForm.addInputError('title', 'Nadpis musí byť vyplený.');
     }
     if (value.length > 100) {
         valid = false;
-        productForm.addInputError('title', 'Názov musí byť kratší ako 100 znakov.');    
+        productForm.addInputError('title', 'Nadpis musí byť kratší ako 100 znakov.');    
     }
 
     return valid;
 }
+productForm.validation['subtitle'] = function() {
+    productForm.clearInputErrors('subtitle');
+    let input = productForm.getFormInput('subtitle');
+    let value = input.val();
+    let valid = true;
+
+    if (value.length > 50) {
+        valid = false;
+        productForm.addInputError('subtitle', 'Podnadpis musí byť kratší ako 50 znakov.');    
+    }
+
+    return valid;
+};
 productForm.validation['price'] = function() {
     productForm.clearInputErrors('price');
     let input = productForm.getFormInput('price');

@@ -30,8 +30,13 @@
     <input type="hidden" name="pk" value="{{ product.pk }}" />
 
     <div class="form-row">
-        <label>Názov</label>
-        <input type="text" name="title" placeholder="Zadajte názov produktu" value="{{ product.title }}">
+        <label>Nadpis</label>
+        <input type="text" name="title" placeholder="Zadajte nadpis produktu" value="{{ product.title }}">
+    </div>
+    
+    <div class="form-row">
+        <label>Podnadpis</label>
+        <input type="text" name="subtitle" placeholder="Zadajte podnadpis produktu" value="{{ product.subtitle }}">
     </div>
 
     <div class="form-row">

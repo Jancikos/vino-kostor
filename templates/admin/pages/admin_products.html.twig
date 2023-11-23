@@ -27,7 +27,10 @@
             <thead>
                 <tr class="text-left">
                     <th class="min-w-[220px] xl:pl-11">
-                        Názov
+                        Nadpis
+                    </th>
+                    <th class="min-w-[180px] xl:pl-11">
+                        Podnadpis
                     </th>
                     <th class="min-w-[150px]">
                         Cena
@@ -46,9 +49,14 @@
                 {% for product in products %}
                     
                 <tr x-data="{ pk: {{ product.pk }}, active: 1 == {{ product.active }} }">
-                    {# nazov #}
+                    {# nadpis #}
                     <td>
                         <h5 class="font-medium">{{ product.title }}</h5>
+                    </td>
+
+                    {# podnadpis #}
+                    <td>
+                        <p>{{ product.subtitle }}</p>
                     </td>
 
                     {# cena #}
