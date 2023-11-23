@@ -133,30 +133,13 @@
         });">
 
             <div id="products-wrapper" class="swiper-wrapper pb-12 flex items-baseline">
+                {% for product in products %}
                 <div class="product-card swiper-slide">
-                    <img src="{{ asset('/images/public/produkty/cervene_2020.jpg') }}" alt="cervene 2020">
-                    <h3>červené domáce vínko
-                    </h3>
+                    <img src="data:image/jpeg;base64,{{ product.getEncodedImage() }}" alt="Product Image"/>
+                    <h3>{{ product.title }}</h3>
                     <p>ročník 2020</p>
                 </div>
-
-                <div class="product-card swiper-slide">
-                    <img src="{{ asset('/images/public/produkty/biele_2020.jpg') }}" alt="biele 2020">
-                    <h3>biele domáce vínko</h3>
-                    <p>ročník 2020</p>
-                </div>
-
-                <div class="product-card swiper-slide">
-                    <img src="{{ asset('/images/public/produkty/biele_2020.jpg') }}" alt="biele 2020">
-                    <h3>biele domáce vínko</h3>
-                    <p>ročník 2020</p>
-                </div>
-
-                <div class="product-card swiper-slide">
-                    <img src="{{ asset('/images/public/produkty/biele_2020.jpg') }}" alt="biele 2020">
-                    <h3>biele domáce vínko</h3>
-                    <p>ročník 2020</p>
-                </div>
+                {% endfor %}
             </div>
             <div id="products-pagination" class="swiper-pagination"></div>
             <div id="products-navigation-next" class="swiper-button-next"></div>

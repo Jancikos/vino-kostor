@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\ProductQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +16,7 @@ class MainController extends AbstractController
     public function index(): Response
     {
         return $this->render('public/index.html.twig', [
-            
+            'products' => ProductQuery::create()->orderByPk(Criteria::DESC)->find(),
         ]);
     }
 
