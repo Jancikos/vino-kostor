@@ -40,6 +40,11 @@ class AdminController extends BaseController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->getUser()) {
+            $this->addFlash(FlashMessageType::SUCCESS, 'Už ste prihlásený.');
+            return $this->redirectToRoute('admin_index');
+        }
+
         $this->addBreadcrumb('Login', 'admin_login');
         $this->showHeader = false;
         $this->showSidebar = false;
