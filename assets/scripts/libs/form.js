@@ -23,10 +23,11 @@ export default class Form {
         }
     
         var form = this.getForm();
+        var formModel = this;
         $.ajax({
             url: form.attr('action'),
             method: 'POST',
-            data: (new FormData(this.getForm()[0])),
+            data: (new FormData(form[0])),
             processData: false,
             contentType: false,
             success: function(response) {
@@ -37,7 +38,7 @@ export default class Form {
                     // show error messages to inputs
                     for (const [column, messages] of Object.entries(response.errorMessages)) {
                         for (const message of messages) {
-                            this.addInputError(column, message);
+                            formModel.addInputError(column, message);
                         }
                     }
                 }
