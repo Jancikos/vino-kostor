@@ -36,5 +36,33 @@
         </behavior>
     </table>
 
+    <table name="customer" phpName="Customer">
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="FIRSTNAME" type="varchar" size="100" required="true" />
+        <column name="LASTNAME" type="varchar" size="100" />
+        <column name="EMAIL" type="varchar" size="100" />
+        <column name="PHONE" type="varchar" size="100" />
+        <column name="ADDRESS" type="varchar" size="100" />
+        <column name="CITY" type="varchar" size="100" />
+        <column name="NOTE" type="varchar" size="500" />
+
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: firstname, validator: NotNull}" />
+            <parameter name="rule2"
+                value="{column: firstname, validator: Length, options: {max: 100}}" />
+            <parameter name="rule3"
+                value="{column: lastname, validator: Length, options: {max: 100}}" />
+            <parameter name="rule4"
+                value="{column: email, validator: Length, options: {max: 100}}" />
+            <parameter name="rule5"
+                value="{column: phone, validator: Length, options: {max: 100}}" />
+            <parameter name="rule6"
+                value="{column: address, validator: Length, options: {max: 100}}" />
+            <parameter name="rule7"
+                value="{column: city, validator: Length, options: {max: 100}}" />
+            <parameter name="rule8"
+                value="{column: note, validator: Length, options: {max: 500}}" />
+        </behavior>
+    </table>
 
 </database>
