@@ -18,6 +18,6 @@ class Customer extends BaseCustomer implements IValidableModel
 {
 
     public function getFullName() : string {
-        return $this->getSurname() . ' ' . $this->getName();
+        return $this->getLastname() . ' ' . $this->getFirstname();
     }
 }

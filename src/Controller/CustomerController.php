@@ -4,26 +4,22 @@ namespace App\Controller;
 
 use App\Model\Customer;
 use App\Model\CustomerQuery;
-use App\Model\Product;
-use App\Model\ProductQuery;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
-use Propel\Runtime\Map\TableMap;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/admin/customer", name="admin_customer_")
+ * @Route("/admin/customers", name="admin_customers_")
  */
 class CustomerController extends AdminController
 {
     public function __construct()
     {
-        $this->addBreadcrumb('Zákazníci', 'admin_customer_index');
+        $this->addBreadcrumb('Zákazníci', 'admin_customers_index');
     }
 
     /**
@@ -45,7 +41,7 @@ class CustomerController extends AdminController
      */
     public function form($pk = 0): Response
     {
-        $customer = CustomerQuery::create()->findPk($pk);
+        $customer = CustomerQuery::create()->findOneByPk($pk);
         $editMode = true;
         if ($customer === null) {
             if ($pk !== 0) {
@@ -57,14 +53,14 @@ class CustomerController extends AdminController
             $editMode = false;
             $this->addBreadcrumb('Nový zákazník', 'admin_customers_form');
         } else {
-            $this->addBreadcrumb('Zákazník ' . $customer->getTitle(), 'admin_customers_form');
+            $this->addBreadcrumb('Zákazník ' . $customer->getFullName(), 'admin_customers_form');
         }
 
         return $this->renderAdminPage(
             'Zákazník - formulár',
             'customer_form',
             [
-                'customer' => $customer,
+                'customerModel' => $customer,
                 'editMode' => $editMode
             ]
         );

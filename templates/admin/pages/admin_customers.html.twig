@@ -44,7 +44,7 @@
         <tbody>
             {% for customer in customers %}
                 
-            <tr x-data="{ pk: {{ customer.pk }}, active: 1 == {{ customer.active }} }">
+            <tr x-data="{ pk: {{ customer.pk }} }">
                 {# meno #}
                 <td>
                     <h5 class="font-medium">{{ customer.fullname }}</h5>
@@ -52,12 +52,14 @@
 
                 {# kontakt #}
                 <td>
-                    <p>{{ customer.subtitle }}</p>
+                    <p>{{ customer.phone }}</p>
+                    <small>{{ customer.email }}</small>
                 </td>
 
                 {# adresa #}
                 <td>
-                    <p>{{ customer.price|number_format(2, ',', ' ') }}</p>
+                    <p>{{ customer.city }}</p>
+                    <small>{{ customer.address }}</small>
                 </td>
 
                 {# poznamka #}
