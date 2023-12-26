@@ -65,4 +65,26 @@
         </behavior>
     </table>
 
+    <table name="order" phpName="Order" >
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="CUSTOMER_PK_" type="integer" required="true" />
+        <column name="USER_PK_" type="integer" required="true" description="user, ktory spravuje tuto objednavku" />
+        <column name="STATUS" type="integer" required="true" />
+        <column name="CREATED" type="timestamp" required="true" />
+        <column name="PACKED" type="timestamp" />
+        <column name="SHIPPED" type="timestamp" />
+        <column name="PAIED" type="timestamp" />
+        <column name="REAL_PRICE" type="float" description="cena, ktoru zakaznik naozaj zakaznik zaplatil" />
+        <column name="NOTE" type="varchar" size="500" />
+    </table>
+
+    <table name="order_item" phpName="OrderItem">
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="ORDER_PK_" type="integer" required="true" />
+        <column name="PRODUCT_PK_" type="integer" required="true" />
+        <column name="QUANTITY" type="integer" required="true" />
+        <column name="PRICE" type="float" required="true" description="cena, ktoru stal kus daneho produktu v case jeho pridania do objednavky" />
+        <column name="NOTE" type="varchar" size="500" />
+    </table>
+
 </database>
