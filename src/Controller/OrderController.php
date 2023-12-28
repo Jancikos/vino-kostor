@@ -98,6 +98,8 @@ class OrderController extends AdminController
         if ($validationResponse->getSuccess()) {
             $order->save();
             $this->addFlash(FlashMessageType::SUCCESS, 'Objednávka bola ' . ($isNew ? 'vytvorená' : 'upravená') . '.');
+
+            $validationResponse->addData('orderPk', $order->getPk());
         }
 
         return $validationResponse->toJsonResponse();
@@ -135,6 +137,7 @@ class OrderController extends AdminController
             $this->addFlash(FlashMessageType::DANGER, 'Objednávka nebola nájdená.');
             return $this->redirectToRoute('admin_orders_index');
         }
+        $this->addBreadcrumb('Objednávka #' . $order->getPk(), 'admin_orders_form', ['pk' => $order->getPk()]);
 
         $orderItem = OrderItemQuery::create()->findOneByPk($pk);
         $editMode = true;
@@ -178,20 +181,23 @@ class OrderController extends AdminController
         $orderItem = OrderItemQuery::create()->findOneByPk($request->request->get('pk'));
         $isNew = false;
         if ($orderItem === null) {
-            $orderItem = new Order();
+            $orderItem = new OrderItem();
             // set status created @todo
 
             $isNew = true;
         }
 
         $orderItem->setOrderPk($request->request->get('orderPk'));
-        // @todo
+        $orderItem->setProductPk($request->request->get('productPk'));
+        $orderItem->setPrice($orderItem->getProduct()?->getPrice());
+        $orderItem->setQuantity($request->request->get('quantity'));
+        $orderItem->setNote($request->request->get('note'));
 
         $validationResponse = JsonValidationResponse::ValidateModel($orderItem);
 
         if ($validationResponse->getSuccess()) {
             $orderItem->save();
-            $this->addFlash(FlashMessageType::SUCCESS, 'Objednávka bola ' . ($isNew ? 'vytvorená' : 'upravená') . '.');
+            $this->addFlash(FlashMessageType::SUCCESS, 'Položka bola ' . ($isNew ? 'pridaná' : 'upravená') . '.');
         }
 
         return $validationResponse->toJsonResponse();

@@ -4,17 +4,16 @@ import Form from '../libs/form.js';
 var orderForm = new Form('order-form');
 orderForm.submitPostSuccess = function(response) {
     var form = this.getForm();
+    // redirect to home page
     var redirectUrl = form.attr('data-redirect');
     
     const editMode = form.attr('data-edit-mode');
     if (editMode === '0') {
         // redirect to add item form
-
-        return;
+        redirectUrl = form.attr('data-item-form-url').replace('0', response.data.orderPk); 
     }
-    
-    // redirect to home page
-    window.location.href = redirectUrl;    
+
+    window.location.href = redirectUrl;
 }
 
 // orderForm.validation['title'] = function() {
@@ -67,4 +66,17 @@ global.orderEdit = function (itemPk) {
 
 // order item form
 var orderItemForm = new Form('order-item-form');
+orderItemForm['productPk'] = function() { 
+    orderItemForm.clearInputErrors('productPk');
+    let input = orderItemForm.getFormInput('productPk');
+    let value = input.val();
+    let valid = true;
+
+    if (value.length === 0) {
+        valid = false;
+        orderItemForm.addInputError('productPk', 'Produkt musí byť vybraný.');
+    }
+
+    return valid;
+};
 global.orderItemForm = orderItemForm;

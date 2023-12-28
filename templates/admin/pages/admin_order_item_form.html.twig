@@ -4,7 +4,7 @@
 
 {# buttons row #}
 <div class="btn-row">
-    <a href="#" class="btn" @click.prevent="orderForm.submit()">
+    <a href="#" class="btn" @click.prevent="orderItemForm.submit()">
         {% if editMode %}
         <svg xmlns="http://www.w3.org/2000/svg" height="1em"
             viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
@@ -28,6 +28,7 @@
 <form action="{{ path('admin_orders_item_save') }}" data-redirect="{{ path('admin_orders_form', {'pk': order.pk}) }}" id="order-item-form"
     class="form-wrapper" @submit.prevent="orderItemForm.submit()">
     <input type="hidden" name="pk" value="{{ item.pk }}" />
+    <input type="hidden" name="orderPk" value="{{ item.orderpk }}" />
 
     <div class="form-row">
         <label class="mb-3 block font-medium text-sm text-black">
@@ -44,13 +45,14 @@
                         fill="" />
                 </svg>
             </span>
-            <select name="productPk" class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary">
-                {% set selProductPk = item.productPk %}
-                <option value="">Vyberte produkt</option>
-                {% for product in products %}
-                    <option value="{{ product.pk }}" {{ product.pk == selProductPk ? "selected" }} >{{ product.title }}</option>
-                {% endfor %}
-            </select>
+        <select id="order-item-form-product" name="productPk" class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary">
+            {% set selProductPk = item.productPk %}
+            {% for product in products %}
+                <option class="font-bold text-lg" value="{{ product.pk }}" {{ product.pk == selProductPk ? "selected" }}>
+                    {{ product.title }} - {{ product.subtitle }}</option>
+                </option>
+            {% endfor %}
+        </select>
             <span class="absolute top-1/2 right-4 z-10 -translate-y-1/2">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.8">
@@ -65,12 +67,7 @@
 
     <div class="form-row">
         <label>Počet</label>
-        <input name="quantity" type="number" step="1" placeholder="Zadajte cenu za kus v €" value="{{ item.quantity }}">
-    </div>
-    
-    <div class="form-row">
-        <label>Cena za kus</label>
-        <input name="price" class="flex-1" x-mask:dynamic="$money($input, '.', '', 2)" placeholder="Zadajte cenu za kus v €" value="{{ item.price }}">
+        <input name="quantity" type="number" step="1" placeholder="Zadajte cenu za kus v €" value="{{ item.quantity ?? 1 }}">
     </div>
 
     <div class="form-row">

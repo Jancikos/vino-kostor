@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Model\Base\Order as BaseOrder;
 use App\Utils\Validation\IValidableModel;
+use Propel\Runtime\Exception\PropelException;
 
 /**
  * Skeleton subclass for representing a row from the 'order' table.
@@ -17,4 +18,32 @@ use App\Utils\Validation\IValidableModel;
 class Order extends BaseOrder implements IValidableModel
 {
 
+    
+    /**
+     * @return int celkovy pocet produktov v objednavke
+     * @throws PropelException 
+     */
+    public function getProductsQuantity() : int {
+        $total = 0;
+
+        foreach ($this->getOrderItems() as $item) {
+            $total += $item->getQuantity();
+        }
+
+        return $total;
+    }
+
+    /**
+     * @return float celkova suma objednavky
+     * @throws PropelException 
+     */
+    public function getTotalPrice() : float {
+        $total = 0;
+
+        foreach ($this->getOrderItems() as $item) {
+            $total += $item->getTotalPrice();
+        }
+
+        return $total;
+    }
 }
