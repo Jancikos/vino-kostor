@@ -216,8 +216,8 @@ class OrderItemTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('PK_', 'Pk', 'INTEGER', true, null, null);
-        $this->addColumn('ORDER_PK_', 'OrderPk', 'INTEGER', true, null, null);
-        $this->addColumn('PRODUCT_PK_', 'ProductPk', 'INTEGER', true, null, null);
+        $this->addForeignKey('ORDER_PK_', 'OrderPk', 'INTEGER', 'myorder', 'PK_', true, null, null);
+        $this->addForeignKey('PRODUCT_PK_', 'ProductPk', 'INTEGER', 'product', 'PK_', true, null, null);
         $this->addColumn('QUANTITY', 'Quantity', 'INTEGER', true, null, null);
         $this->addColumn('PRICE', 'Price', 'FLOAT', true, null, null);
         $this->addColumn('NOTE', 'Note', 'VARCHAR', false, 500, null);
@@ -230,6 +230,33 @@ class OrderItemTableMap extends TableMap
      */
     public function buildRelations(): void
     {
+        $this->addRelation('Order', '\\App\\Model\\Order', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':ORDER_PK_',
+    1 => ':PK_',
+  ),
+), null, null, null, false);
+        $this->addRelation('Product', '\\App\\Model\\Product', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':PRODUCT_PK_',
+    1 => ':PK_',
+  ),
+), null, null, null, false);
+    }
+
+    /**
+     *
+     * Gets the list of behaviors registered for this table
+     *
+     * @return array<string, array> Associative array (name => parameters) of behaviors
+     */
+    public function getBehaviors(): array
+    {
+        return [
+            'validate' => ['rule1' => ['column' => 'order_pk_', 'validator' => 'NotNull'], 'rule2' => ['column' => 'product_pk_', 'validator' => 'NotNull'], 'rule3' => ['column' => 'quantity', 'validator' => 'NotNull'], 'rule4' => ['column' => 'quantity', 'validator' => 'GreaterThan', 'options' => ['value' => 0]], 'rule5' => ['column' => 'price', 'validator' => 'NotNull'], 'rule6' => ['column' => 'note', 'validator' => 'Length', 'options' => ['max' => 500]]],
+        ];
     }
 
     /**

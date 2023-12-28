@@ -16,8 +16,15 @@ class BaseController extends AbstractController
         return $this->breadcrumbs;
     }
 
-    public function addBreadcrumb($title, $route) {
-        $this->breadcrumbs[] = new Breadcrumb($title, $route);
+    
+    /**
+     * @param string $title 
+     * @param string $route 
+     * @param array $params default []
+     * @return void 
+     */
+    public function addBreadcrumb(string $title, string $route, array $params = []) {
+        $this->breadcrumbs[] = new Breadcrumb($title, $route, $params);
     }
 
     /**

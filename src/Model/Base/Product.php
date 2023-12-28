@@ -4,13 +4,18 @@ namespace App\Model\Base;
 
 use \Exception;
 use \PDO;
+use App\Model\OrderItem as ChildOrderItem;
+use App\Model\OrderItemQuery as ChildOrderItemQuery;
+use App\Model\Product as ChildProduct;
 use App\Model\ProductQuery as ChildProductQuery;
+use App\Model\Map\OrderItemTableMap;
 use App\Model\Map\ProductTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
 use Propel\Runtime\ActiveRecord\ActiveRecordInterface;
 use Propel\Runtime\Collection\Collection;
+use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\BadMethodCallException;
 use Propel\Runtime\Exception\LogicException;
@@ -117,6 +122,13 @@ abstract class Product implements ActiveRecordInterface
     protected $image;
 
     /**
+     * @var        ObjectCollection|ChildOrderItem[] Collection to store aggregation of ChildOrderItem objects.
+     * @phpstan-var ObjectCollection&\Traversable<ChildOrderItem> Collection to store aggregation of ChildOrderItem objects.
+     */
+    protected $collOrderItems;
+    protected $collOrderItemsPartial;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
@@ -140,6 +152,13 @@ abstract class Product implements ActiveRecordInterface
      * @var     ConstraintViolationList
      */
     protected $validationFailures;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var ObjectCollection|ChildOrderItem[]
+     * @phpstan-var ObjectCollection&\Traversable<ChildOrderItem>
+     */
+    protected $orderItemsScheduledForDeletion = null;
 
     /**
      * Applies default values to this object.
@@ -696,6 +715,8 @@ abstract class Product implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->collOrderItems = null;
+
         } // if (deep)
     }
 
@@ -813,6 +834,23 @@ abstract class Product implements ActiveRecordInterface
                 }
 
                 $this->resetModified();
+            }
+
+            if ($this->orderItemsScheduledForDeletion !== null) {
+                if (!$this->orderItemsScheduledForDeletion->isEmpty()) {
+                    \App\Model\OrderItemQuery::create()
+                        ->filterByPrimaryKeys($this->orderItemsScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->orderItemsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collOrderItems !== null) {
+                foreach ($this->collOrderItems as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
             }
 
             $this->alreadyInSave = false;
@@ -993,10 +1031,11 @@ abstract class Product implements ActiveRecordInterface
      *                    Defaults to TableMap::TYPE_PHPNAME.
      * @param bool $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
      * @param array $alreadyDumpedObjects List of objects to skip to avoid recursion
+     * @param bool $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array An associative array containing the field names (as keys) and field values
      */
-    public function toArray(string $keyType = TableMap::TYPE_PHPNAME, bool $includeLazyLoadColumns = true, array $alreadyDumpedObjects = []): array
+    public function toArray(string $keyType = TableMap::TYPE_PHPNAME, bool $includeLazyLoadColumns = true, array $alreadyDumpedObjects = [], bool $includeForeignObjects = false): array
     {
         if (isset($alreadyDumpedObjects['Product'][$this->hashCode()])) {
             return ['*RECURSION*'];
@@ -1016,6 +1055,23 @@ abstract class Product implements ActiveRecordInterface
             $result[$key] = $virtualColumn;
         }
 
+        if ($includeForeignObjects) {
+            if (null !== $this->collOrderItems) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'orderItems';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'myorder_items';
+                        break;
+                    default:
+                        $key = 'OrderItems';
+                }
+
+                $result[$key] = $this->collOrderItems->toArray(null, false, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+        }
 
         return $result;
     }
@@ -1267,6 +1323,20 @@ abstract class Product implements ActiveRecordInterface
         $copyObj->setPrice($this->getPrice());
         $copyObj->setActive($this->getActive());
         $copyObj->setImage($this->getImage());
+
+        if ($deepCopy) {
+            // important: temporarily setNew(false) because this affects the behavior of
+            // the getter/setter methods for fkey referrer objects.
+            $copyObj->setNew(false);
+
+            foreach ($this->getOrderItems() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addOrderItem($relObj->copy($deepCopy));
+                }
+            }
+
+        } // if ($deepCopy)
+
         if ($makeNew) {
             $copyObj->setNew(true);
             $copyObj->setPk(NULL); // this is a auto-increment column, so set to default value
@@ -1293,6 +1363,288 @@ abstract class Product implements ActiveRecordInterface
         $this->copyInto($copyObj, $deepCopy);
 
         return $copyObj;
+    }
+
+
+    /**
+     * Initializes a collection based on the name of a relation.
+     * Avoids crafting an 'init[$relationName]s' method name
+     * that wouldn't work when StandardEnglishPluralizer is used.
+     *
+     * @param string $relationName The name of the relation to initialize
+     * @return void
+     */
+    public function initRelation($relationName): void
+    {
+        if ('OrderItem' === $relationName) {
+            $this->initOrderItems();
+            return;
+        }
+    }
+
+    /**
+     * Clears out the collOrderItems collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return $this
+     * @see addOrderItems()
+     */
+    public function clearOrderItems()
+    {
+        $this->collOrderItems = null; // important to set this to NULL since that means it is uninitialized
+
+        return $this;
+    }
+
+    /**
+     * Reset is the collOrderItems collection loaded partially.
+     *
+     * @return void
+     */
+    public function resetPartialOrderItems($v = true): void
+    {
+        $this->collOrderItemsPartial = $v;
+    }
+
+    /**
+     * Initializes the collOrderItems collection.
+     *
+     * By default this just sets the collOrderItems collection to an empty array (like clearcollOrderItems());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param bool $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initOrderItems(bool $overrideExisting = true): void
+    {
+        if (null !== $this->collOrderItems && !$overrideExisting) {
+            return;
+        }
+
+        $collectionClassName = OrderItemTableMap::getTableMap()->getCollectionClassName();
+
+        $this->collOrderItems = new $collectionClassName;
+        $this->collOrderItems->setModel('\App\Model\OrderItem');
+    }
+
+    /**
+     * Gets an array of ChildOrderItem objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this ChildProduct is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param ConnectionInterface $con optional connection object
+     * @return ObjectCollection|ChildOrderItem[] List of ChildOrderItem objects
+     * @phpstan-return ObjectCollection&\Traversable<ChildOrderItem> List of ChildOrderItem objects
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function getOrderItems(?Criteria $criteria = null, ?ConnectionInterface $con = null)
+    {
+        $partial = $this->collOrderItemsPartial && !$this->isNew();
+        if (null === $this->collOrderItems || null !== $criteria || $partial) {
+            if ($this->isNew()) {
+                // return empty collection
+                if (null === $this->collOrderItems) {
+                    $this->initOrderItems();
+                } else {
+                    $collectionClassName = OrderItemTableMap::getTableMap()->getCollectionClassName();
+
+                    $collOrderItems = new $collectionClassName;
+                    $collOrderItems->setModel('\App\Model\OrderItem');
+
+                    return $collOrderItems;
+                }
+            } else {
+                $collOrderItems = ChildOrderItemQuery::create(null, $criteria)
+                    ->filterByProduct($this)
+                    ->find($con);
+
+                if (null !== $criteria) {
+                    if (false !== $this->collOrderItemsPartial && count($collOrderItems)) {
+                        $this->initOrderItems(false);
+
+                        foreach ($collOrderItems as $obj) {
+                            if (false == $this->collOrderItems->contains($obj)) {
+                                $this->collOrderItems->append($obj);
+                            }
+                        }
+
+                        $this->collOrderItemsPartial = true;
+                    }
+
+                    return $collOrderItems;
+                }
+
+                if ($partial && $this->collOrderItems) {
+                    foreach ($this->collOrderItems as $obj) {
+                        if ($obj->isNew()) {
+                            $collOrderItems[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collOrderItems = $collOrderItems;
+                $this->collOrderItemsPartial = false;
+            }
+        }
+
+        return $this->collOrderItems;
+    }
+
+    /**
+     * Sets a collection of ChildOrderItem objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param Collection $orderItems A Propel collection.
+     * @param ConnectionInterface $con Optional connection object
+     * @return $this The current object (for fluent API support)
+     */
+    public function setOrderItems(Collection $orderItems, ?ConnectionInterface $con = null)
+    {
+        /** @var ChildOrderItem[] $orderItemsToDelete */
+        $orderItemsToDelete = $this->getOrderItems(new Criteria(), $con)->diff($orderItems);
+
+
+        $this->orderItemsScheduledForDeletion = $orderItemsToDelete;
+
+        foreach ($orderItemsToDelete as $orderItemRemoved) {
+            $orderItemRemoved->setProduct(null);
+        }
+
+        $this->collOrderItems = null;
+        foreach ($orderItems as $orderItem) {
+            $this->addOrderItem($orderItem);
+        }
+
+        $this->collOrderItems = $orderItems;
+        $this->collOrderItemsPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related OrderItem objects.
+     *
+     * @param Criteria $criteria
+     * @param bool $distinct
+     * @param ConnectionInterface $con
+     * @return int Count of related OrderItem objects.
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function countOrderItems(?Criteria $criteria = null, bool $distinct = false, ?ConnectionInterface $con = null): int
+    {
+        $partial = $this->collOrderItemsPartial && !$this->isNew();
+        if (null === $this->collOrderItems || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collOrderItems) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getOrderItems());
+            }
+
+            $query = ChildOrderItemQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByProduct($this)
+                ->count($con);
+        }
+
+        return count($this->collOrderItems);
+    }
+
+    /**
+     * Method called to associate a ChildOrderItem object to this object
+     * through the ChildOrderItem foreign key attribute.
+     *
+     * @param ChildOrderItem $l ChildOrderItem
+     * @return $this The current object (for fluent API support)
+     */
+    public function addOrderItem(ChildOrderItem $l)
+    {
+        if ($this->collOrderItems === null) {
+            $this->initOrderItems();
+            $this->collOrderItemsPartial = true;
+        }
+
+        if (!$this->collOrderItems->contains($l)) {
+            $this->doAddOrderItem($l);
+
+            if ($this->orderItemsScheduledForDeletion and $this->orderItemsScheduledForDeletion->contains($l)) {
+                $this->orderItemsScheduledForDeletion->remove($this->orderItemsScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ChildOrderItem $orderItem The ChildOrderItem object to add.
+     */
+    protected function doAddOrderItem(ChildOrderItem $orderItem): void
+    {
+        $this->collOrderItems[]= $orderItem;
+        $orderItem->setProduct($this);
+    }
+
+    /**
+     * @param ChildOrderItem $orderItem The ChildOrderItem object to remove.
+     * @return $this The current object (for fluent API support)
+     */
+    public function removeOrderItem(ChildOrderItem $orderItem)
+    {
+        if ($this->getOrderItems()->contains($orderItem)) {
+            $pos = $this->collOrderItems->search($orderItem);
+            $this->collOrderItems->remove($pos);
+            if (null === $this->orderItemsScheduledForDeletion) {
+                $this->orderItemsScheduledForDeletion = clone $this->collOrderItems;
+                $this->orderItemsScheduledForDeletion->clear();
+            }
+            $this->orderItemsScheduledForDeletion[]= clone $orderItem;
+            $orderItem->setProduct(null);
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * If this collection has already been initialized with
+     * an identical criteria, it returns the collection.
+     * Otherwise if this Product is new, it will return
+     * an empty collection; or if this Product has previously
+     * been saved, it will retrieve related OrderItems from storage.
+     *
+     * This method is protected by default in order to keep the public
+     * api reasonable.  You can provide public methods for those you
+     * actually need in Product.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param ConnectionInterface $con optional connection object
+     * @param string $joinBehavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+     * @return ObjectCollection|ChildOrderItem[] List of ChildOrderItem objects
+     * @phpstan-return ObjectCollection&\Traversable<ChildOrderItem}> List of ChildOrderItem objects
+     */
+    public function getOrderItemsJoinOrder(?Criteria $criteria = null, ?ConnectionInterface $con = null, $joinBehavior = Criteria::LEFT_JOIN)
+    {
+        $query = ChildOrderItemQuery::create(null, $criteria);
+        $query->joinWith('Order', $joinBehavior);
+
+        return $this->getOrderItems($query, $con);
     }
 
     /**
@@ -1332,8 +1684,14 @@ abstract class Product implements ActiveRecordInterface
     public function clearAllReferences(bool $deep = false)
     {
         if ($deep) {
+            if ($this->collOrderItems) {
+                foreach ($this->collOrderItems as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
         } // if ($deep)
 
+        $this->collOrderItems = null;
         return $this;
     }
 
@@ -1393,6 +1751,15 @@ abstract class Product implements ActiveRecordInterface
                 $failureMap->addAll($retval);
             }
 
+            if (null !== $this->collOrderItems) {
+                foreach ($this->collOrderItems as $referrerFK) {
+                    if (method_exists($referrerFK, 'validate')) {
+                        if (!$referrerFK->validate($validator)) {
+                            $failureMap->addAll($referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+            }
 
             $this->alreadyInValidation = false;
         }

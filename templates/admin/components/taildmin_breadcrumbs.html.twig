@@ -1,11 +1,11 @@
-
 {% if breadcrumbs|length > 1 %}
 <ul class="flex items-center space-x-2">
     {% for breadcrumb in breadcrumbs %}
     {% if loop.last %}
     <h6 class="font-semibold text-graydark">{{ breadcrumb.title }}</h6>
     {% else %}
-    <a href="{{ path(breadcrumb.route) }}" class="text-sm text-bodydark2 hover:text-graydark">{{ breadcrumb.title }}</a>
+    <a href="{{ path(breadcrumb.route, breadcrumb.routeParams) }}" class="text-sm text-bodydark2 hover:text-graydark">{{
+        breadcrumb.title }}</a>
     <span>></span>
     {% endif %}
     {% endfor %}

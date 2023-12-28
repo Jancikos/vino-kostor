@@ -268,8 +268,8 @@ class OrderTableMap extends TableMap
         $this->setUseIdGenerator(true);
         // columns
         $this->addPrimaryKey('PK_', 'Pk', 'INTEGER', true, null, null);
-        $this->addColumn('CUSTOMER_PK_', 'CustomerPk', 'INTEGER', true, null, null);
-        $this->addColumn('USER_PK_', 'UserPk', 'INTEGER', true, null, null);
+        $this->addForeignKey('CUSTOMER_PK_', 'CustomerPk', 'INTEGER', 'customer', 'PK_', true, null, null);
+        $this->addForeignKey('USER_PK_', 'UserPk', 'INTEGER', 'user', 'PK_', true, null, null);
         $this->addColumn('STATUS', 'Status', 'INTEGER', true, null, null);
         $this->addColumn('CREATED', 'Created', 'TIMESTAMP', true, null, null);
         $this->addColumn('PACKED', 'Packed', 'TIMESTAMP', false, null, null);
@@ -286,6 +286,40 @@ class OrderTableMap extends TableMap
      */
     public function buildRelations(): void
     {
+        $this->addRelation('Customer', '\\App\\Model\\Customer', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':CUSTOMER_PK_',
+    1 => ':PK_',
+  ),
+), null, null, null, false);
+        $this->addRelation('User', '\\App\\Model\\User', RelationMap::MANY_TO_ONE, array (
+  0 =>
+  array (
+    0 => ':USER_PK_',
+    1 => ':PK_',
+  ),
+), null, null, null, false);
+        $this->addRelation('OrderItem', '\\App\\Model\\OrderItem', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':ORDER_PK_',
+    1 => ':PK_',
+  ),
+), null, null, 'OrderItems', false);
+    }
+
+    /**
+     *
+     * Gets the list of behaviors registered for this table
+     *
+     * @return array<string, array> Associative array (name => parameters) of behaviors
+     */
+    public function getBehaviors(): array
+    {
+        return [
+            'validate' => ['rule1' => ['column' => 'customer_pk_', 'validator' => 'NotNull'], 'rule2' => ['column' => 'user_pk_', 'validator' => 'NotNull'], 'rule3' => ['column' => 'note', 'validator' => 'Length', 'options' => ['max' => 500]]],
+        ];
     }
 
     /**

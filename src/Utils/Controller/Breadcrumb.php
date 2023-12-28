@@ -9,11 +9,13 @@ class Breadcrumb
 {
     private string $title;
     private string $route;
+    private array $routeParams = [];
 
-    public function __construct(string $title, string $route)
+    public function __construct(string $title, string $route, array $routeParams = [])
     {
         $this->title = $title;
         $this->route = $route;
+        $this->routeParams = $routeParams;
     }
 
 	/**
@@ -51,4 +53,22 @@ class Breadcrumb
 		$this->route = $route;
 		return $this;
 	}
+
+    /**
+     * @return array
+     */
+    public function getRouteParams()
+    {
+        return $this->routeParams;
+    }
+
+    /**
+     * @param array $routeParams 
+     * @return self
+     */
+    public function setRouteParams($routeParams)
+    {
+        $this->routeParams = $routeParams;
+        return $this;
+    }
 }

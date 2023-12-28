@@ -76,16 +76,24 @@
     }
     
     /* checkbox input */
-    label.checkbox {
+    .form-wrapper label.checkbox {
         @apply flex cursor-pointer;
     }
-    label.checkbox input[type='checkbox']:checked ~ .box span {
+    .form-wrapper label.checkbox input[type='checkbox']:checked ~ .box span {
         @apply opacity-100;
     }
-    label.checkbox input[type='checkbox']:checked ~ .box {
+    .form-wrapper label.checkbox input[type='checkbox']:checked ~ .box {
         @apply border-primary bg-primary dark:border-primary;
     }
-  
+
+    /* text area input */
+    .form-wrapper textarea {
+        @apply w-full rounded-lg border-[1.5px] border-stroke bg-transparent;
+        @apply py-3 px-5 font-medium outline-none transition;
+        @apply focus:border-primary active:border-primary;
+        @apply disabled:cursor-default disabled:bg-whiter;
+    }
+    
     /* table */
     .table-wrapper {
         @apply max-w-full overflow-x-auto;

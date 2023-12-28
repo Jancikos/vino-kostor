@@ -1,0 +1,84 @@
+{% extends "admin\\pages\\admin_orders.html.twig" %}
+
+{% block body %}
+
+{# buttons row #}
+<div class="btn-row">
+    <a href="#" class="btn" @click.prevent="orderForm.submit()">
+        {% if editMode %}
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+            viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+                d="M48 96V416c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16V170.5c0-4.2-1.7-8.3-4.7-11.3l33.9-33.9c12 12 18.7 28.3 18.7 45.3V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96C0 60.7 28.7 32 64 32H309.5c17 0 33.3 6.7 45.3 18.7l74.5 74.5-33.9 33.9L320.8 84.7c-.3-.3-.5-.5-.8-.8V184c0 13.3-10.7 24-24 24H104c-13.3 0-24-10.7-24-24V80H64c-8.8 0-16 7.2-16 16zm80-16v80H272V80H128zm32 240a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z" />
+        </svg>
+        Uložiť položku
+        {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+            viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+            <path
+                d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+        </svg>
+        Pridať položku
+        {% endif %}
+    </a>
+</div>
+
+{# formular #}
+
+<form action="{{ path('admin_orders_item_save') }}" data-redirect="{{ path('admin_orders_form', {'pk': order.pk}) }}" id="order-item-form"
+    class="form-wrapper" @submit.prevent="orderItemForm.submit()">
+    <input type="hidden" name="pk" value="{{ item.pk }}" />
+
+    <div class="form-row">
+        <label class="mb-3 block font-medium text-sm text-black">
+            Produkt
+        </label>
+        <div class="relative z-20 bg-white">
+            <span class="absolute top-1/2 left-4 z-30 -translate-y-1/2">
+                <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.0002 7.79065C11.0814 7.79065 12.7689 6.1594 12.7689 4.1344C12.7689 2.1094 11.0814 0.478149 9.0002 0.478149C6.91895 0.478149 5.23145 2.1094 5.23145 4.1344C5.23145 6.1594 6.91895 7.79065 9.0002 7.79065ZM9.0002 1.7719C10.3783 1.7719 11.5033 2.84065 11.5033 4.16252C11.5033 5.4844 10.3783 6.55315 9.0002 6.55315C7.62207 6.55315 6.49707 5.4844 6.49707 4.16252C6.49707 2.84065 7.62207 1.7719 9.0002 1.7719Z"
+                        fill="" />
+                    <path
+                        d="M10.8283 9.05627H7.17207C4.16269 9.05627 1.71582 11.5313 1.71582 14.5406V16.875C1.71582 17.2125 1.99707 17.5219 2.3627 17.5219C2.72832 17.5219 3.00957 17.2407 3.00957 16.875V14.5406C3.00957 12.2344 4.89394 10.3219 7.22832 10.3219H10.8564C13.1627 10.3219 15.0752 12.2063 15.0752 14.5406V16.875C15.0752 17.2125 15.3564 17.5219 15.7221 17.5219C16.0877 17.5219 16.3689 17.2407 16.3689 16.875V14.5406C16.2846 11.5313 13.8377 9.05627 10.8283 9.05627Z"
+                        fill="" />
+                </svg>
+            </span>
+            <select name="productPk" class="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary">
+                {% set selProductPk = item.productPk %}
+                <option value="">Vyberte produkt</option>
+                {% for product in products %}
+                    <option value="{{ product.pk }}" {{ product.pk == selProductPk ? "selected" }} >{{ product.title }}</option>
+                {% endfor %}
+            </select>
+            <span class="absolute top-1/2 right-4 z-10 -translate-y-1/2">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g opacity="0.8">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
+                            fill="#637381"></path>
+                    </g>
+                </svg>
+            </span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <label>Počet</label>
+        <input name="quantity" type="number" step="1" placeholder="Zadajte cenu za kus v €" value="{{ item.quantity }}">
+    </div>
+    
+    <div class="form-row">
+        <label>Cena za kus</label>
+        <input name="price" class="flex-1" x-mask:dynamic="$money($input, '.', '', 2)" placeholder="Zadajte cenu za kus v €" value="{{ item.price }}">
+    </div>
+
+    <div class="form-row">
+        <label>Poznámka</label>
+        <textarea name="note" placeholder="Zadajte poznámku objednávku">{{ item.note }}</textarea>
+    </div>
+
+    {# aby sa formular dal submitnut eneterom #}
+    <input type="submit" hidden />
+</form>
+{% endblock body %}

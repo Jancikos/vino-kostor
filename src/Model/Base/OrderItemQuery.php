@@ -10,7 +10,9 @@ use App\Model\Map\OrderItemTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
 use Propel\Runtime\ActiveQuery\ModelCriteria;
+use Propel\Runtime\ActiveQuery\ModelJoin;
 use Propel\Runtime\Collection\Collection;
+use Propel\Runtime\Collection\ObjectCollection;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
 
@@ -38,6 +40,28 @@ use Propel\Runtime\Exception\PropelException;
  * @method     ChildOrderItemQuery leftJoinWith($relation) Adds a LEFT JOIN clause and with to the query
  * @method     ChildOrderItemQuery rightJoinWith($relation) Adds a RIGHT JOIN clause and with to the query
  * @method     ChildOrderItemQuery innerJoinWith($relation) Adds a INNER JOIN clause and with to the query
+ *
+ * @method     ChildOrderItemQuery leftJoinOrder($relationAlias = null) Adds a LEFT JOIN clause to the query using the Order relation
+ * @method     ChildOrderItemQuery rightJoinOrder($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Order relation
+ * @method     ChildOrderItemQuery innerJoinOrder($relationAlias = null) Adds a INNER JOIN clause to the query using the Order relation
+ *
+ * @method     ChildOrderItemQuery joinWithOrder($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Order relation
+ *
+ * @method     ChildOrderItemQuery leftJoinWithOrder() Adds a LEFT JOIN clause and with to the query using the Order relation
+ * @method     ChildOrderItemQuery rightJoinWithOrder() Adds a RIGHT JOIN clause and with to the query using the Order relation
+ * @method     ChildOrderItemQuery innerJoinWithOrder() Adds a INNER JOIN clause and with to the query using the Order relation
+ *
+ * @method     ChildOrderItemQuery leftJoinProduct($relationAlias = null) Adds a LEFT JOIN clause to the query using the Product relation
+ * @method     ChildOrderItemQuery rightJoinProduct($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Product relation
+ * @method     ChildOrderItemQuery innerJoinProduct($relationAlias = null) Adds a INNER JOIN clause to the query using the Product relation
+ *
+ * @method     ChildOrderItemQuery joinWithProduct($joinType = Criteria::INNER_JOIN) Adds a join clause and with to the query using the Product relation
+ *
+ * @method     ChildOrderItemQuery leftJoinWithProduct() Adds a LEFT JOIN clause and with to the query using the Product relation
+ * @method     ChildOrderItemQuery rightJoinWithProduct() Adds a RIGHT JOIN clause and with to the query using the Product relation
+ * @method     ChildOrderItemQuery innerJoinWithProduct() Adds a INNER JOIN clause and with to the query using the Product relation
+ *
+ * @method     \App\Model\OrderQuery|\App\Model\ProductQuery endUse() Finalizes a secondary criteria and merges it with its primary Criteria
  *
  * @method     ChildOrderItem|null findOne(?ConnectionInterface $con = null) Return the first ChildOrderItem matching the query
  * @method     ChildOrderItem findOneOrCreate(?ConnectionInterface $con = null) Return the first ChildOrderItem matching the query, or a new ChildOrderItem object populated from the query conditions when no match is found
@@ -320,6 +344,8 @@ abstract class OrderItemQuery extends ModelCriteria
      * $query->filterByOrderPk(array('min' => 12)); // WHERE ORDER_PK_ > 12
      * </code>
      *
+     * @see       filterByOrder()
+     *
      * @param mixed $orderPk The value to use as filter.
      *              Use scalar values for equality.
      *              Use array values for in_array() equivalent.
@@ -362,6 +388,8 @@ abstract class OrderItemQuery extends ModelCriteria
      * $query->filterByProductPk(array(12, 34)); // WHERE PRODUCT_PK_ IN (12, 34)
      * $query->filterByProductPk(array('min' => 12)); // WHERE PRODUCT_PK_ > 12
      * </code>
+     *
+     * @see       filterByProduct()
      *
      * @param mixed $productPk The value to use as filter.
      *              Use scalar values for equality.
@@ -508,6 +536,356 @@ abstract class OrderItemQuery extends ModelCriteria
         $this->addUsingAlias(OrderItemTableMap::COL_NOTE, $note, $comparison);
 
         return $this;
+    }
+
+    /**
+     * Filter the query by a related \App\Model\Order object
+     *
+     * @param \App\Model\Order|ObjectCollection $order The related object(s) to use as filter
+     * @param string|null $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return $this The current query, for fluid interface
+     */
+    public function filterByOrder($order, ?string $comparison = null)
+    {
+        if ($order instanceof \App\Model\Order) {
+            return $this
+                ->addUsingAlias(OrderItemTableMap::COL_ORDER_PK_, $order->getPk(), $comparison);
+        } elseif ($order instanceof ObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            $this
+                ->addUsingAlias(OrderItemTableMap::COL_ORDER_PK_, $order->toKeyValue('PrimaryKey', 'Pk'), $comparison);
+
+            return $this;
+        } else {
+            throw new PropelException('filterByOrder() only accepts arguments of type \App\Model\Order or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Order relation
+     *
+     * @param string|null $relationAlias Optional alias for the relation
+     * @param string|null $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this The current query, for fluid interface
+     */
+    public function joinOrder(?string $relationAlias = null, ?string $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Order');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Order');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Order relation Order object
+     *
+     * @see useQuery()
+     *
+     * @param string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \App\Model\OrderQuery A secondary query class using the current class as primary query
+     */
+    public function useOrderQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinOrder($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Order', '\App\Model\OrderQuery');
+    }
+
+    /**
+     * Use the Order relation Order object
+     *
+     * @param callable(\App\Model\OrderQuery):\App\Model\OrderQuery $callable A function working on the related query
+     *
+     * @param string|null $relationAlias optional alias for the relation
+     *
+     * @param string|null $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this
+     */
+    public function withOrderQuery(
+        callable $callable,
+        string $relationAlias = null,
+        ?string $joinType = Criteria::INNER_JOIN
+    ) {
+        $relatedQuery = $this->useOrderQuery(
+            $relationAlias,
+            $joinType
+        );
+        $callable($relatedQuery);
+        $relatedQuery->endUse();
+
+        return $this;
+    }
+
+    /**
+     * Use the relation to Order table for an EXISTS query.
+     *
+     * @see \Propel\Runtime\ActiveQuery\ModelCriteria::useExistsQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the exists query, like ExtendedBookQuery::class
+     * @param string $typeOfExists Either ExistsQueryCriterion::TYPE_EXISTS or ExistsQueryCriterion::TYPE_NOT_EXISTS
+     *
+     * @return \App\Model\OrderQuery The inner query object of the EXISTS statement
+     */
+    public function useOrderExistsQuery($modelAlias = null, $queryClass = null, $typeOfExists = 'EXISTS')
+    {
+        /** @var $q \App\Model\OrderQuery */
+        $q = $this->useExistsQuery('Order', $modelAlias, $queryClass, $typeOfExists);
+        return $q;
+    }
+
+    /**
+     * Use the relation to Order table for a NOT EXISTS query.
+     *
+     * @see useOrderExistsQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the exists query, like ExtendedBookQuery::class
+     *
+     * @return \App\Model\OrderQuery The inner query object of the NOT EXISTS statement
+     */
+    public function useOrderNotExistsQuery($modelAlias = null, $queryClass = null)
+    {
+        /** @var $q \App\Model\OrderQuery */
+        $q = $this->useExistsQuery('Order', $modelAlias, $queryClass, 'NOT EXISTS');
+        return $q;
+    }
+
+    /**
+     * Use the relation to Order table for an IN query.
+     *
+     * @see \Propel\Runtime\ActiveQuery\ModelCriteria::useInQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the IN query, like ExtendedBookQuery::class
+     * @param string $typeOfIn Criteria::IN or Criteria::NOT_IN
+     *
+     * @return \App\Model\OrderQuery The inner query object of the IN statement
+     */
+    public function useInOrderQuery($modelAlias = null, $queryClass = null, $typeOfIn = 'IN')
+    {
+        /** @var $q \App\Model\OrderQuery */
+        $q = $this->useInQuery('Order', $modelAlias, $queryClass, $typeOfIn);
+        return $q;
+    }
+
+    /**
+     * Use the relation to Order table for a NOT IN query.
+     *
+     * @see useOrderInQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the NOT IN query, like ExtendedBookQuery::class
+     *
+     * @return \App\Model\OrderQuery The inner query object of the NOT IN statement
+     */
+    public function useNotInOrderQuery($modelAlias = null, $queryClass = null)
+    {
+        /** @var $q \App\Model\OrderQuery */
+        $q = $this->useInQuery('Order', $modelAlias, $queryClass, 'NOT IN');
+        return $q;
+    }
+
+    /**
+     * Filter the query by a related \App\Model\Product object
+     *
+     * @param \App\Model\Product|ObjectCollection $product The related object(s) to use as filter
+     * @param string|null $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @throws \Propel\Runtime\Exception\PropelException
+     *
+     * @return $this The current query, for fluid interface
+     */
+    public function filterByProduct($product, ?string $comparison = null)
+    {
+        if ($product instanceof \App\Model\Product) {
+            return $this
+                ->addUsingAlias(OrderItemTableMap::COL_PRODUCT_PK_, $product->getPk(), $comparison);
+        } elseif ($product instanceof ObjectCollection) {
+            if (null === $comparison) {
+                $comparison = Criteria::IN;
+            }
+
+            $this
+                ->addUsingAlias(OrderItemTableMap::COL_PRODUCT_PK_, $product->toKeyValue('PrimaryKey', 'Pk'), $comparison);
+
+            return $this;
+        } else {
+            throw new PropelException('filterByProduct() only accepts arguments of type \App\Model\Product or Collection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the Product relation
+     *
+     * @param string|null $relationAlias Optional alias for the relation
+     * @param string|null $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this The current query, for fluid interface
+     */
+    public function joinProduct(?string $relationAlias = null, ?string $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('Product');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'Product');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the Product relation Product object
+     *
+     * @see useQuery()
+     *
+     * @param string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return \App\Model\ProductQuery A secondary query class using the current class as primary query
+     */
+    public function useProductQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinProduct($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'Product', '\App\Model\ProductQuery');
+    }
+
+    /**
+     * Use the Product relation Product object
+     *
+     * @param callable(\App\Model\ProductQuery):\App\Model\ProductQuery $callable A function working on the related query
+     *
+     * @param string|null $relationAlias optional alias for the relation
+     *
+     * @param string|null $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return $this
+     */
+    public function withProductQuery(
+        callable $callable,
+        string $relationAlias = null,
+        ?string $joinType = Criteria::INNER_JOIN
+    ) {
+        $relatedQuery = $this->useProductQuery(
+            $relationAlias,
+            $joinType
+        );
+        $callable($relatedQuery);
+        $relatedQuery->endUse();
+
+        return $this;
+    }
+
+    /**
+     * Use the relation to Product table for an EXISTS query.
+     *
+     * @see \Propel\Runtime\ActiveQuery\ModelCriteria::useExistsQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the exists query, like ExtendedBookQuery::class
+     * @param string $typeOfExists Either ExistsQueryCriterion::TYPE_EXISTS or ExistsQueryCriterion::TYPE_NOT_EXISTS
+     *
+     * @return \App\Model\ProductQuery The inner query object of the EXISTS statement
+     */
+    public function useProductExistsQuery($modelAlias = null, $queryClass = null, $typeOfExists = 'EXISTS')
+    {
+        /** @var $q \App\Model\ProductQuery */
+        $q = $this->useExistsQuery('Product', $modelAlias, $queryClass, $typeOfExists);
+        return $q;
+    }
+
+    /**
+     * Use the relation to Product table for a NOT EXISTS query.
+     *
+     * @see useProductExistsQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the exists query, like ExtendedBookQuery::class
+     *
+     * @return \App\Model\ProductQuery The inner query object of the NOT EXISTS statement
+     */
+    public function useProductNotExistsQuery($modelAlias = null, $queryClass = null)
+    {
+        /** @var $q \App\Model\ProductQuery */
+        $q = $this->useExistsQuery('Product', $modelAlias, $queryClass, 'NOT EXISTS');
+        return $q;
+    }
+
+    /**
+     * Use the relation to Product table for an IN query.
+     *
+     * @see \Propel\Runtime\ActiveQuery\ModelCriteria::useInQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the IN query, like ExtendedBookQuery::class
+     * @param string $typeOfIn Criteria::IN or Criteria::NOT_IN
+     *
+     * @return \App\Model\ProductQuery The inner query object of the IN statement
+     */
+    public function useInProductQuery($modelAlias = null, $queryClass = null, $typeOfIn = 'IN')
+    {
+        /** @var $q \App\Model\ProductQuery */
+        $q = $this->useInQuery('Product', $modelAlias, $queryClass, $typeOfIn);
+        return $q;
+    }
+
+    /**
+     * Use the relation to Product table for a NOT IN query.
+     *
+     * @see useProductInQuery()
+     *
+     * @param string|null $modelAlias sets an alias for the nested query
+     * @param string|null $queryClass Allows to use a custom query class for the NOT IN query, like ExtendedBookQuery::class
+     *
+     * @return \App\Model\ProductQuery The inner query object of the NOT IN statement
+     */
+    public function useNotInProductQuery($modelAlias = null, $queryClass = null)
+    {
+        /** @var $q \App\Model\ProductQuery */
+        $q = $this->useInQuery('Product', $modelAlias, $queryClass, 'NOT IN');
+        return $q;
     }
 
     /**

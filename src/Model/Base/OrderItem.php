@@ -4,7 +4,11 @@ namespace App\Model\Base;
 
 use \Exception;
 use \PDO;
+use App\Model\Order as ChildOrder;
 use App\Model\OrderItemQuery as ChildOrderItemQuery;
+use App\Model\OrderQuery as ChildOrderQuery;
+use App\Model\Product as ChildProduct;
+use App\Model\ProductQuery as ChildProductQuery;
 use App\Model\Map\OrderItemTableMap;
 use Propel\Runtime\Propel;
 use Propel\Runtime\ActiveQuery\Criteria;
@@ -17,6 +21,18 @@ use Propel\Runtime\Exception\LogicException;
 use Propel\Runtime\Exception\PropelException;
 use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
+use Symfony\Component\Translation\IdentityTranslator;
+use Symfony\Component\Validator\ConstraintValidatorFactory;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Context\ExecutionContextFactory;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Mapping\Factory\LazyLoadingMetadataFactory;
+use Symfony\Component\Validator\Mapping\Loader\StaticMethodLoader;
+use Symfony\Component\Validator\Validator\RecursiveValidator;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Base class that represents a row from the 'myorder_item' table.
@@ -104,12 +120,39 @@ abstract class OrderItem implements ActiveRecordInterface
     protected $note;
 
     /**
+     * @var        ChildOrder
+     */
+    protected $aOrder;
+
+    /**
+     * @var        ChildProduct
+     */
+    protected $aProduct;
+
+    /**
      * Flag to prevent endless save loop, if this object is referenced
      * by another object which falls in this transaction.
      *
      * @var bool
      */
     protected $alreadyInSave = false;
+
+    // validate behavior
+
+    /**
+     * Flag to prevent endless validation loop, if this object is referenced
+     * by another object which falls in this transaction.
+     * @var        boolean
+     */
+    protected $alreadyInValidation = false;
+
+    /**
+     * ConstraintViolationList object
+     *
+     * @see     http://api.symfony.com/2.0/Symfony/Component/Validator/ConstraintViolationList.html
+     * @var     ConstraintViolationList
+     */
+    protected $validationFailures;
 
     /**
      * Initializes internal state of App\Model\Base\OrderItem object.
@@ -434,6 +477,10 @@ abstract class OrderItem implements ActiveRecordInterface
             $this->modifiedColumns[OrderItemTableMap::COL_ORDER_PK_] = true;
         }
 
+        if ($this->aOrder !== null && $this->aOrder->getPk() !== $v) {
+            $this->aOrder = null;
+        }
+
         return $this;
     }
 
@@ -452,6 +499,10 @@ abstract class OrderItem implements ActiveRecordInterface
         if ($this->product_pk_ !== $v) {
             $this->product_pk_ = $v;
             $this->modifiedColumns[OrderItemTableMap::COL_PRODUCT_PK_] = true;
+        }
+
+        if ($this->aProduct !== null && $this->aProduct->getPk() !== $v) {
+            $this->aProduct = null;
         }
 
         return $this;
@@ -601,6 +652,12 @@ abstract class OrderItem implements ActiveRecordInterface
      */
     public function ensureConsistency(): void
     {
+        if ($this->aOrder !== null && $this->order_pk_ !== $this->aOrder->getPk()) {
+            $this->aOrder = null;
+        }
+        if ($this->aProduct !== null && $this->product_pk_ !== $this->aProduct->getPk()) {
+            $this->aProduct = null;
+        }
     }
 
     /**
@@ -640,6 +697,8 @@ abstract class OrderItem implements ActiveRecordInterface
 
         if ($deep) {  // also de-associate any related objects?
 
+            $this->aOrder = null;
+            $this->aProduct = null;
         } // if (deep)
     }
 
@@ -742,6 +801,25 @@ abstract class OrderItem implements ActiveRecordInterface
         $affectedRows = 0; // initialize var to track total num of affected rows
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
+
+            // We call the save method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            if ($this->aOrder !== null) {
+                if ($this->aOrder->isModified() || $this->aOrder->isNew()) {
+                    $affectedRows += $this->aOrder->save($con);
+                }
+                $this->setOrder($this->aOrder);
+            }
+
+            if ($this->aProduct !== null) {
+                if ($this->aProduct->isModified() || $this->aProduct->isNew()) {
+                    $affectedRows += $this->aProduct->save($con);
+                }
+                $this->setProduct($this->aProduct);
+            }
 
             if ($this->isNew() || $this->isModified()) {
                 // persist changes
@@ -929,10 +1007,11 @@ abstract class OrderItem implements ActiveRecordInterface
      *                    Defaults to TableMap::TYPE_PHPNAME.
      * @param bool $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
      * @param array $alreadyDumpedObjects List of objects to skip to avoid recursion
+     * @param bool $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
      *
      * @return array An associative array containing the field names (as keys) and field values
      */
-    public function toArray(string $keyType = TableMap::TYPE_PHPNAME, bool $includeLazyLoadColumns = true, array $alreadyDumpedObjects = []): array
+    public function toArray(string $keyType = TableMap::TYPE_PHPNAME, bool $includeLazyLoadColumns = true, array $alreadyDumpedObjects = [], bool $includeForeignObjects = false): array
     {
         if (isset($alreadyDumpedObjects['OrderItem'][$this->hashCode()])) {
             return ['*RECURSION*'];
@@ -952,6 +1031,38 @@ abstract class OrderItem implements ActiveRecordInterface
             $result[$key] = $virtualColumn;
         }
 
+        if ($includeForeignObjects) {
+            if (null !== $this->aOrder) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'order';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'myorder';
+                        break;
+                    default:
+                        $key = 'Order';
+                }
+
+                $result[$key] = $this->aOrder->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+            if (null !== $this->aProduct) {
+
+                switch ($keyType) {
+                    case TableMap::TYPE_CAMELNAME:
+                        $key = 'product';
+                        break;
+                    case TableMap::TYPE_FIELDNAME:
+                        $key = 'product';
+                        break;
+                    default:
+                        $key = 'Product';
+                }
+
+                $result[$key] = $this->aProduct->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+            }
+        }
 
         return $result;
     }
@@ -1232,6 +1343,108 @@ abstract class OrderItem implements ActiveRecordInterface
     }
 
     /**
+     * Declares an association between this object and a ChildOrder object.
+     *
+     * @param ChildOrder $v
+     * @return $this The current object (for fluent API support)
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function setOrder(ChildOrder $v = null)
+    {
+        if ($v === null) {
+            $this->setOrderPk(NULL);
+        } else {
+            $this->setOrderPk($v->getPk());
+        }
+
+        $this->aOrder = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildOrder object, it will not be re-added.
+        if ($v !== null) {
+            $v->addOrderItem($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildOrder object
+     *
+     * @param ConnectionInterface $con Optional Connection object.
+     * @return ChildOrder The associated ChildOrder object.
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function getOrder(?ConnectionInterface $con = null)
+    {
+        if ($this->aOrder === null && ($this->order_pk_ != 0)) {
+            $this->aOrder = ChildOrderQuery::create()->findPk($this->order_pk_, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aOrder->addOrderItems($this);
+             */
+        }
+
+        return $this->aOrder;
+    }
+
+    /**
+     * Declares an association between this object and a ChildProduct object.
+     *
+     * @param ChildProduct $v
+     * @return $this The current object (for fluent API support)
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function setProduct(ChildProduct $v = null)
+    {
+        if ($v === null) {
+            $this->setProductPk(NULL);
+        } else {
+            $this->setProductPk($v->getPk());
+        }
+
+        $this->aProduct = $v;
+
+        // Add binding for other direction of this n:n relationship.
+        // If this object has already been added to the ChildProduct object, it will not be re-added.
+        if ($v !== null) {
+            $v->addOrderItem($this);
+        }
+
+
+        return $this;
+    }
+
+
+    /**
+     * Get the associated ChildProduct object
+     *
+     * @param ConnectionInterface $con Optional Connection object.
+     * @return ChildProduct The associated ChildProduct object.
+     * @throws \Propel\Runtime\Exception\PropelException
+     */
+    public function getProduct(?ConnectionInterface $con = null)
+    {
+        if ($this->aProduct === null && ($this->product_pk_ != 0)) {
+            $this->aProduct = ChildProductQuery::create()->findPk($this->product_pk_, $con);
+            /* The following can be used additionally to
+                guarantee the related object contains a reference
+                to this object.  This level of coupling may, however, be
+                undesirable since it could result in an only partially populated collection
+                in the referenced object.
+                $this->aProduct->addOrderItems($this);
+             */
+        }
+
+        return $this->aProduct;
+    }
+
+    /**
      * Clears the current object, sets all attributes to their default values and removes
      * outgoing references as well as back-references (from other objects to this one. Results probably in a database
      * change of those foreign objects when you call `save` there).
@@ -1240,6 +1453,12 @@ abstract class OrderItem implements ActiveRecordInterface
      */
     public function clear()
     {
+        if (null !== $this->aOrder) {
+            $this->aOrder->removeOrderItem($this);
+        }
+        if (null !== $this->aProduct) {
+            $this->aProduct->removeOrderItem($this);
+        }
         $this->pk_ = null;
         $this->order_pk_ = null;
         $this->product_pk_ = null;
@@ -1269,6 +1488,8 @@ abstract class OrderItem implements ActiveRecordInterface
         if ($deep) {
         } // if ($deep)
 
+        $this->aOrder = null;
+        $this->aProduct = null;
         return $this;
     }
 
@@ -1280,6 +1501,92 @@ abstract class OrderItem implements ActiveRecordInterface
     public function __toString()
     {
         return (string) $this->exportTo(OrderItemTableMap::DEFAULT_STRING_FORMAT);
+    }
+
+    // validate behavior
+
+    /**
+     * Configure validators constraints. The Validator object uses this method
+     * to perform object validation.
+     *
+     * @param ClassMetadata $metadata
+     */
+    static public function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('order_pk_', new NotNull());
+        $metadata->addPropertyConstraint('product_pk_', new NotNull());
+        $metadata->addPropertyConstraint('quantity', new NotNull());
+        $metadata->addPropertyConstraint('quantity', new GreaterThan(array ('value' => 0,)));
+        $metadata->addPropertyConstraint('price', new NotNull());
+        $metadata->addPropertyConstraint('note', new Length(array ('max' => 500,)));
+    }
+
+    /**
+     * Validates the object and all objects related to this table.
+     *
+     * @see        getValidationFailures()
+     * @param ValidatorInterface|null $validator A Validator class instance
+     * @return bool Whether all objects pass validation.
+     */
+    public function validate(ValidatorInterface $validator = null)
+    {
+        if (null === $validator) {
+            $validator = new RecursiveValidator(
+                new ExecutionContextFactory(new IdentityTranslator()),
+                new LazyLoadingMetadataFactory(new StaticMethodLoader()),
+                new ConstraintValidatorFactory()
+            );
+        }
+
+        $failureMap = new ConstraintViolationList();
+
+        if (!$this->alreadyInValidation) {
+            $this->alreadyInValidation = true;
+            $retval = null;
+
+            // We call the validate method on the following object(s) if they
+            // were passed to this object by their corresponding set
+            // method.  This object relates to these object(s) by a
+            // foreign key reference.
+
+            // If validate() method exists, the validate-behavior is configured for related object
+            if (is_object($this->aOrder) and method_exists($this->aOrder, 'validate')) {
+                if (!$this->aOrder->validate($validator)) {
+                    $failureMap->addAll($this->aOrder->getValidationFailures());
+                }
+            }
+            // If validate() method exists, the validate-behavior is configured for related object
+            if (is_object($this->aProduct) and method_exists($this->aProduct, 'validate')) {
+                if (!$this->aProduct->validate($validator)) {
+                    $failureMap->addAll($this->aProduct->getValidationFailures());
+                }
+            }
+
+            $retval = $validator->validate($this);
+            if (count($retval) > 0) {
+                $failureMap->addAll($retval);
+            }
+
+
+            $this->alreadyInValidation = false;
+        }
+
+        $this->validationFailures = $failureMap;
+
+        return (bool) (!(count($this->validationFailures) > 0));
+
+    }
+
+    /**
+     * Gets any ConstraintViolation objects that resulted from last call to validate().
+     *
+     *
+     * @return ConstraintViolationList
+     * @see        validate()
+     */
+    public function getValidationFailures()
+    {
+        return $this->validationFailures;
     }
 
     /**

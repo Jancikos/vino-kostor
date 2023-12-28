@@ -76,6 +76,20 @@
         <column name="PAIED" type="timestamp" />
         <column name="REAL_PRICE" type="float" description="cena, ktoru zakaznik naozaj zakaznik zaplatil" />
         <column name="NOTE" type="varchar" size="500" />
+
+        <!-- foreign keys -->
+        <foreign-key name="fk_order_customer" foreignTable="customer" phpName="Customer">
+            <reference local="CUSTOMER_PK_" foreign="PK_" />
+        </foreign-key>
+        <foreign-key name="fk_order_user" foreignTable="user" phpName="User">
+            <reference local="USER_PK_" foreign="PK_" />
+        </foreign-key>
+
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: customer_pk_, validator: NotNull}" />
+            <parameter name="rule2" value="{column: user_pk_, validator: NotNull}" />
+            <parameter name="rule3" value="{column: note, validator: Length, options: {max: 500}}" />
+        </behavior>
     </table>
 
     <table name="myorder_item" phpName="OrderItem">
@@ -85,6 +99,23 @@
         <column name="QUANTITY" type="integer" required="true" />
         <column name="PRICE" type="float" required="true" description="cena, ktoru stal kus daneho produktu v case jeho pridania do objednavky" />
         <column name="NOTE" type="varchar" size="500" />
+
+        <!-- foreign keys -->
+        <foreign-key name="fk_order_item_order" foreignTable="myorder" phpName="Order">
+            <reference local="ORDER_PK_" foreign="PK_" />
+        </foreign-key>
+        <foreign-key name="fk_order_item_product" foreignTable="product" phpName="Product">
+            <reference local="PRODUCT_PK_" foreign="PK_" />
+        </foreign-key>
+        
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: order_pk_, validator: NotNull}" />
+            <parameter name="rule2" value="{column: product_pk_, validator: NotNull}" />
+            <parameter name="rule3" value="{column: quantity, validator: NotNull}" />
+            <parameter name="rule4" value="{column: quantity, validator: GreaterThan, options: {value: 0}}" />
+            <parameter name="rule5" value="{column: price, validator: NotNull}" />
+            <parameter name="rule6" value="{column: note, validator: Length, options: {max: 500}}" />
+        </behavior>
     </table>
 
 </database>

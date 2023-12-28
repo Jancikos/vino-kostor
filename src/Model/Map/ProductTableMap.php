@@ -230,6 +230,13 @@ class ProductTableMap extends TableMap
      */
     public function buildRelations(): void
     {
+        $this->addRelation('OrderItem', '\\App\\Model\\OrderItem', RelationMap::ONE_TO_MANY, array (
+  0 =>
+  array (
+    0 => ':PRODUCT_PK_',
+    1 => ':PK_',
+  ),
+), null, null, 'OrderItems', false);
     }
 
     /**

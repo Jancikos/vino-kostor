@@ -25,6 +25,7 @@ Encore
     .addEntry('products', './assets/scripts/pages/products.js')
     .addEntry('users', './assets/scripts/pages/users.js')
     .addEntry('customers', './assets/scripts/pages/customers.js')
+    .addEntry('orders', './assets/scripts/pages/orders.js')
     .addEntry('public', './assets/scripts/pages/public.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
