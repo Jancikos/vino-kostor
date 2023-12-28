@@ -3,9 +3,9 @@ use Propel\Generator\Manager\MigrationManager;
 
 /**
  * Data object containing the SQL and PHP code to migrate the database
- * up to version 1703746171.
- * Generated on 2023-12-28 06:49:31  */
-class PropelMigration_1703746171{
+ * up to version 1703746857.
+ * Generated on 2023-12-28 07:00:57  */
+class PropelMigration_1703746857{
     /**
      * @var string
      */
@@ -65,7 +65,7 @@ class PropelMigration_1703746171{
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
-CREATE TABLE `order`
+CREATE TABLE `myorder`
 (
     `PK_` INTEGER NOT NULL AUTO_INCREMENT,
     `CUSTOMER_PK_` INTEGER NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `order`
     PRIMARY KEY (`PK_`)
 ) ENGINE=InnoDB;
 
-CREATE TABLE `order_item`
+CREATE TABLE `myorder_item`
 (
     `PK_` INTEGER NOT NULL AUTO_INCREMENT,
     `ORDER_PK_` INTEGER NOT NULL,
@@ -114,9 +114,9 @@ EOT;
 # It "suspends judgement" for fkey relationships until are tables are set.
 SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `myorder`;
 
-DROP TABLE IF EXISTS `order_item`;
+DROP TABLE IF EXISTS `myorder_item`;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

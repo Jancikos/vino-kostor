@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'order_item' table.
+ * This class defines the structure of the 'myorder_item' table.
  *
  *
  *
@@ -43,7 +43,7 @@ class OrderItemTableMap extends TableMap
     /**
      * The table name for this class
      */
-    public const TABLE_NAME = 'order_item';
+    public const TABLE_NAME = 'myorder_item';
 
     /**
      * The PHP name of this class (PascalCase)
@@ -78,32 +78,32 @@ class OrderItemTableMap extends TableMap
     /**
      * the column name for the PK_ field
      */
-    public const COL_PK_ = 'order_item.PK_';
+    public const COL_PK_ = 'myorder_item.PK_';
 
     /**
      * the column name for the ORDER_PK_ field
      */
-    public const COL_ORDER_PK_ = 'order_item.ORDER_PK_';
+    public const COL_ORDER_PK_ = 'myorder_item.ORDER_PK_';
 
     /**
      * the column name for the PRODUCT_PK_ field
      */
-    public const COL_PRODUCT_PK_ = 'order_item.PRODUCT_PK_';
+    public const COL_PRODUCT_PK_ = 'myorder_item.PRODUCT_PK_';
 
     /**
      * the column name for the QUANTITY field
      */
-    public const COL_QUANTITY = 'order_item.QUANTITY';
+    public const COL_QUANTITY = 'myorder_item.QUANTITY';
 
     /**
      * the column name for the PRICE field
      */
-    public const COL_PRICE = 'order_item.PRICE';
+    public const COL_PRICE = 'myorder_item.PRICE';
 
     /**
      * the column name for the NOTE field
      */
-    public const COL_NOTE = 'order_item.NOTE';
+    public const COL_NOTE = 'myorder_item.NOTE';
 
     /**
      * The default string format for model objects of the related table
@@ -155,7 +155,7 @@ class OrderItemTableMap extends TableMap
         'OrderItemTableMap::COL_PK_' => 'PK_',
         'COL_PK_' => 'PK_',
         'PK_' => 'PK_',
-        'order_item.PK_' => 'PK_',
+        'myorder_item.PK_' => 'PK_',
         'OrderPk' => 'ORDER_PK_',
         'OrderItem.OrderPk' => 'ORDER_PK_',
         'orderPk' => 'ORDER_PK_',
@@ -163,7 +163,7 @@ class OrderItemTableMap extends TableMap
         'OrderItemTableMap::COL_ORDER_PK_' => 'ORDER_PK_',
         'COL_ORDER_PK_' => 'ORDER_PK_',
         'ORDER_PK_' => 'ORDER_PK_',
-        'order_item.ORDER_PK_' => 'ORDER_PK_',
+        'myorder_item.ORDER_PK_' => 'ORDER_PK_',
         'ProductPk' => 'PRODUCT_PK_',
         'OrderItem.ProductPk' => 'PRODUCT_PK_',
         'productPk' => 'PRODUCT_PK_',
@@ -171,7 +171,7 @@ class OrderItemTableMap extends TableMap
         'OrderItemTableMap::COL_PRODUCT_PK_' => 'PRODUCT_PK_',
         'COL_PRODUCT_PK_' => 'PRODUCT_PK_',
         'PRODUCT_PK_' => 'PRODUCT_PK_',
-        'order_item.PRODUCT_PK_' => 'PRODUCT_PK_',
+        'myorder_item.PRODUCT_PK_' => 'PRODUCT_PK_',
         'Quantity' => 'QUANTITY',
         'OrderItem.Quantity' => 'QUANTITY',
         'quantity' => 'QUANTITY',
@@ -179,7 +179,7 @@ class OrderItemTableMap extends TableMap
         'OrderItemTableMap::COL_QUANTITY' => 'QUANTITY',
         'COL_QUANTITY' => 'QUANTITY',
         'QUANTITY' => 'QUANTITY',
-        'order_item.QUANTITY' => 'QUANTITY',
+        'myorder_item.QUANTITY' => 'QUANTITY',
         'Price' => 'PRICE',
         'OrderItem.Price' => 'PRICE',
         'price' => 'PRICE',
@@ -187,7 +187,7 @@ class OrderItemTableMap extends TableMap
         'OrderItemTableMap::COL_PRICE' => 'PRICE',
         'COL_PRICE' => 'PRICE',
         'PRICE' => 'PRICE',
-        'order_item.PRICE' => 'PRICE',
+        'myorder_item.PRICE' => 'PRICE',
         'Note' => 'NOTE',
         'OrderItem.Note' => 'NOTE',
         'note' => 'NOTE',
@@ -195,7 +195,7 @@ class OrderItemTableMap extends TableMap
         'OrderItemTableMap::COL_NOTE' => 'NOTE',
         'COL_NOTE' => 'NOTE',
         'NOTE' => 'NOTE',
-        'order_item.NOTE' => 'NOTE',
+        'myorder_item.NOTE' => 'NOTE',
     ];
 
     /**
@@ -208,7 +208,7 @@ class OrderItemTableMap extends TableMap
     public function initialize(): void
     {
         // attributes
-        $this->setName('order_item');
+        $this->setName('myorder_item');
         $this->setPhpName('OrderItem');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\App\\Model\\OrderItem');
@@ -475,7 +475,7 @@ class OrderItemTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the order_item table.
+     * Deletes all rows from the myorder_item table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).

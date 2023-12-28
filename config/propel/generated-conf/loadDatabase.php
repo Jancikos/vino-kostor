@@ -6,8 +6,8 @@ $serviceContainer->initDatabaseMapFromDumps(array (
     'tablesByName' => 
     array (
       'customer' => '\\App\\Model\\Map\\CustomerTableMap',
-      'order' => '\\App\\Model\\Map\\OrderTableMap',
-      'order_item' => '\\App\\Model\\Map\\OrderItemTableMap',
+      'myorder' => '\\App\\Model\\Map\\OrderTableMap',
+      'myorder_item' => '\\App\\Model\\Map\\OrderItemTableMap',
       'product' => '\\App\\Model\\Map\\ProductTableMap',
       'user' => '\\App\\Model\\Map\\UserTableMap',
     ),

@@ -15,7 +15,7 @@ use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
 
 /**
- * Base class that represents a query for the `order_item` table.
+ * Base class that represents a query for the `myorder_item` table.
  *
  * @method     ChildOrderItemQuery orderByPk($order = Criteria::ASC) Order by the PK_ column
  * @method     ChildOrderItemQuery orderByOrderPk($order = Criteria::ASC) Order by the ORDER_PK_ column
@@ -173,7 +173,7 @@ abstract class OrderItemQuery extends ModelCriteria
      */
     protected function findPkSimple($key, ConnectionInterface $con)
     {
-        $sql = 'SELECT PK_, ORDER_PK_, PRODUCT_PK_, QUANTITY, PRICE, NOTE FROM order_item WHERE PK_ = :p0';
+        $sql = 'SELECT PK_, ORDER_PK_, PRODUCT_PK_, QUANTITY, PRICE, NOTE FROM myorder_item WHERE PK_ = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -527,7 +527,7 @@ abstract class OrderItemQuery extends ModelCriteria
     }
 
     /**
-     * Deletes all rows from the order_item table.
+     * Deletes all rows from the myorder_item table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).

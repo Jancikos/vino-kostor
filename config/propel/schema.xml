@@ -65,7 +65,7 @@
         </behavior>
     </table>
 
-    <table name="order" phpName="Order" >
+    <table name="myorder" phpName="Order" tableName="" >
         <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="CUSTOMER_PK_" type="integer" required="true" />
         <column name="USER_PK_" type="integer" required="true" description="user, ktory spravuje tuto objednavku" />
@@ -78,7 +78,7 @@
         <column name="NOTE" type="varchar" size="500" />
     </table>
 
-    <table name="order_item" phpName="OrderItem">
+    <table name="myorder_item" phpName="OrderItem">
         <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="ORDER_PK_" type="integer" required="true" />
         <column name="PRODUCT_PK_" type="integer" required="true" />

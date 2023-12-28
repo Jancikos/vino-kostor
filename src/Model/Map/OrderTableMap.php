@@ -16,7 +16,7 @@ use Propel\Runtime\Map\TableMapTrait;
 
 
 /**
- * This class defines the structure of the 'order' table.
+ * This class defines the structure of the 'myorder' table.
  *
  *
  *
@@ -43,7 +43,7 @@ class OrderTableMap extends TableMap
     /**
      * The table name for this class
      */
-    public const TABLE_NAME = 'order';
+    public const TABLE_NAME = 'myorder';
 
     /**
      * The PHP name of this class (PascalCase)
@@ -78,52 +78,52 @@ class OrderTableMap extends TableMap
     /**
      * the column name for the PK_ field
      */
-    public const COL_PK_ = 'order.PK_';
+    public const COL_PK_ = 'myorder.PK_';
 
     /**
      * the column name for the CUSTOMER_PK_ field
      */
-    public const COL_CUSTOMER_PK_ = 'order.CUSTOMER_PK_';
+    public const COL_CUSTOMER_PK_ = 'myorder.CUSTOMER_PK_';
 
     /**
      * the column name for the USER_PK_ field
      */
-    public const COL_USER_PK_ = 'order.USER_PK_';
+    public const COL_USER_PK_ = 'myorder.USER_PK_';
 
     /**
      * the column name for the STATUS field
      */
-    public const COL_STATUS = 'order.STATUS';
+    public const COL_STATUS = 'myorder.STATUS';
 
     /**
      * the column name for the CREATED field
      */
-    public const COL_CREATED = 'order.CREATED';
+    public const COL_CREATED = 'myorder.CREATED';
 
     /**
      * the column name for the PACKED field
      */
-    public const COL_PACKED = 'order.PACKED';
+    public const COL_PACKED = 'myorder.PACKED';
 
     /**
      * the column name for the SHIPPED field
      */
-    public const COL_SHIPPED = 'order.SHIPPED';
+    public const COL_SHIPPED = 'myorder.SHIPPED';
 
     /**
      * the column name for the PAIED field
      */
-    public const COL_PAIED = 'order.PAIED';
+    public const COL_PAIED = 'myorder.PAIED';
 
     /**
      * the column name for the REAL_PRICE field
      */
-    public const COL_REAL_PRICE = 'order.REAL_PRICE';
+    public const COL_REAL_PRICE = 'myorder.REAL_PRICE';
 
     /**
      * the column name for the NOTE field
      */
-    public const COL_NOTE = 'order.NOTE';
+    public const COL_NOTE = 'myorder.NOTE';
 
     /**
      * The default string format for model objects of the related table
@@ -175,7 +175,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_PK_' => 'PK_',
         'COL_PK_' => 'PK_',
         'PK_' => 'PK_',
-        'order.PK_' => 'PK_',
+        'myorder.PK_' => 'PK_',
         'CustomerPk' => 'CUSTOMER_PK_',
         'Order.CustomerPk' => 'CUSTOMER_PK_',
         'customerPk' => 'CUSTOMER_PK_',
@@ -183,7 +183,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_CUSTOMER_PK_' => 'CUSTOMER_PK_',
         'COL_CUSTOMER_PK_' => 'CUSTOMER_PK_',
         'CUSTOMER_PK_' => 'CUSTOMER_PK_',
-        'order.CUSTOMER_PK_' => 'CUSTOMER_PK_',
+        'myorder.CUSTOMER_PK_' => 'CUSTOMER_PK_',
         'UserPk' => 'USER_PK_',
         'Order.UserPk' => 'USER_PK_',
         'userPk' => 'USER_PK_',
@@ -191,7 +191,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_USER_PK_' => 'USER_PK_',
         'COL_USER_PK_' => 'USER_PK_',
         'USER_PK_' => 'USER_PK_',
-        'order.USER_PK_' => 'USER_PK_',
+        'myorder.USER_PK_' => 'USER_PK_',
         'Status' => 'STATUS',
         'Order.Status' => 'STATUS',
         'status' => 'STATUS',
@@ -199,7 +199,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_STATUS' => 'STATUS',
         'COL_STATUS' => 'STATUS',
         'STATUS' => 'STATUS',
-        'order.STATUS' => 'STATUS',
+        'myorder.STATUS' => 'STATUS',
         'Created' => 'CREATED',
         'Order.Created' => 'CREATED',
         'created' => 'CREATED',
@@ -207,7 +207,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_CREATED' => 'CREATED',
         'COL_CREATED' => 'CREATED',
         'CREATED' => 'CREATED',
-        'order.CREATED' => 'CREATED',
+        'myorder.CREATED' => 'CREATED',
         'Packed' => 'PACKED',
         'Order.Packed' => 'PACKED',
         'packed' => 'PACKED',
@@ -215,7 +215,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_PACKED' => 'PACKED',
         'COL_PACKED' => 'PACKED',
         'PACKED' => 'PACKED',
-        'order.PACKED' => 'PACKED',
+        'myorder.PACKED' => 'PACKED',
         'Shipped' => 'SHIPPED',
         'Order.Shipped' => 'SHIPPED',
         'shipped' => 'SHIPPED',
@@ -223,7 +223,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_SHIPPED' => 'SHIPPED',
         'COL_SHIPPED' => 'SHIPPED',
         'SHIPPED' => 'SHIPPED',
-        'order.SHIPPED' => 'SHIPPED',
+        'myorder.SHIPPED' => 'SHIPPED',
         'Paied' => 'PAIED',
         'Order.Paied' => 'PAIED',
         'paied' => 'PAIED',
@@ -231,7 +231,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_PAIED' => 'PAIED',
         'COL_PAIED' => 'PAIED',
         'PAIED' => 'PAIED',
-        'order.PAIED' => 'PAIED',
+        'myorder.PAIED' => 'PAIED',
         'RealPrice' => 'REAL_PRICE',
         'Order.RealPrice' => 'REAL_PRICE',
         'realPrice' => 'REAL_PRICE',
@@ -239,7 +239,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_REAL_PRICE' => 'REAL_PRICE',
         'COL_REAL_PRICE' => 'REAL_PRICE',
         'REAL_PRICE' => 'REAL_PRICE',
-        'order.REAL_PRICE' => 'REAL_PRICE',
+        'myorder.REAL_PRICE' => 'REAL_PRICE',
         'Note' => 'NOTE',
         'Order.Note' => 'NOTE',
         'note' => 'NOTE',
@@ -247,7 +247,7 @@ class OrderTableMap extends TableMap
         'OrderTableMap::COL_NOTE' => 'NOTE',
         'COL_NOTE' => 'NOTE',
         'NOTE' => 'NOTE',
-        'order.NOTE' => 'NOTE',
+        'myorder.NOTE' => 'NOTE',
     ];
 
     /**
@@ -260,7 +260,7 @@ class OrderTableMap extends TableMap
     public function initialize(): void
     {
         // attributes
-        $this->setName('order');
+        $this->setName('myorder');
         $this->setPhpName('Order');
         $this->setIdentifierQuoting(false);
         $this->setClassName('\\App\\Model\\Order');
@@ -547,7 +547,7 @@ class OrderTableMap extends TableMap
     }
 
     /**
-     * Deletes all rows from the order table.
+     * Deletes all rows from the myorder table.
      *
      * @param ConnectionInterface $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).

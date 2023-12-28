@@ -21,7 +21,7 @@ use Propel\Runtime\Parser\AbstractParser;
 use Propel\Runtime\Util\PropelDateTime;
 
 /**
- * Base class that represents a row from the 'order' table.
+ * Base class that represents a row from the 'myorder' table.
  *
  *
  *
@@ -1034,7 +1034,7 @@ abstract class Order implements ActiveRecordInterface
         }
 
         $sql = sprintf(
-            'INSERT INTO order (%s) VALUES (%s)',
+            'INSERT INTO myorder (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );

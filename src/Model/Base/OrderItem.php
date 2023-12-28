@@ -19,7 +19,7 @@ use Propel\Runtime\Map\TableMap;
 use Propel\Runtime\Parser\AbstractParser;
 
 /**
- * Base class that represents a row from the 'order_item' table.
+ * Base class that represents a row from the 'myorder_item' table.
  *
  *
  *
@@ -800,7 +800,7 @@ abstract class OrderItem implements ActiveRecordInterface
         }
 
         $sql = sprintf(
-            'INSERT INTO order_item (%s) VALUES (%s)',
+            'INSERT INTO myorder_item (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
