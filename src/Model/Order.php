@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Model\Base\Order as BaseOrder;
 use App\Utils\Validation\IValidableModel;
+use Propel\Runtime\Connection\ConnectionInterface;
 use Propel\Runtime\Exception\PropelException;
 
 /**
@@ -45,5 +46,14 @@ class Order extends BaseOrder implements IValidableModel
         }
 
         return $total;
+    }
+
+    public function preDelete(?ConnectionInterface $con = null): bool
+    {
+        foreach ($this->getOrderItems() as $item) {
+            $item->delete();
+        }
+
+        return true;
     }
 }
