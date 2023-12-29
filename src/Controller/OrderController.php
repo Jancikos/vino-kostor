@@ -12,6 +12,8 @@ use App\Model\UserQuery;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
+use App\Utils\Orders\OrderStatusCase;
+use App\Utils\Orders\OrderStatusManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -87,38 +89,73 @@ class OrderController extends AdminController
             // set status created @todo
 
             $isNew = true;
+            OrderStatusManager::setOrderStatus($order, OrderStatusCase::CREATED);
         }
 
         $order->setCustomerPk($request->request->get('customerPk'));
         $order->setUserPk($request->request->get('userPk'));
         $order->setNote($request->request->get('note'));
 
+        $realPrice = $request->request->get('realPrice', "");
+        if (!empty($realPrice)) {
+            if ($realPrice != $order->getRealPrice()) {
+                $order->setRealPrice($realPrice);
+                OrderStatusManager::setOrderStatus($order, OrderStatusCase::PAIED);
+            }
+        }
+
         $validationResponse = JsonValidationResponse::ValidateModel($order);
 
         if ($validationResponse->getSuccess()) {
             $order->save();
-            $this->addFlash(FlashMessageType::SUCCESS, 'Objednávka bola ' . ($isNew ? 'vytvorená' : 'upravená') . '.');
+            if (!$isNew) {
+                $this->addFlash(FlashMessageType::SUCCESS, 'Objednávka bola upravená.');
+            }
 
             $validationResponse->addData('orderPk', $order->getPk());
         }
 
         return $validationResponse->toJsonResponse();
     }
+    
 
+    /**
+     * @Route("/setStatus", name="set_status", methods={"POST"})
+     */
+    public function setStatus(Request $request): Response
+    {
+        /** @var Order $product */
+        $order = OrderQuery::create()->findOneByPk($request->request->get('orderPk'));
+     
+        if ($order === null) {
+            return JsonDataResponse::FailedResponse("Objednávka nebola nájdená.")->toJsonResponse();
+        }
+
+        $status = OrderStatusCase::tryFrom($request->request->get('nextStatusPk'));
+        if ($status === null) {
+            return JsonDataResponse::FailedResponse("Neplatný status objednávky.")->toJsonResponse();
+        }
+
+        OrderStatusManager::setOrderStatus($order, $status);
+        $order->save();
+
+        $this->addFlash(FlashMessageType::SUCCESS, 'Status objednávky bol zmenený.');
+        return JsonDataResponse::SuccessResponse()->toJsonResponse();
+    }
     /**
      * @Route("/delete", name="delete", methods={"POST"})
      */
     public function delete(Request $request): Response
     {
-        /** @var Order $customer */
-        $customer = OrderQuery::create()->findPk($request->request->get('pk_'));
+        /** @var Order $order */
+        $order = OrderQuery::create()->findPk($request->request->get('pk_'));
 
-        if ($customer === null) {
-            return JsonDataResponse::FailedResponse("Objednávka nebol nájdený.")->toJsonResponse();
+        if ($order === null) {
+            return JsonDataResponse::FailedResponse("Objednávka nebola nájdená.")->toJsonResponse();
         }
 
-        $customer->delete();
-        $this->addFlash(FlashMessageType::SUCCESS, 'Objednávka bol vymazaný.');
+        $order->delete();
+        $this->addFlash(FlashMessageType::SUCCESS, 'Objednávka bola vymazaná.');
 
         return JsonDataResponse::SuccessResponse()->toJsonResponse();
     }

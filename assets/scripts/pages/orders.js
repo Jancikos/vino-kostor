@@ -14,7 +14,28 @@ orderForm.submitPostSuccess = function(response) {
     }
 
     window.location.href = redirectUrl;
-}
+};
+orderForm.manageOrderStatus = function(nextStatusPk) {
+    const formModel = this;
+    const btn = $('#order-form-set-status-btn');
+
+    $.ajax({
+        url: btn.attr('href'),
+        method: 'POST',
+        data: {
+            orderPk: formModel.getFormInput('pk').val(),
+            // nextStatus: btn.attr('data-next-status')
+            nextStatusPk: nextStatusPk
+        },
+        success: function(response) {
+            // reload
+            window.location.reload();
+        },
+        error: function(response) {
+            alert('Pri ukladaní došlo k chybe. Skúste to prosím znova.');
+        }
+    });
+};
 
 // orderForm.validation['title'] = function() {
 //     orderForm.clearInputErrors('title');

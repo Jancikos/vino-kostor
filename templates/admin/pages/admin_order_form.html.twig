@@ -32,6 +32,38 @@
         </svg>
         Pridať položku
     </a>
+
+    {# spracovat stav #}
+    {# {% if order.status < 4 %} #}
+    <a href="{{ path('admin_orders_set_status') }}" id="order-form-set-status-btn" class="btn relative"
+    x-data="{ statesDropdownOpen: false }" @click.outside="statesDropdownOpen = false" @click.prevent="orderForm.manageOrderStatus({{ order.nextstatus.pk.value }})">
+        <svg xmlns="http://www.w3.org/2000/svg" height="1em"
+            viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+            <path
+                d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416V96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4L224 214.3V256v41.7L52.5 440.6zM256 352V256 128 96c0-12.4 7.2-23.7 18.4-29s24.5-3.6 34.1 4.4l192 160c7.3 6.1 11.5 15.1 11.5 24.6s-4.2 18.5-11.5 24.6l-192 160c-9.5 7.9-22.8 9.7-34.1 4.4s-18.4-16.6-18.4-29V352z" />
+        </svg>
+
+        Spracovať stav
+        
+        {# <svg :class="statesDropdownOpen && 'rotate-180'" @click.prevent="statesDropdownOpen = ! statesDropdownOpen" class="hidden fill-current sm:block" width="12" height="8"
+            viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M0.410765 0.910734C0.736202 0.585297 1.26384 0.585297 1.58928 0.910734L6.00002 5.32148L10.4108 0.910734C10.7362 0.585297 11.2638 0.585297 11.5893 0.910734C11.9147 1.23617 11.9147 1.76381 11.5893 2.08924L6.58928 7.08924C6.26384 7.41468 5.7362 7.41468 5.41077 7.08924L0.410765 2.08924C0.0853277 1.76381 0.0853277 1.23617 0.410765 0.910734Z"
+                fill="" />
+        </svg> #}
+
+        {# todo - dorobit dropdown na spracovanie inych statvov #}
+        <!-- states dropdown Start -->
+        {# <div x-show="statesDropdownOpen"
+            class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default">
+            <ul class="flex flex-col gap-5 border-b border-stroke px-6 py-7.5">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
+        </div> #}
+    </a>
+    {# {% endif %} #}
     {% endif %}
 </div>
 
@@ -116,7 +148,11 @@
     {% if editMode %}
     <div class="form-row">
         <label>Stav</label>
-        {# <input type="text" name="email" placeholder="Zadajte email objednávku" value="{{ order.email }}"> #}
+        <input type="text" value="{{ order.actualstatus.title }}" disabled="">
+    </div>
+
+    <div class="form-row">
+        <input type="text" value="{{ order.actualstatusdate|date(" d.m.Y H:i:s") }}" disabled="">
     </div>
     {% endif %}
 
@@ -124,8 +160,10 @@
     {% if editMode %}
     <div class="form-row">
         <label>Zaplatená suma</label>
-        <input type="text" name="totalPrice" x-mask:dynamic="$money($input, '.', '', 2)" placeholder="Zadajte zaplatanú sumu za objednávku" value="{{ order.realprice }}">
+        <input type="text" name="realPrice" x-mask:dynamic="$money($input, '.', '', 2)"
+            placeholder="Zadajte zaplatenú sumu za objednávku" value="{{ order.realprice }}">
     </div>
+
     {% endif %}
 
     {# polozky #}
@@ -134,21 +172,21 @@
         <label>Položky</label>
         <div class="table-wrapper">
             <table id="table-order-items" data-form-url="{{ path('admin_products_form') }}"
-            data-delete-url="{{ path('admin_products_delete') }}">
-            <thead>
+                data-delete-url="{{ path('admin_products_delete') }}">
+                <thead>
                     <tr class="text-left">
                         <th class="min-w-[220px]">
                             Produkt
                         </th>
-                        
+
                         <th class="min-w-[100px]">
                             Kusy
                         </th>
-                        
+
                         <th class="min-w-[120px]">
                             Cena/ks
                         </th>
-                        
+
                         <th class="min-w-[120px]">
                             Poznámka
                         </th>
