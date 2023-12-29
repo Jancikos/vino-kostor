@@ -32,7 +32,7 @@
 
     /* butttons */
     .btn-row {
-        @apply flex items-center gap-2.5;
+        @apply flex items-center gap-2.5 flex-wrap;
         @apply mb-4;
     }
 
@@ -50,11 +50,15 @@
     /* form */
     .form-wrapper {
         @apply rounded-sm border border-stroke bg-white shadow-default;
-        @apply p-6.5;
+        @apply px-3.5 py-6 md:p-6.5;
     }
     .form-wrapper label {
         @apply block mb-2.5 text-black;
     }
+    .form-wrapper label.empty {
+        @apply text-transparent hidden sm:block;
+    }
+
     .form-wrapper input {        
         @apply w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5;
         @apply font-medium outline-none transition;
@@ -67,12 +71,17 @@
         @apply block mt-1 text-sm text-danger;
     }
     
-    .form-row {
+    .form-wrapper .form-row {
         @apply mb-4.5;
+        @apply flex-1;
     }
 
-    .form-wrapper .form-row:last-child {
+    .form-wrapper .form-row.last {
         @apply mb-0;
+    }
+
+    .form-wrapper .form-horizontal-row {
+        @apply flex flex-row gap-4.5;
     }
     
     /* checkbox input */

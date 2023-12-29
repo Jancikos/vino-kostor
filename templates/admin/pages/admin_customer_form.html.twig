@@ -29,34 +29,40 @@
     class="form-wrapper" @submit.prevent="customerForm.submit()">
     <input type="hidden" name="pk" value="{{ customerModel.pk }}" />
 
-    <div class="form-row">
-        <label>Meno</label>
-        <input type="text" name="firstname" placeholder="Zadajte meno zákazníka" value="{{ customerModel.firstname }}">
+    <div class="sm:form-horizontal-row">
+        <div class="form-row">
+            <label>Meno</label>
+            <input type="text" name="firstname" placeholder="Zadajte meno zákazníka" value="{{ customerModel.firstname }}">
+        </div>
+
+        <div class="form-row">
+            <label>Priezvisko</label>
+            <input type="text" name="lastname" placeholder="Zadajte priezvisko zákazníka" value="{{ customerModel.lastname }}">
+        </div>
     </div>
 
-    <div class="form-row">
-        <label>Priezvisko</label>
-        <input type="text" name="lastname" placeholder="Zadajte priezvisko zákazníka" value="{{ customerModel.lastname }}">
+    <div class="sm:form-horizontal-row">
+        <div class="form-row">
+            <label>Email</label>
+            <input type="text" name="email" placeholder="Zadajte email zákazníka" value="{{ customerModel.email }}">
+        </div>
+
+        <div class="form-row">
+            <label>Telefón</label>
+            <input type="text" name="phone" placeholder="Zadajte telefónne číslo zákazníka" value="{{ customerModel.phone }}">
+        </div>
     </div>
 
-    <div class="form-row">
-        <label>Email</label>
-        <input type="text" name="email" placeholder="Zadajte email zákazníka" value="{{ customerModel.email }}">
-    </div>
-
-    <div class="form-row">
-        <label>Telefón</label>
-        <input type="text" name="phone" placeholder="Zadajte telefónne číslo zákazníka" value="{{ customerModel.phone }}">
-    </div>
-
-    <div class="form-row">
-        <label>Mesto</label>
-        <input type="text" name="city" placeholder="Zadajte mesto zákazníka" value="{{ customerModel.city }}">
-    </div>
-
-    <div class="form-row">
-        <label>Adresa</label>
-        <input type="text" name="address" placeholder="Zadajte adresu zákazníka" value="{{ customerModel.address }}">
+    <div class="sm:form-horizontal-row">
+        <div class="form-row">
+            <label>Mesto</label>
+            <input type="text" name="city" placeholder="Zadajte mesto zákazníka" value="{{ customerModel.city }}">
+        </div>
+        
+        <div class="form-row">
+            <label>Adresa</label>
+            <input type="text" name="address" placeholder="Zadajte adresu zákazníka" value="{{ customerModel.address }}">
+        </div>
     </div>
 
     <div class="form-row">
