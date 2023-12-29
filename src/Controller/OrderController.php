@@ -148,7 +148,7 @@ class OrderController extends AdminController
     public function delete(Request $request): Response
     {
         /** @var Order $order */
-        $order = OrderQuery::create()->findPk($request->request->get('pk_'));
+        $order = OrderQuery::create()->findPk($request->request->get('pk'));
 
         if ($order === null) {
             return JsonDataResponse::FailedResponse("Objednávka nebola nájdená.")->toJsonResponse();
@@ -189,7 +189,7 @@ class OrderController extends AdminController
             $orderItem = new OrderItem();
             $orderItem->setOrderPk($orderPk);
         } else {
-            $this->addBreadcrumb('Položka objednávky ' . $orderItem->getFullName(), 'admin_orders_item_form');
+            $this->addBreadcrumb('Položka #' . $orderItem->getPk(), 'admin_orders_item_form');
         }
         
         if ($orderItem->getOrderPk() != $orderPk) {
@@ -239,4 +239,23 @@ class OrderController extends AdminController
 
         return $validationResponse->toJsonResponse();
     }
+
+    /**
+     * @Route("item/delete", name="item_delete", methods={"POST"})
+     */
+    public function itemDelete(Request $request): Response
+    {
+        /** @var OrderItem $orderItem */
+        $orderItem = OrderItemQuery::create()->findPk($request->request->get('pk'));
+
+        if ($orderItem === null) {
+            return JsonDataResponse::FailedResponse("Položka objednávky nebola nájdená.")->toJsonResponse();
+        }
+
+        $orderItem->delete();
+        $this->addFlash(FlashMessageType::SUCCESS, 'Položka objednávky bola vymazaná.');
+
+        return JsonDataResponse::SuccessResponse()->toJsonResponse();
+    }
+
 }

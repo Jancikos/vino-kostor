@@ -66,7 +66,7 @@ global.orderDelete = function (itemPk) {
         url: $("#table-orders").attr('data-delete-url'),
         method: 'POST',
         data: {
-            pk_: itemPk
+            pk: itemPk
         },
         success: function(response) {
             if (!response.success) {
@@ -101,3 +101,32 @@ orderItemForm['productPk'] = function() {
     return valid;
 };
 global.orderItemForm = orderItemForm;
+
+// orders item table actions
+global.orderDelete = function (itemPk) {
+    if (!confirm('Naozaj chcete vymazať túto položku z objednávky?')) {
+        return;
+    }
+
+    $.ajax({
+        url: $("#table-order-items").attr('data-delete-url'),
+        method: 'POST',
+        data: {
+            pk: itemPk
+        },
+        success: function(response) {
+            if (!response.success) {
+                alert(response.title);
+                return;
+            }
+
+            window.location.reload();
+        },
+        error: function(response) {
+            alert('Pri vymazávaní došlo k chybe. Skúste to prosím znova.');
+        }
+    });
+}
+global.orderItemEdit = function (itemPk) {
+    window.location.href = $("#table-order-items").attr('data-form-url') + '/' + itemPk;
+}

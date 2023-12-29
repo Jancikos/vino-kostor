@@ -176,8 +176,8 @@
     <div class="form-row">
         <label>Položky</label>
         <div class="table-wrapper">
-            <table id="table-order-items" data-form-url="{{ path('admin_products_form') }}"
-                data-delete-url="{{ path('admin_products_delete') }}">
+            <table id="table-order-items" data-form-url="{{ path('admin_orders_item_form', {orderPk: order.pk}) }}"
+                data-delete-url="{{ path('admin_orders_item_delete') }}">
                 <thead>
                     <tr class="text-left">
                         <th class="min-w-[220px]">
@@ -230,7 +230,7 @@
                         <td>
                             <div class="flex items-center space-x-3.5">
                                 {# show button #}
-                                <button class="hover:text-primary" x-on:click="orderItemEdit(orderPk, itemPk)">
+                                <button class="hover:text-primary" x-on:click="orderItemEdit(itemPk)">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-current" height="1em"
                                         viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                                         <path
@@ -239,7 +239,7 @@
                                 </button>
 
                                 {# delete button #}
-                                <button class="hover:text-primary" x-on:click="orderItemDelete(orderPk, itemPk)">
+                                <button class="hover:text-primary" x-on:click="orderItemDelete(itemPk)">
                                     <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
