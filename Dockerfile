@@ -24,6 +24,7 @@ RUN apk add --no-cache \
         php81-xmlreader \
         php81-xmlwriter \
         php81-zip \
+        php81-ctype \
         php81 \
         caddy \
         bash \
@@ -32,6 +33,7 @@ RUN apk add --no-cache \
         curl \
         fcgi \
         nodejs \
+        npm \
         supervisor \
         libstdc++ \
         libx11 \
@@ -84,7 +86,7 @@ RUN chmod +x /usr/local/bin/docker-healthcheck
 
 HEALTHCHECK --start-period=5m --interval=10s --timeout=3s --retries=3 CMD ["docker-healthcheck"]
 
-COPY --from=composer:2.2.9 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.1.9 /usr/bin/composer /usr/bin/composer
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -93,32 +95,42 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/app
 
-COPY composer.* symfony.* ./
+COPY composer.* package* symfony.* *.config.js .env.dist ./
 
+# composer install
 RUN set -eux; \
         composer install --prefer-dist --no-dev --no-autoloader --no-progress --no-scripts --no-interaction; \
         sync
-        
-COPY ./phpVersionFix ./phpVersionFix
-COPY ./app ./app
-COPY ./web ./web
+
+# copy the rest src files
+COPY ./config ./config
+COPY ./bin ./bin
+COPY ./public ./public
+COPY ./assets ./assets
 COPY ./src ./src
+COPY ./templates ./templates
 
-RUN set -eux; \
-	composer dump-autoload --classmap-authoritative --no-dev; \
-	composer run-script --no-dev post-install-cmd; \
-        chmod +x app/console; \
-	app/console assetic:dump --env=prod --no-debug; \
-	app/console propel:model:build; \
-	rm -rf app/cache/* app/logs/*; \
-	sync
+#  finish composer install - DOCKER TODO - check if needed
+# RUN set -eux; \
+# 	composer dump-autoload --classmap-authoritative --no-dev; \
+# 	composer run-script --no-dev post-install-cmd; \
+#         chmod +x bin/console; \
+# 	sync
 
+#  install node dependencies
 RUN set -eux; \
-	chown nobody:nobody app/cache app/logs web/uploads; \
+    npm install; \
+    npm run build; \
     sync
 
-WORKDIR /srv/app/web
-RUN ln -s app.php index.php
+
+# # set permissions to nobody
+RUN set -eux; \
+# 	chown nobody:nobody app/cache app/logs web/uploads; \
+	chown nobody:nobody public; \
+    sync
+
+WORKDIR /srv/app/public
 
 COPY docker/php/conf.d/symfony.prod.ini /etc/php81/conf.d/symfony.ini
 COPY docker/php/php-fpm.d/zz-docker.conf /etc/php81/php-fpm.d/zz-docker.conf
@@ -134,7 +146,7 @@ RUN set -eux; \
 	mkdir -p /var/log/caddy/ /var/log/crond /var/log/custom_crond /var/log/php_fpm /var/log/sshd /var/log/webbox_websocket ; \
 	sync
 
-VOLUME /srv/app/app/config
+VOLUME /srv/app/config
 VOLUME /srv/app/web/uploads
 
 ENTRYPOINT ["docker-entrypoint"]

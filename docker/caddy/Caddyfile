@@ -19,7 +19,7 @@ log
 }
 
 route {
-        root * /srv/app/web
+        root * /srv/app/public
         reverse_proxy @websockets localhost:8084
         php_fastcgi unix//var/run/php/php-fpm.sock
         encode zstd gzip

@@ -60,6 +60,18 @@
             "type": "shell",
             "command": "php .\\vendor\\propel\\propel\\bin\\propel.php model:build --config-dir ./config/propel",
             "problemMatcher": []
+        },
+        {
+            "label": "docker: build image",
+            "type": "shell",
+            "command": "docker build -t vinokostor . ",
+            "problemMatcher": []
+        },
+        {
+            "label": "docker: build image with no cache",
+            "type": "shell",
+            "command": "docker build --no-cache -t vinokostor . ",
+            "problemMatcher": []
         }
     ]
 }
