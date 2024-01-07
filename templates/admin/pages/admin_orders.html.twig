@@ -31,11 +31,14 @@
                 <th class="min-w-[220px]">
                     Zákazník
                 </th>
-                <th class="min-w-[180px]">
-                    Admin
+                <th class="min-w-[150px]">
+                    Stav
+                </th>
+                <th class="min-w-[100px]">
+                    Zaplatená suma
                 </th>
                 <th class="min-w-[150px]">
-                    Zaplatená suma
+                    Admin
                 </th>
                 <th class="min-w-[150px]">
                     Poznámka
@@ -59,14 +62,19 @@
                     <h5 class="font-medium">{{ order.customer.fullName }}</h5>
                 </td>
 
-                {# admin #}
+                {# stav #}
                 <td>
-                    <p>{{ order.user.username }}</p>
+                    <p>{{ order.actualstatus.title }}</p>
                 </td>
 
                 {# cena #}
                 <td>
                     <p>{{ order.realprice|number_format(2, ',', ' ') }} €</p>
+                </td>
+
+                {# admin #}
+                <td>
+                    <p>{{ order.user.username }}</p>
                 </td>
 
                 {# poznamka #}
