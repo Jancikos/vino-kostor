@@ -126,8 +126,9 @@ RUN set -eux; \
 
 # # set permissions to nobody
 RUN set -eux; \
+    mkdir -p var/cache var/log; \
 # 	chown nobody:nobody app/cache app/logs web/uploads; \
-	chown nobody:nobody public; \
+	chown -R nobody:nobody public var; \
     sync
 
 WORKDIR /srv/app/public
