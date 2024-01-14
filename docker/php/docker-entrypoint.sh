@@ -100,6 +100,9 @@ update_config() {
                 -e "s/^APP_ENV=.*/APP_ENV=$(escape "${APP_ENV}")/" \
                 -e "s/^APP_SECRET=.*/APP_SECRET=$(escape "${APP_SECRET}")/" \
                 /srv/app/.\env.dist \
+                -e "s/^PROPEL_DSN=.*/PROPEL_DSN=$(escape "${PROPEL_DSN}")/" \
+                -e "s/^PROPEL_USER=.*/PROPEL_USER=$(escape "${PROPEL_USER}")/" \
+                -e "s/^PROPEL_PASSWORD=.*/PROPEL_PASSWORD=$(escape "${PROPEL_PASSWORD}")/" \
                 > /srv/app/.\env
 
         if [ ! -f "/etc/hosts.orig" ]; then

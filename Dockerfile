@@ -111,11 +111,11 @@ COPY ./src ./src
 COPY ./templates ./templates
 
 #  finish composer install - DOCKER TODO - check if needed
-# RUN set -eux; \
-# 	composer dump-autoload --classmap-authoritative --no-dev; \
+RUN set -eux; \
+	composer dump-autoload --classmap-authoritative --no-dev; \
 # 	composer run-script --no-dev post-install-cmd; \
 #         chmod +x bin/console; \
-# 	sync
+	sync
 
 #  install node dependencies
 RUN set -eux; \
