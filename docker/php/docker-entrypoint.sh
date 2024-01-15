@@ -99,11 +99,18 @@ update_config() {
         sed \
                 -e "s/^APP_ENV=.*/APP_ENV=$(escape "${APP_ENV}")/" \
                 -e "s/^APP_SECRET=.*/APP_SECRET=$(escape "${APP_SECRET}")/" \
-                /srv/app/.\env.dist \
                 -e "s/^PROPEL_DSN=.*/PROPEL_DSN=$(escape "${PROPEL_DSN}")/" \
                 -e "s/^PROPEL_USER=.*/PROPEL_USER=$(escape "${PROPEL_USER}")/" \
                 -e "s/^PROPEL_PASSWORD=.*/PROPEL_PASSWORD=$(escape "${PROPEL_PASSWORD}")/" \
-                > /srv/app/.\env
+                /srv/app/.\env.dist \
+                > /srv/app/.\env;
+
+        sed \
+                -e "s/dsn:.*/dsn: $(escape "${PROPEL_DSN}")/" \
+                -e "s/user:.*/user: $(escape "${PROPEL_USER}")/" \
+                -e "s/password:.*/password: $(escape "${PROPEL_PASSWORD}")/" \
+                /srv/app/config/propel/propel.yml.dist \
+                > /srv/app/config/propel/propel.yml;
 
         if [ ! -f "/etc/hosts.orig" ]; then
                 cp /etc/hosts /etc/hosts.orig
@@ -111,6 +118,8 @@ update_config() {
 }
 
 _main() {
+        WEBBOX_FOLDER=/srv/app
+
         # if command starts with an option, prepend mysqld
         if [ "${1:0:1}" = '-' ]; then
                 set -- caddy "$@"

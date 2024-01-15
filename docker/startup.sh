@@ -38,10 +38,12 @@ while netstat -lnt | awk '$4 ~ /:80$/ {exit 1}'; do sleep 10; done
 
 webbox_note "Web server started"
 
-# DOCKER TODO - odkomentovat po rozbehani celeho staccku
-# webbox_note "Running database update..."
-# php $WEBBOX_FOLDER/vendor/propel/propel/bin/propel.php migrate --config-dir $WEBBOX_FOLDER/config/propel
-# webbox_note "Database update finished"
+# Make propel migrations
+webbox_note "Running database update..."
+cd $WEBBOX_FOLDER
+php $WEBBOX_FOLDER/vendor/propel/propel/bin/propel.php migrate --config-dir $WEBBOX_FOLDER/config/propel
+cd ./public
+webbox_note "Database update finished"
   
 # the my_helper_process might need to know how to wait on the
 # primary process to start before it does its work and returns
