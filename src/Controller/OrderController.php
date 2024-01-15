@@ -9,6 +9,8 @@ use App\Model\OrderItemQuery;
 use App\Model\OrderQuery;
 use App\Model\ProductQuery;
 use App\Model\UserQuery;
+use App\Utils\Controller\OrdersTable;
+use App\Utils\Datafeed\Params\OrdersTableParams;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
@@ -32,14 +34,18 @@ class OrderController extends AdminController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $params = new OrdersTableParams();
+
+        $params->setOrderColumn($request->query->get('orderColumn', 'PK_'));
+        $params->setOrderDirection($request->query->get('orderDirection', 'DESC'));
+        
+        $dfOrdersTable = new OrdersTable();
         return $this->renderAdminPage(
             'Objednávky',
             'orders',
-            [
-                'orders' => OrderQuery::create()->find()
-            ]
+            $dfOrdersTable->getData($params)
         );
     }
 

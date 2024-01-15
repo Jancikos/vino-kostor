@@ -25,7 +25,7 @@ class CustomerController extends AdminController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         return $this->renderAdminPage(
             'Zákazníci',
