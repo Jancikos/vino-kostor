@@ -36,15 +36,25 @@ class OrderController extends AdminController
      */
     public function index(Request $request): Response
     {
+        return $this->renderAdminPage(
+            'Objednávky',
+            'orders'
+        );
+    }
+    
+    /**
+     * @Route("/table", name="table")
+     */
+    public function table(Request $request): Response
+    {
         $params = new OrdersTableParams();
 
         $params->setOrderColumn($request->query->get('orderColumn', 'PK_'));
         $params->setOrderDirection($request->query->get('orderDirection', 'DESC'));
         
         $dfOrdersTable = new OrdersTable();
-        return $this->renderAdminPage(
-            'Objednávky',
-            'orders',
+        return $this->render(
+            'admin/tables/orders_table.html.twig',
             $dfOrdersTable->getData($params)
         );
     }
