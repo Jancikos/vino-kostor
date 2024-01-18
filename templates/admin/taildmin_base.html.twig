@@ -26,6 +26,13 @@
          $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
     :class="{'dark text-bodydark bg-boxdark-2': darkMode === true}">
 
+    {# loader #}
+    <div id="loader" x-show="showLoader" x-init="showloader = false"
+        class="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white bg-opacity-50">
+        <div class="h-16 w-16 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent"></div>
+    </div>
+
+
     <!-- ===== Page Wrapper Start ===== -->
     <div class="flex h-screen overflow-hidden" :class="{'items-center': centerBody}">
         <!-- ===== Sidebar Area Start ===== -->

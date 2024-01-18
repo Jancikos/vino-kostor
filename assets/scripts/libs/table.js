@@ -65,7 +65,7 @@ export default class Table {
         var tableModel = this;
 
         // show loading
-        // TODO
+        $("#loader").show();
 
         $.ajax({
             url: tableWrapper.data('delete-url'),
@@ -85,7 +85,7 @@ export default class Table {
             },
             complete: function() {
                 // hide loading
-                // TODO    
+                $("#loader").hide();
             }
         });
     }
@@ -108,7 +108,7 @@ export default class Table {
         const form = tableWrapper.find('form');
 
         // show loading
-        // TODO
+        $("#loader").show();
         
         $.ajax({
             url: tableWrapper.data('table-url'),
@@ -125,7 +125,7 @@ export default class Table {
             },
             complete: function() {
                 // hide loading
-                // TODO    
+                $("#loader").hide();
             }
         });
     }
