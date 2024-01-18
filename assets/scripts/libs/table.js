@@ -4,7 +4,7 @@ export default class Table {
         this.id = id;
 
         $(() => {
-            this.initializeActions();
+            this.initialize();
         });
     }
     getWrapper() {
@@ -17,7 +17,31 @@ export default class Table {
         return clickedElement.parents('tr').data('pk');
     }
 
-    initializeActions() {
+    initialize() {
+        this.initializeSorting();
+        this.initializeRowActions();
+    }
+
+    initializeSorting() {
+        let table = this.getTable();
+        let tableModel = this;
+
+        table.find('th .btn-sortable').on("click", function(e) {
+            console.log('clicked', $(this));
+            e.preventDefault();
+
+            let clickedElement = $(this);
+            let column = clickedElement.data('column');
+            let direction = clickedElement.data('next-direction');
+
+            table.find('input[name="orderColumn"]').val(column);
+            table.find('input[name="orderDirection"]').val(direction);
+
+            tableModel.reload();
+        });
+    }
+
+    initializeRowActions() {
         let table = this.getTable();
         let tableModel = this;
 
@@ -89,13 +113,15 @@ export default class Table {
         $.ajax({
             url: tableWrapper.data('table-url'),
             method: 'POST',
-            data: form.serialize(),
+            data: (new FormData(form[0])),
+            processData: false,
+            contentType: false,
             success: function(response) {
                 tableModel.getWrapper().html(response);
-                tableModel.initializeActions();
+                tableModel.initialize();
             },
             error: function(response) {
-                alert('Pri ukladaní došlo k chybe. Skúste to prosím znova.');
+                alert('Pri načítavnaí došlo k chybe. Skúste to prosím znova.');
             },
             complete: function() {
                 // hide loading

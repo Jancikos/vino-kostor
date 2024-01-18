@@ -49,9 +49,9 @@ class OrderController extends AdminController
     {
         $params = new OrdersTableParams();
 
-        $params->setOrderColumn($request->query->get('orderColumn', 'PK_'));
-        $params->setOrderDirection($request->query->get('orderDirection', 'DESC'));
-        
+        $params->setOrderColumn($request->request->get('orderColumn', 'PK_'));
+        $params->setOrderDirection($request->request->get('orderDirection', 'DESC'));
+
         $dfOrdersTable = new OrdersTable();
         return $this->render(
             'admin/tables/orders_table.html.twig',

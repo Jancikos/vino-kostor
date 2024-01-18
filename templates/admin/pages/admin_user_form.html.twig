@@ -24,7 +24,6 @@
 </div>
 
 {# formular #}
-
 <form action="{{ path("admin_users_save") }}" data-redirect="{{ path('admin_users_index') }}" id="user-form"
     class="form-wrapper" @submit.prevent="userForm.submit()">
     <input type="hidden" name="pk" value="{{ userModel.pk }}" />

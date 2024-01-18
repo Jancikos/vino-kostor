@@ -6,7 +6,7 @@ use App\Utils\Datafeed\Interfaces\IDatafeedParams;
 
 class OrdersTableParams implements IDatafeedParams
 {
-    public const ORDERABLE_COLUMNS = [ 'PK_', 'STATUS', 'USER_PK_', 'TOTAL_PRICE',   ];
+    public const ORDERABLE_COLUMNS = [ 'PK_', 'STATUS', 'CUSTOMER', 'ADMIN' ];
 
 
     private string $orderColumn;

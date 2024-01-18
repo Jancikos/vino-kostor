@@ -27,18 +27,22 @@ class OrdersTable extends AbstractDatafeed
             case 'PK_':
                 $query->orderByPk($params->getOrderDirection());
                 break;
+            case 'CUSTOMER':
+                $query
+                    ->useCustomerQuery()
+                        ->orderByLastName($params->getOrderDirection())
+                        ->orderByFirstname()
+                    ->endUse();
+                break;
             case 'STATUS':
                 $query->orderByStatus($params->getOrderDirection());
                 break;
-            case 'USER_PK_':
+            case 'ADMIN':
                 $query
                     ->useUserQuery()
                         ->orderByUsername($params->getOrderDirection())
                     ->endUse();
                 break;
-            case 'TOTAL_PRICE':
-                // TODO
-                throw new \Exception('Not implemented yet.');
                 break;
         }
 

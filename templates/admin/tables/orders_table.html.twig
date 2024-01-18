@@ -1,8 +1,8 @@
 {% import "@components/taildmin_table.html.twig" as table %}
 
 {# tabulka objednávok #}
-<table id="table-orders">
-    <form>
+<form>
+    <table id="table-orders">
         <input type="hidden" name="orderColumn" value="{{ params.orderColumn }}" />
         <input type="hidden" name="orderDirection" value="{{ params.orderDirection }}" />
 
@@ -11,18 +11,22 @@
                 {# id #}
                 <th class="min-w-[50px] xl:pl-11">
                     #
+                    {{ table.th_sort_btn('PK_', params.orderColumn, params.orderDirection) }}
                 </th>
                 <th class="min-w-[220px]">
                     Zákazník
+                    {{ table.th_sort_btn('CUSTOMER', params.orderColumn, params.orderDirection)  }}
                 </th>
                 <th class="min-w-[150px]">
                     Stav
+                    {{ table.th_sort_btn('STATUS', params.orderColumn, params.orderDirection) }}
                 </th>
                 <th class="min-w-[100px]">
                     Zaplatená suma
                 </th>
                 <th class="min-w-[150px]">
                     Admin
+                    {{ table.th_sort_btn('ADMIN', params.orderColumn, params.orderDirection) }}
                 </th>
                 <th class="min-w-[150px]">
                     Poznámka
@@ -79,5 +83,5 @@
             </tr>
             {% endfor %}
         </tbody>
-    </form>
-</table>
+    </table>
+</form>
