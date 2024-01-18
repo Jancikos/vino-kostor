@@ -9,7 +9,7 @@ use App\Model\OrderItemQuery;
 use App\Model\OrderQuery;
 use App\Model\ProductQuery;
 use App\Model\UserQuery;
-use App\Utils\Controller\OrdersTable;
+use App\Utils\Datafeed\OrdersTable;
 use App\Utils\Datafeed\Params\OrdersTableParams;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;

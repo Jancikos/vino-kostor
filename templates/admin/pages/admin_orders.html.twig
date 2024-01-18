@@ -20,6 +20,8 @@
 </div>
 
 {# render tabulka objednávok action #}
-{{ render(controller('App\\Controller\\OrderController::table')) }}
+<div id="table-orders-wrapper" class="table-wrapper" data-table-url="{{ path('admin_orders_table') }}" data-form-url="{{ path('admin_orders_form') }}" data-delete-url="{{ path('admin_orders_delete') }}" data-form-url="{{ path('admin_orders_form') }}">
+    {{ render(controller('App\\Controller\\OrderController::table')) }}
+</div>
 
 {% endblock body %}

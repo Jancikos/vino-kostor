@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utils\Controller;
+namespace App\Utils\Datafeed;
 
 use App\Model\OrderQuery;
 use App\Utils\Datafeed\Interfaces\AbstractDatafeed;
@@ -8,12 +8,12 @@ use App\Utils\Datafeed\Params\OrdersTableParams;
 
 class OrdersTable extends AbstractDatafeed
 {
-
     protected function _prepareData() 
     {
         /** @var OrdersTableParams */
         $params = $this->params;
 
+        $this->data['params'] = $params;
         $this->data['orders'] = $this->getOrders();
     }
 

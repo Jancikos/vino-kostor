@@ -1,4 +1,5 @@
 import Form from '../libs/form.js';
+import Table from '../libs/table.js';
 
 // order form
 var orderForm = new Form('order-form');
@@ -57,76 +58,5 @@ orderForm.manageOrderStatus = function(nextStatusPk) {
 global.orderForm = orderForm;
 
 // orders table actions
-global.orderDelete = function (itemPk) {
-    if (!confirm('Naozaj chcete vymazať túto objednávku?')) {
-        return;
-    }
-
-    $.ajax({
-        url: $("#table-orders").attr('data-delete-url'),
-        method: 'POST',
-        data: {
-            pk: itemPk
-        },
-        success: function(response) {
-            if (!response.success) {
-                alert(response.title);
-                return;
-            }
-
-            window.location.reload();
-        },
-        error: function(response) {
-            alert('Pri vymazávaní došlo k chybe. Skúste to prosím znova.');
-        }
-    });
-}
-global.orderEdit = function (itemPk) {
-    window.location.href = $("#table-orders").attr('data-form-url') + '/' + itemPk;
-}
-
-// order item form
-var orderItemForm = new Form('order-item-form');
-orderItemForm['productPk'] = function() { 
-    orderItemForm.clearInputErrors('productPk');
-    let input = orderItemForm.getFormInput('productPk');
-    let value = input.val();
-    let valid = true;
-
-    if (value.length === 0) {
-        valid = false;
-        orderItemForm.addInputError('productPk', 'Produkt musí byť vybraný.');
-    }
-
-    return valid;
-};
-global.orderItemForm = orderItemForm;
-
-// orders item table actions
-global.orderDelete = function (itemPk) {
-    if (!confirm('Naozaj chcete vymazať túto položku z objednávky?')) {
-        return;
-    }
-
-    $.ajax({
-        url: $("#table-order-items").attr('data-delete-url'),
-        method: 'POST',
-        data: {
-            pk: itemPk
-        },
-        success: function(response) {
-            if (!response.success) {
-                alert(response.title);
-                return;
-            }
-
-            window.location.reload();
-        },
-        error: function(response) {
-            alert('Pri vymazávaní došlo k chybe. Skúste to prosím znova.');
-        }
-    });
-}
-global.orderItemEdit = function (itemPk) {
-    window.location.href = $("#table-order-items").attr('data-form-url') + '/' + itemPk;
-}
+var ordersTable = new Table('table-orders');
+global.ordersTable = ordersTable;
