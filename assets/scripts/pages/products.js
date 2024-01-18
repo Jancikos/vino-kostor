@@ -1,4 +1,5 @@
 import Form from '../libs/form.js';
+import Table from '../libs/table.js';
 
 // product form
 var productForm = new Form('product-form');
@@ -69,30 +70,4 @@ productForm.validation['image'] = function() {
 global.productForm = productForm;
 
 // products table actions
-global.productDelete = function (itemPk) {
-    if (!confirm('Naozaj chcete vymazať tento produkt?')) {
-        return;
-    }
-
-    $.ajax({
-        url: $("#table-products").attr('data-delete-url'),
-        method: 'POST',
-        data: {
-            pk_: itemPk
-        },
-        success: function(response) {
-            if (!response.success) {
-                alert(response.title);
-                return;
-            }
-
-            window.location.reload();
-        },
-        error: function(response) {
-            alert('Pri vymazávaní došlo k chybe. Skúste to prosím znova.');
-        }
-    });
-}
-global.productEdit = function (itemPk) {
-    window.location.href = $("#table-products").attr('data-form-url') + '/' + itemPk;
-}
+var productsTable = new Table('table-products');
