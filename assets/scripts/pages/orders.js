@@ -3,6 +3,7 @@ import Table from '../libs/table.js';
 
 // order form
 var orderForm = new Form('order-form');
+var orderFormItemsTable = new Table('table-order-items');
 orderForm.submitPostSuccess = function(response) {
     var form = this.getForm();
     // redirect to home page
@@ -57,6 +58,28 @@ orderForm.manageOrderStatus = function(nextStatusPk) {
 // }
 global.orderForm = orderForm;
 
-// orders table actions
+// orders table 
 var ordersTable = new Table('table-orders');
-global.ordersTable = ordersTable;
+
+// order item form
+var orderItemForm = new Form('order-item-form');
+orderItemForm.validation['quantity'] = function() {
+    orderItemForm.clearInputErrors('quantity');
+    let input = orderItemForm.getFormInput('quantity');
+    let value = input.val();
+    let valid = true;
+
+    if (value === 0 || isNaN(value)) {
+        valid = false;
+        orderItemForm.addInputError('quantity', 'Množstvo musí byť vyplené.');
+    }
+    if (value < 0) {
+        valid = false;
+        orderItemForm.addInputError('quantity', 'Množstvo nemôže byť záporné.');    
+    }
+
+    return valid;
+}
+
+
+global.orderItemForm = orderItemForm;
