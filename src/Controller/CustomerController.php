@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Model\Customer;
 use App\Model\CustomerQuery;
+use App\Utils\Datafeed\CustomersTable;
+use App\Utils\Datafeed\Params\CustomersTableParams;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
@@ -29,10 +31,24 @@ class CustomerController extends AdminController
     {
         return $this->renderAdminPage(
             'Zákazníci',
-            'customers',
-            [
-                'customers' => CustomerQuery::create()->find()
-            ]
+            'customers'
+        );
+    }
+
+    /**
+     * @Route("/table", name="table")
+     */
+    public function table(Request $request): Response
+    {
+        $params = new CustomersTableParams();
+
+        $params->setOrderColumn($request->request->get('orderColumn', 'PK_'));
+        $params->setOrderDirection($request->request->get('orderDirection', 'DESC'));
+
+        $dfCustomersTable = new CustomersTable();
+        return $this->render(
+            'admin/tables/customers_table.html.twig',
+            $dfCustomersTable->getData($params)
         );
     }
 

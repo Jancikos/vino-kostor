@@ -1,4 +1,5 @@
 import Form from '../libs/form.js';
+import Table from '../libs/table.js';
 
 // customer form
 var customerForm = new Form('customer-form');
@@ -60,30 +61,4 @@ customerForm.validation['image'] = function() {
 global.customerForm = customerForm;
 
 // customers table actions
-global.customerDelete = function (itemPk) {
-    if (!confirm('Naozaj chcete vymazať tohto zákazníka?')) {
-        return;
-    }
-
-    $.ajax({
-        url: $("#table-customers").attr('data-delete-url'),
-        method: 'POST',
-        data: {
-            pk_: itemPk
-        },
-        success: function(response) {
-            if (!response.success) {
-                alert(response.title);
-                return;
-            }
-
-            window.location.reload();
-        },
-        error: function(response) {
-            alert('Pri vymazávaní došlo k chybe. Skúste to prosím znova.');
-        }
-    });
-}
-global.customerEdit = function (itemPk) {
-    window.location.href = $("#table-customers").attr('data-form-url') + '/' + itemPk;
-}
+var customersTable = new Table('table-customers');
