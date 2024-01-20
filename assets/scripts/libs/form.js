@@ -18,10 +18,12 @@ export default class Form {
     }
     
     submit() {
+        showLoader();
         if (!this.validate()) {
+            hideLoader();
             return;
         }
-    
+
         var form = this.getForm();
         var formModel = this;
         $.ajax({
@@ -44,6 +46,9 @@ export default class Form {
             },
             error: function(response) {
                 alert('Pri ukladaní došlo k chybe. Skúste to prosím znova.');
+            },
+            complete: function() {
+                hideLoader();
             }
         });
     }
