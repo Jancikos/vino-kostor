@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Model\Product;
 use App\Model\ProductQuery;
-use App\Utils\Datafeed\Params\ProductsTableParams;
-use App\Utils\Datafeed\ProductsTable;
+use App\Utils\Datafeed\Params\TableProductsParams;
+use App\Utils\Datafeed\TableProducts;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
@@ -42,12 +42,12 @@ class ProductController extends AdminController
      */
     public function table(Request $request): Response
     {
-        $params = new ProductsTableParams();
+        $params = new TableProductsParams();
 
         $params->setOrderColumn($request->request->get('orderColumn', 'PK_'));
         $params->setOrderDirection($request->request->get('orderDirection', 'DESC'));
 
-        $dfProductsTable = new ProductsTable();
+        $dfProductsTable = new TableProducts();
         return $this->render(
             'admin/tables/products_table.html.twig',
             $dfProductsTable->getData($params)

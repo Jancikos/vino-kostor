@@ -4,13 +4,13 @@ namespace App\Utils\Datafeed;
 
 use App\Model\CustomerQuery;
 use App\Utils\Datafeed\Interfaces\AbstractDatafeed;
-use App\Utils\Datafeed\Params\CustomersTableParams;
+use App\Utils\Datafeed\Params\TableCustomersParams;
 
-class CustomersTable extends AbstractDatafeed
+class TableCustomers extends AbstractDatafeed
 {
     protected function _prepareData() 
     {
-        /** @var CustomersTableParams */
+        /** @var TableCustomersParams */
         $params = $this->params;
 
         $this->data['params'] = $params;
@@ -18,7 +18,7 @@ class CustomersTable extends AbstractDatafeed
     }
 
     private function getCustomers() {
-        /** @var CustomersTableParams */
+        /** @var TableCustomersParams */
         $params = $this->params;
 
         $query = CustomerQuery::create();

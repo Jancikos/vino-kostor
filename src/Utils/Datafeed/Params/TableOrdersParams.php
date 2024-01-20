@@ -4,9 +4,9 @@ namespace App\Utils\Datafeed\Params;
 
 use App\Utils\Datafeed\Interfaces\IDatafeedParams;
 
-class CustomersTableParams implements IDatafeedParams
+class TableOrdersParams implements IDatafeedParams
 {
-    public const ORDERABLE_COLUMNS = [ 'PK_', 'NAME', 'ADDRESS' ];
+    public const ORDERABLE_COLUMNS = [ 'PK_', 'STATUS', 'CUSTOMER', 'ADMIN' ];
 
 
     private string $orderColumn;
@@ -24,7 +24,7 @@ class CustomersTableParams implements IDatafeedParams
     public function setOrderColumn(string $orderColumn): void
     {
         if (!in_array($orderColumn, self::ORDERABLE_COLUMNS)) {
-            throw new \Exception('Neplatný orderColumn pre CustomersTableParams.');
+            throw new \Exception('Neplatný orderColumn pre OrdersTableParams.');
         }
 
         $this->orderColumn = $orderColumn;
@@ -38,7 +38,7 @@ class CustomersTableParams implements IDatafeedParams
     public function setOrderDirection(string $orderDirection): void
     {
         if (!in_array($orderDirection, ['ASC', 'DESC'])) {
-            throw new \Exception('Neplatný orderDirection pre CustomersTableParams.');
+            throw new \Exception('Neplatný orderDirection pre OrdersTableParams.');
         }
 
         $this->orderDirection = $orderDirection;

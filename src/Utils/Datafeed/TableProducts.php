@@ -4,13 +4,13 @@ namespace App\Utils\Datafeed;
 
 use App\Model\ProductQuery;
 use App\Utils\Datafeed\Interfaces\AbstractDatafeed;
-use App\Utils\Datafeed\Params\ProductsTableParams;
+use App\Utils\Datafeed\Params\TableProductsParams;
 
-class ProductsTable extends AbstractDatafeed
+class TableProducts extends AbstractDatafeed
 {
     protected function _prepareData() 
     {
-        /** @var ProductsTableParams */
+        /** @var TableProductsParams */
         $params = $this->params;
 
         $this->data['params'] = $params;
@@ -18,7 +18,7 @@ class ProductsTable extends AbstractDatafeed
     }
 
     private function getProducts() {
-        /** @var ProductsTableParams */
+        /** @var TableProductsParams */
         $params = $this->params;
 
         $query = ProductQuery::create();

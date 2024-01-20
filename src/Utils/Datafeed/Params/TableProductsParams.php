@@ -4,7 +4,7 @@ namespace App\Utils\Datafeed\Params;
 
 use App\Utils\Datafeed\Interfaces\IDatafeedParams;
 
-class ProductsTableParams implements IDatafeedParams
+class TableProductsParams implements IDatafeedParams
 {
     public const ORDERABLE_COLUMNS = [ 'PK_', 'TITLE', 'SUBTITLE', 'PRICE', 'ACTIVE' ];
 

@@ -4,13 +4,13 @@ namespace App\Utils\Datafeed;
 
 use App\Model\OrderQuery;
 use App\Utils\Datafeed\Interfaces\AbstractDatafeed;
-use App\Utils\Datafeed\Params\OrdersTableParams;
+use App\Utils\Datafeed\Params\TableOrdersParams;
 
-class OrdersTable extends AbstractDatafeed
+class TableOrders extends AbstractDatafeed
 {
     protected function _prepareData() 
     {
-        /** @var OrdersTableParams */
+        /** @var TableOrdersParams */
         $params = $this->params;
 
         $this->data['params'] = $params;
@@ -18,7 +18,7 @@ class OrdersTable extends AbstractDatafeed
     }
 
     private function getOrders() {
-        /** @var OrdersTableParams */
+        /** @var TableOrdersParams */
         $params = $this->params;
 
         $query = OrderQuery::create();

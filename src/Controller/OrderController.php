@@ -9,8 +9,8 @@ use App\Model\OrderItemQuery;
 use App\Model\OrderQuery;
 use App\Model\ProductQuery;
 use App\Model\UserQuery;
-use App\Utils\Datafeed\OrdersTable;
-use App\Utils\Datafeed\Params\OrdersTableParams;
+use App\Utils\Datafeed\TableOrders;
+use App\Utils\Datafeed\Params\TableOrdersParams;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
@@ -47,12 +47,12 @@ class OrderController extends AdminController
      */
     public function table(Request $request): Response
     {
-        $params = new OrdersTableParams();
+        $params = new TableOrdersParams();
 
         $params->setOrderColumn($request->request->get('orderColumn', 'PK_'));
         $params->setOrderDirection($request->request->get('orderDirection', 'DESC'));
 
-        $dfOrdersTable = new OrdersTable();
+        $dfOrdersTable = new TableOrders();
         return $this->render(
             'admin/tables/orders_table.html.twig',
             $dfOrdersTable->getData($params)

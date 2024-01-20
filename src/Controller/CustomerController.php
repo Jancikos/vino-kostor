@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Model\Customer;
 use App\Model\CustomerQuery;
-use App\Utils\Datafeed\CustomersTable;
-use App\Utils\Datafeed\Params\CustomersTableParams;
+use App\Utils\Datafeed\TableCustomers;
+use App\Utils\Datafeed\Params\TableCustomersParams;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
@@ -40,12 +40,12 @@ class CustomerController extends AdminController
      */
     public function table(Request $request): Response
     {
-        $params = new CustomersTableParams();
+        $params = new TableCustomersParams();
 
         $params->setOrderColumn($request->request->get('orderColumn', 'PK_'));
         $params->setOrderDirection($request->request->get('orderDirection', 'DESC'));
 
-        $dfCustomersTable = new CustomersTable();
+        $dfCustomersTable = new TableCustomers();
         return $this->render(
             'admin/tables/customers_table.html.twig',
             $dfCustomersTable->getData($params)
