@@ -2,12 +2,10 @@
 
 namespace App\Utils\Datafeed;
 
-use App\Model\CustomerQuery;
 use App\Model\OrderQuery;
 use App\Utils\Datafeed\Interfaces\AbstractDatafeed;
 use App\Utils\Datafeed\Params\ChartRevenueParams;
 use DateTime;
-use Propel\Runtime\ActiveQuery\Criteria;
 
 class ChartRevenue extends AbstractDatafeed
 {
@@ -56,7 +54,7 @@ class ChartRevenue extends AbstractDatafeed
             $price = $order->getRealPrice();
 
             $this->data['series'][$prijmySeriesIndex]['data'][$monthIndex] += $price;
-            
+
             $this->data['sums']['revenue'] += $price;
             $this->data['sums']['orders']++;
         }

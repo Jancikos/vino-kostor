@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Utils\Controller\BaseController;
 use App\Utils\Datafeed\ChartRevenue;
+use App\Utils\Datafeed\ChartUnpackedProducts;
 use App\Utils\Datafeed\Params\ChartRevenueParams;
+use App\Utils\Datafeed\Params\ChartUnpackedProductsParams;
 use App\Utils\JsonResponse\FlashMessageType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,10 +48,36 @@ class AdminController extends BaseController
     {
         $chartRevenueParams = new ChartRevenueParams();
         
-        
         $dfChartRevenue = new ChartRevenue();
         return new JsonResponse(
             $dfChartRevenue->getData($chartRevenueParams)
+        );
+    }
+    
+    /** 
+     * @Route("/chart/unpackedProducts", name="chart_unpackedProducts")
+     */
+    public function chartUnpackedProducts(Request $request): Response
+    {
+        $chartUnpackedProductsParams = new ChartUnpackedProductsParams();
+        
+        return $this->render(
+            'admin/charts/chart_unpackedproducts.html.twig', [
+                "params" => $chartUnpackedProductsParams
+            ]
+        );
+    }
+    
+    /** 
+     * @Route("/chart/unpackedProductsData", name="chart_unpackedProducts_data")
+     */
+    public function chartUnpackedProductsData(Request $request): Response
+    {
+        $chartUnpackedProductsParams = new ChartUnpackedProductsParams();
+        
+        $dfChartUnpackedProducts = new ChartUnpackedProducts();
+        return new JsonResponse(
+            $dfChartUnpackedProducts->getData($chartUnpackedProductsParams)
         );
     }
 

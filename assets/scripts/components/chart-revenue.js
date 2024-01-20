@@ -133,6 +133,7 @@ const chartRevenue = () => {
         }
     };
 
+    showLoader();
     $.ajax({
         url: chartWrapper.data('url'),
         type: 'POST',
@@ -164,7 +165,7 @@ const chartRevenue = () => {
             chartWrapper.text('Graf s revenue sa nepodarilo načítať.');
         },
         complete: function (data) {
-
+            hideLoader();
         },
     });
 };

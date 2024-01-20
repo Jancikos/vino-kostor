@@ -7,9 +7,11 @@
 
 {% block body %}
 
-<h2>
+<div class="flex flex-col items-center gap-4">
     {# inclucde revenue chart #}
     {% include 'admin/charts/chart_revenue.html.twig' %}
     
-</h2>
+    {# render unpacked orders chart #}
+    {{ render(controller('App\\Controller\\AdminController::chartUnpackedProducts')) }}
+</div>
 {% endblock body %}
