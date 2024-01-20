@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Utils\Controller\BaseController;
+use App\Utils\Datafeed\ChartRevenue;
+use App\Utils\Datafeed\Params\ChartRevenueParams;
 use App\Utils\JsonResponse\FlashMessageType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,10 +32,24 @@ class AdminController extends BaseController
 
         return $this->renderAdminPage(
             'Admin dashboard',
-            'index',
+            'dashboard',
             [
                 'controller_name' => 'MainController',
             ]
+        );
+    }
+
+    /** 
+     * @Route("/chart/revenue", name="chart_revenue")
+     */
+    public function chartRevenue(Request $request): Response
+    {
+        $chartRevenueParams = new ChartRevenueParams();
+        
+        
+        $dfChartRevenue = new ChartRevenue();
+        return new JsonResponse(
+            $dfChartRevenue->getData($chartRevenueParams)
         );
     }
 

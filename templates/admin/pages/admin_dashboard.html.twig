@@ -1,0 +1,15 @@
+{% extends "admin\\taildmin_base.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('dashboard') }}
+{% endblock javascripts %}
+
+{% block body %}
+
+<h2>
+    {# inclucde revenue chart #}
+    {% include 'admin/charts/chart_revenue.html.twig' %}
+    
+</h2>
+{% endblock body %}
