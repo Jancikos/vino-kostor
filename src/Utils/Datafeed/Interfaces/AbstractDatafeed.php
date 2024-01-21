@@ -5,11 +5,11 @@ namespace App\Utils\Datafeed\Interfaces;
 abstract class AbstractDatafeed
 {
     protected $data;
-    protected IDatafeedParams $params;
+    protected ?IDatafeedParams $params;
 
     public function __construct() { }
 
-    public function getData(IDatafeedParams $params) {
+    public function getData(?IDatafeedParams $params = null) {
         $this->params = $params;
         $this->_validateParams();
 

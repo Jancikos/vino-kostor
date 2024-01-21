@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Model\ProductQuery;
-use Propel\Runtime\ActiveQuery\Criteria;
+use App\Utils\Datafeed\ProductsListPublic;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,16 +14,9 @@ class MainController extends AbstractController
      */
     public function index(): Response
     {
+        $productsDatafeed = new ProductsListPublic();
         return $this->render('public/index.html.twig', [
-            'products' => ProductQuery::create()->orderByPk(Criteria::DESC)->find(),
+            'products' => $productsDatafeed->getData(),
         ]);
-    }
-
-    /**
-     * @Route("/other", name="app_other")
-     */
-    public function other(): Response
-    {
-        return new Response('Other page');
     }
 }
