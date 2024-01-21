@@ -144,7 +144,7 @@ COPY docker/startup.sh /usr/local/bin/startup.sh
 RUN set -eux; \
 	chmod +x /usr/local/bin/docker-entrypoint; \
 	chmod +x /usr/local/bin/startup.sh; \
-	mkdir -p /var/log/caddy/ /var/log/crond /var/log/custom_crond /var/log/php_fpm /var/log/sshd \
+	mkdir -p /var/log/caddy/ /var/log/crond /var/log/custom_crond /var/log/php_fpm /var/log/sshd; \
 	sync
 
 VOLUME /srv/app/config
