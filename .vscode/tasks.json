@@ -72,6 +72,11 @@
             "type": "shell",
             "command": "docker build --no-cache -t vinokostor . ",
             "problemMatcher": []
+        },
+        {
+            "label": "docker: save image to file",
+            "type": "shell",
+            "command": "docker save -o var/vinokostor.tar vinokostor",
         }
     ]
 }
