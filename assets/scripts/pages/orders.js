@@ -14,13 +14,13 @@ orderForm.submitPostSuccess = function(response) {
         // redirect to add item form
         redirectUrl = form.attr('data-item-form-url').replace('0', response.data.orderPk); 
     }
-
+    
     window.location.href = redirectUrl;
 };
 orderForm.manageOrderStatus = function(nextStatusPk) {
     const formModel = this;
     const btn = $('#order-form-set-status-btn');
-
+    
     $.ajax({
         url: btn.attr('href'),
         method: 'POST',
@@ -39,23 +39,19 @@ orderForm.manageOrderStatus = function(nextStatusPk) {
     });
 };
 
-// orderForm.validation['title'] = function() {
-//     orderForm.clearInputErrors('title');
-//     let input = orderForm.getFormInput('title');
-//     let value = input.val();
-//     let valid = true;
+orderForm.validation['customerPk'] = function() {
+    orderForm.clearInputErrors('customerPk');
+    let input = orderForm.getFormInput('customerPk');
+    let value = input.val();
+    let valid = true;
 
-//     if (value.length === 0) {
-//         valid = false;
-//         orderForm.addInputError('title', 'Názov musí byť vyplený.');
-//     }
-//     if (value.length > 100) {
-//         valid = false;
-//         orderForm.addInputError('title', 'Názov musí byť kratší ako 100 znakov.');    
-//     }
+    if (value == 0 || isNaN(value)) {
+        valid = false;
+        orderForm.addInputError('customerPk', 'Zákazník musí byť vybraný.');
+    }
 
-//     return valid;
-// }
+    return valid;
+}
 global.orderForm = orderForm;
 
 // orders table 

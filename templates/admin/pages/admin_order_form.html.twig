@@ -98,7 +98,7 @@
                     {% set selCustomerPk = order.customerPk %}
                     <option value="">Vyberte zákazníka</option>
                     {% for customer in customers %}
-                    <option value="{{ customer.pk }}" {{ customer.pk==selCustomerPk ? "selected" }}>{{ customer.fullName }}
+                    <option value="{{ customer.pk }}" {{ customer.pk==selCustomerPk ? "selected" }}>{{ customer.fullName }} {% if customer.note %}({{ customer.note }}){% endif %}
                     </option>
                     {% endfor %}
                 </select>

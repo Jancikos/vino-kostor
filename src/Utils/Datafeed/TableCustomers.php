@@ -28,8 +28,8 @@ class TableCustomers extends AbstractDatafeed
                 $query->orderByPk($params->getOrderDirection());
                 break;
             case 'NAME':
-                $query->orderByFirstName($params->getOrderDirection());
                 $query->orderByLastName($params->getOrderDirection());
+                $query->orderByFirstName($params->getOrderDirection());
                 break;
             case 'ADDRESS':
                 $query->orderByCity($params->getOrderDirection());

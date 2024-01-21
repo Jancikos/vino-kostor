@@ -42,8 +42,8 @@ class CustomerController extends AdminController
     {
         $params = new TableCustomersParams();
 
-        $params->setOrderColumn($request->request->get('orderColumn', 'PK_'));
-        $params->setOrderDirection($request->request->get('orderDirection', 'DESC'));
+        $params->setOrderColumn($request->request->get('orderColumn', 'NAME'));
+        $params->setOrderDirection($request->request->get('orderDirection', 'ASC'));
 
         $dfCustomersTable = new TableCustomers();
         return $this->render(

@@ -9,6 +9,7 @@ use App\Model\OrderItemQuery;
 use App\Model\OrderQuery;
 use App\Model\ProductQuery;
 use App\Model\UserQuery;
+use App\Utils\Datafeed\FormOrder;
 use App\Utils\Datafeed\TableOrders;
 use App\Utils\Datafeed\Params\TableOrdersParams;
 use App\Utils\JsonResponse\FlashMessageType;
@@ -80,16 +81,13 @@ class OrderController extends AdminController
             $this->addBreadcrumb('Objednávka #' . $order->getPk(), 'admin_orders_form', ['pk' => $order->getPk()]);
         }
 
-
+        $oderForm = new FormOrder();
         return $this->renderAdminPage(
             'Objednávka - formulár',
-            'order_form',
-            [
+            'order_form', [
                 'order' => $order,
-                'editMode' => $editMode,
-                'customers' => CustomerQuery::create()->find(),
-                'users' => UserQuery::create()->find()
-            ]
+                'editMode' => $editMode
+            ] + $oderForm->getData()
         );
     }
 
