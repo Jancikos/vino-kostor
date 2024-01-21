@@ -31,7 +31,7 @@ class PropelMigration_1700469271{
         // add the post-migration code here
         $con = $manager->getAdapterConnection("connection_1");
 
-        $stmt = $con->prepare("INSERT INTO `users` (`USERNAME`, `PASSWORD`, `ROLES`) VALUES (:username, :password, :roles)");
+        $stmt = $con->prepare("INSERT INTO `user` (`USERNAME`, `PASSWORD`, `ROLES`) VALUES (:username, :password, :roles)");
         $stmt->bindValue(':username', 'admin');
         $stmt->bindValue(':password', '$2y$13$5OTYMjJHwyNNlNkgHVGzueYODJVUIUpHxXxGRkJb2pdGwRO7SvGua'); // admin
         $stmt->bindValue(':roles', '| ROLE_SUPER_ADMIN |');

@@ -25,7 +25,6 @@
 
 ### propel 
 /config/propel/propel.yml
-/config/propel/generated-conf/config.php
 
 
 ###> symfony/webpack-encore-bundle ###

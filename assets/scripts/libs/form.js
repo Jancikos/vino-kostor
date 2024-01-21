@@ -18,10 +18,12 @@ export default class Form {
     }
     
     submit() {
+        showLoader();
         if (!this.validate()) {
+            hideLoader();
             return;
         }
-    
+
         var form = this.getForm();
         var formModel = this;
         $.ajax({
@@ -32,8 +34,7 @@ export default class Form {
             contentType: false,
             success: function(response) {
                 if (response.success) {
-                    // redirect to home page
-                    window.location.href = form.attr('data-redirect');
+                    formModel.submitPostSuccess(response);
                 } else {
                     // show error messages to inputs
                     for (const [column, messages] of Object.entries(response.errorMessages)) {
@@ -45,9 +46,17 @@ export default class Form {
             },
             error: function(response) {
                 alert('Pri ukladaní došlo k chybe. Skúste to prosím znova.');
+            },
+            complete: function() {
+                hideLoader();
             }
         });
-    }   
+    }
+    submitPostSuccess(response) {
+        var form = this.getForm();
+        // redirect to home page
+        window.location.href = form.attr('data-redirect');
+    }
     validate() {
         let valid = true;
         this.inputs.forEach((inputName) => {

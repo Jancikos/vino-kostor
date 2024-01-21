@@ -1,0 +1,80 @@
+{% import "@components/taildmin_table.html.twig" as table %}
+
+{# tabulka produktov #}
+<form>
+    <table id="table-products">
+        <input type="hidden" name="orderColumn" value="{{ params.orderColumn }}" />
+        <input type="hidden" name="orderDirection" value="{{ params.orderDirection }}" />
+
+        <thead>
+            <tr class="text-left">
+                <th class="min-w-[220px] xl:pl-11">
+                    Nadpis
+                    {{ table.th_sort_btn('TITLE', params.orderColumn, params.orderDirection)  }}
+                </th>
+                <th class="min-w-[180px] xl:pl-11">
+                    Podnadpis
+                    {{ table.th_sort_btn('SUBTITLE', params.orderColumn, params.orderDirection)  }}
+                </th>
+                <th class="min-w-[150px]">
+                    Cena
+                    {{ table.th_sort_btn('PRICE', params.orderColumn, params.orderDirection) }}
+                </th>
+
+                {# ci je v ponuke #}
+                <th class="min-w-[120px]">
+                    V ponuke
+                    {{ table.th_sort_btn('ACTIVE', params.orderColumn, params.orderDirection) }}
+                </th>
+
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr data-pk="{{ product.pk }}" x-data="{ active: 1 == {{ product.active }} }">
+                {# nadpis #}
+                <td>
+                    <h5 class="font-medium">{{ product.title }}</h5>
+                </td>
+
+                {# podnadpis #}
+                <td>
+                    <p>{{ product.subtitle }}</p>
+                </td>
+
+                {# cena #}
+                <td>
+                    <p>{{ product.price|number_format(2, ',', ' ') }} €</p>
+                </td>
+
+                {# ci je v ponuke #}
+                <td>
+                    <div class="box mr-3 flex h-5 w-5 items-center justify-center rounded border border-stroke">
+                        <span x-show="active">
+                            <svg class="fill-current" width="10" height="7" viewBox="0 0 10 7" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M9.70685 0.292804C9.89455 0.480344 10 0.734667 10 0.999847C10 1.26503 9.89455 1.51935 9.70685 1.70689L4.70059 6.7072C4.51283 6.89468 4.2582 7 3.9927 7C3.72721 7 3.47258 6.89468 3.28482 6.7072L0.281063 3.70701C0.0986771 3.5184 -0.00224342 3.26578 3.785e-05 3.00357C0.00231912 2.74136 0.10762 2.49053 0.29326 2.30511C0.4789 2.11969 0.730026 2.01451 0.992551 2.01224C1.25508 2.00996 1.50799 2.11076 1.69683 2.29293L3.9927 4.58607L8.29108 0.292804C8.47884 0.105322 8.73347 0 8.99896 0C9.26446 0 9.51908 0.105322 9.70685 0.292804Z"
+                                    fill="" />
+                            </svg>
+                        </span>
+                    </div>
+                </td>
+
+                {# actions #}
+                <td>
+                    <div class="flex items-center space-x-3.5">
+                        {# show button #}
+                        {{ table.btn_edit() }}
+
+                        {# delete button #}
+                        {{ table.btn_delete() }}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>

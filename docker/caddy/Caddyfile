@@ -1,0 +1,27 @@
+# Caddy's configuration file
+# see: https://caddyserver.com/docs/caddyfile
+{
+        # Debug
+        {$CADDY_DEBUG}
+
+        http_port 80
+        auto_https off
+}
+
+{$SERVER_NAME}:80
+
+log
+
+@websockets {
+        path */websocket
+        header Connection *Upgrade*
+        header Upgrade websocket
+}
+
+route {
+        root * /srv/app/public
+        reverse_proxy @websockets localhost:8084
+        php_fastcgi unix//var/run/php/php-fpm.sock
+        encode zstd gzip
+        file_server
+}

@@ -14,3 +14,14 @@ Alpine.plugin(mask)
 Alpine.plugin(persist);
 global.Alpine = Alpine;
 Alpine.start();
+
+// loader functions
+const showLoader = () => {
+    $("#loader").show();
+};
+const hideLoader = () => {
+    $("#loader").hide();
+};
+
+global.showLoader = showLoader;
+global.hideLoader = hideLoader;

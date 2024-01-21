@@ -1,0 +1,8 @@
+SHELL=/bin/sh
+
+# do daily/weekly/monthly maintenance
+# min   hour    day     month   weekday command
+32      *       *       *       *       /bin/bash /srv/app/docker/scripts/visitor_read_transactions.sh > /dev/null 2>&1
+10      1       *       *       *       /bin/bash /srv/app/docker/scripts/visitor_calculate.sh > /dev/null 2>&1
+20      1       *       *       *       /bin/bash /srv/app/docker/scripts/system_import_users.sh > /dev/null 2>&1
+

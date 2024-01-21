@@ -36,5 +36,86 @@
         </behavior>
     </table>
 
+    <table name="customer" phpName="Customer">
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="FIRSTNAME" type="varchar" size="100" required="true" />
+        <column name="LASTNAME" type="varchar" size="100" />
+        <column name="EMAIL" type="varchar" size="100" />
+        <column name="PHONE" type="varchar" size="100" />
+        <column name="ADDRESS" type="varchar" size="100" />
+        <column name="CITY" type="varchar" size="100" />
+        <column name="NOTE" type="varchar" size="500" />
+
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: firstname, validator: NotNull}" />
+            <parameter name="rule2"
+                value="{column: firstname, validator: Length, options: {max: 100}}" />
+            <parameter name="rule3"
+                value="{column: lastname, validator: Length, options: {max: 100}}" />
+            <parameter name="rule4"
+                value="{column: email, validator: Length, options: {max: 100}}" />
+            <parameter name="rule5"
+                value="{column: phone, validator: Length, options: {max: 100}}" />
+            <parameter name="rule6"
+                value="{column: address, validator: Length, options: {max: 100}}" />
+            <parameter name="rule7"
+                value="{column: city, validator: Length, options: {max: 100}}" />
+            <parameter name="rule8"
+                value="{column: note, validator: Length, options: {max: 500}}" />
+        </behavior>
+    </table>
+
+    <table name="myorder" phpName="Order" tableName="" >
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="CUSTOMER_PK_" type="integer" required="true" />
+        <column name="USER_PK_" type="integer" required="true" description="user, ktory spravuje tuto objednavku" />
+        <column name="STATUS" type="integer" required="true" />
+        <column name="CREATED" type="timestamp" required="true" />
+        <column name="PACKED" type="timestamp" />
+        <column name="SHIPPED" type="timestamp" />
+        <column name="PAIED" type="timestamp" />
+        <column name="REAL_PRICE" type="float" description="cena, ktoru zakaznik naozaj zakaznik zaplatil" />
+        <column name="NOTE" type="varchar" size="500" />
+
+        <!-- foreign keys -->
+        <foreign-key name="fk_order_customer" foreignTable="customer" phpName="Customer">
+            <reference local="CUSTOMER_PK_" foreign="PK_" />
+        </foreign-key>
+        <foreign-key name="fk_order_user" foreignTable="user" phpName="User">
+            <reference local="USER_PK_" foreign="PK_" />
+        </foreign-key>
+
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: customer_pk_, validator: NotNull}" />
+            <parameter name="rule2" value="{column: user_pk_, validator: NotNull}" />
+            <parameter name="rule3" value="{column: note, validator: Length, options: {max: 500}}" />
+        </behavior>
+    </table>
+
+    <table name="myorder_item" phpName="OrderItem">
+        <column name="PK_" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="ORDER_PK_" type="integer" required="true" />
+        <column name="PRODUCT_PK_" type="integer" required="true" />
+        <column name="QUANTITY" type="integer" required="true" />
+        <column name="PRICE" type="float" required="true" description="cena, ktoru stal kus daneho produktu v case jeho pridania do objednavky" />
+        <column name="NOTE" type="varchar" size="500" />
+
+        <!-- foreign keys -->
+        <foreign-key name="fk_order_item_order" foreignTable="myorder" phpName="Order">
+            <reference local="ORDER_PK_" foreign="PK_" />
+        </foreign-key>
+        <foreign-key name="fk_order_item_product" foreignTable="product" phpName="Product">
+            <reference local="PRODUCT_PK_" foreign="PK_" />
+        </foreign-key>
+        
+        <behavior name="validate">
+            <parameter name="rule1" value="{column: order_pk_, validator: NotNull}" />
+            <parameter name="rule2" value="{column: product_pk_, validator: NotNull}" />
+            <parameter name="rule3" value="{column: quantity, validator: NotNull}" />
+            <parameter name="rule4" value="{column: quantity, validator: GreaterThan, options: {value: 0}}" />
+            <parameter name="rule5" value="{column: price, validator: NotNull}" />
+            <parameter name="rule6" value="{column: note, validator: Length, options: {max: 500}}" />
+        </behavior>
+    </table>
 
 </database>

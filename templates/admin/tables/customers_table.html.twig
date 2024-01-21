@@ -1,0 +1,70 @@
+{% import "@components/taildmin_table.html.twig" as table %}
+
+<form>
+    <table id="table-customers">
+        <input type="hidden" name="orderColumn" value="{{ params.orderColumn }}" />
+        <input type="hidden" name="orderDirection" value="{{ params.orderDirection }}" />
+
+        <thead>
+            <tr class="text-left">
+                <th class="min-w-[220px] xl:pl-11">
+                    Meno
+                    {{ table.th_sort_btn('NAME', params.orderColumn, params.orderDirection)  }}
+                </th>
+                <th class="min-w-[180px] xl:pl-11">
+                    Kontakt
+                </th>
+                <th class="min-w-[180px] xl:pl-11">
+                    Adresa
+                    {{ table.th_sort_btn('ADDRESS', params.orderColumn, params.orderDirection)  }}
+                </th>
+                <th class="min-w-[150px]">
+                    Poznámka
+                </th>
+
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+                
+            <tr data-pk="{{ customer.pk }}">
+                {# meno #}
+                <td>
+                    <h5 class="font-medium">{{ customer.fullname }}</h5>
+                </td>
+
+                {# kontakt #}
+                <td>
+                    <p>{{ customer.phone }}</p>
+                    <small>{{ customer.email }}</small>
+                </td>
+
+                {# adresa #}
+                <td>
+                    <p>{{ customer.city }}</p>
+                    <small>{{ customer.address }}</small>
+                </td>
+
+                {# poznamka #}
+                <td>
+                    <small>{{ customer.note }}</small>
+                </td>
+
+                {# actions #}
+                <td>
+                    <div class="flex items-center space-x-3.5">
+                        {# edit btn #}
+                        {{ table.btn_edit() }}
+
+                        {# delete btn #}
+                        {{ table.btn_delete() }}
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+<form>

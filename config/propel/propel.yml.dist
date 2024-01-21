@@ -1,27 +1,27 @@
 propel:
   paths:
-      schemaDir: ./config/propel
-      outputDir: ./config/propel/output
-      phpConfDir: ./config/propel/generated-conf
-      migrationDir: ./config/propel/migrations
-      sqlDir: ./config/propel/generated-sql
-      phpDir: ./src/Model
+    schemaDir: ./config/propel
+    outputDir: ./config/propel/output
+    phpConfDir: ./config/propel/generated-conf
+    migrationDir: ./config/propel/migrations
+    sqlDir: ./config/propel/generated-sql
+    phpDir: ./src/Model
   database:
-      connections:
-          custom_database_name:
-              adapter: mysql
-              classname: Propel\Runtime\Connection\ConnectionWrapper
-              dsn: "mysql:host=localhost;dbname=custom_database_name"
-              user: root
-              password: 
+    connections:
+      connection_1:
+        adapter: mysql
+        classname: Propel\Runtime\Connection\ConnectionWrapper
+        dsn: "mysql:host=localhost;dbname=vino_kostor_dev"
+        user: root
+        password: 
   runtime:
-      defaultConnection: custom_database_name
-      connections:
-          - custom_database_name
+    defaultConnection: connection_1
+    connections:
+      - connection_1
   generator:
-      defaultConnection: custom_database_name
-      connections:
-          - custom_database_name
-      namespaceAutoPackage: false
-      objectModel:
-          # classPrefix: BaseClassPrefixKostor
+    defaultConnection: connection_1
+    connections:
+      - connection_1
+    namespaceAutoPackage: false
+    objectModel:
+      # classPrefix: MyPrefix

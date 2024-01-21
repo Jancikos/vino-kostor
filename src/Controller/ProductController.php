@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Model\Product;
 use App\Model\ProductQuery;
+use App\Utils\Datafeed\Params\TableProductsParams;
+use App\Utils\Datafeed\TableProducts;
 use App\Utils\JsonResponse\FlashMessageType;
 use App\Utils\JsonResponse\JsonDataResponse;
 use App\Utils\JsonResponse\JsonValidationResponse;
@@ -27,14 +29,28 @@ class ProductController extends AdminController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
         return $this->renderAdminPage(
             'Produkty',
-            'products',
-            [
-                'products' => ProductQuery::create()->find()
-            ]
+            'products'
+        );
+    }
+
+    /**
+     * @Route("/table", name="table")
+     */
+    public function table(Request $request): Response
+    {
+        $params = new TableProductsParams();
+
+        $params->setOrderColumn($request->request->get('orderColumn', 'PK_'));
+        $params->setOrderDirection($request->request->get('orderDirection', 'DESC'));
+
+        $dfProductsTable = new TableProducts();
+        return $this->render(
+            'admin/tables/products_table.html.twig',
+            $dfProductsTable->getData($params)
         );
     }
 
@@ -108,7 +124,7 @@ class ProductController extends AdminController
     public function delete(Request $request): Response
     {
         /** @var Product $product */
-        $product = ProductQuery::create()->findPk($request->request->get('pk_'));
+        $product = ProductQuery::create()->findPk($request->request->get('pk'));
         
         if ($product === null) {
             return JsonDataResponse::FailedResponse("Produkt nebol nájdený.")->toJsonResponse();
