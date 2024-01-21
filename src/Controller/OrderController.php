@@ -73,6 +73,7 @@ class OrderController extends AdminController
             }
 
             $order = new Order();
+            $order->setCreated(new \DateTime());
             $editMode = false;
             $this->addBreadcrumb('Nová objednávka', 'admin_orders_form');
         } else {
@@ -110,6 +111,7 @@ class OrderController extends AdminController
 
         $order->setCustomerPk($request->request->get('customerPk'));
         $order->setUserPk($request->request->get('userPk'));
+        $order->setCreated(new \DateTime($request->request->get('created')));
         $order->setNote($request->request->get('note'));
 
         $realPrice = $request->request->get('realPrice', "");

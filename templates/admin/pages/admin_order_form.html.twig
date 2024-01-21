@@ -37,14 +37,14 @@
     {# spracovat stav #}
     {% if order.status < 4 %}
     <a href="{{ path('admin_orders_set_status') }}" id="order-form-set-status-btn" class="btn relative"
-    x-data="{ statesDropdownOpen: false }" @click.outside="statesDropdownOpen = false" @click.prevent="orderForm.manageOrderStatus({{ order.nextstatus.pk.value }})">
+    x-data="{ statesDropdownOpen: false }" @click.outside="statesDropdownOpen = false" @click.prevent="orderForm.manageOrderStatus({{ order.nextstatus.pk.value }})" title="Potvrdiť stav - {{ order.nextstatus.title|upper }}">
         <svg xmlns="http://www.w3.org/2000/svg" height="1em"
             viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
             <path
                 d="M52.5 440.6c-9.5 7.9-22.8 9.7-34.1 4.4S0 428.4 0 416V96C0 83.6 7.2 72.3 18.4 67s24.5-3.6 34.1 4.4L224 214.3V256v41.7L52.5 440.6zM256 352V256 128 96c0-12.4 7.2-23.7 18.4-29s24.5-3.6 34.1 4.4l192 160c7.3 6.1 11.5 15.1 11.5 24.6s-4.2 18.5-11.5 24.6l-192 160c-9.5 7.9-22.8 9.7-34.1 4.4s-18.4-16.6-18.4-29V352z" />
         </svg>
 
-        Spracovať stav
+        {{ order.nextstatus.title|upper }}
         
         {# <svg :class="statesDropdownOpen && 'rotate-180'" @click.prevent="statesDropdownOpen = ! statesDropdownOpen" class="hidden fill-current sm:block" width="12" height="8"
             viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -151,26 +151,34 @@
     {% if editMode %}
     <div class="sm:form-horizontal-row">        
         <div class="form-row">
-            <label>Stav</label>
+            <label>Aktuálny stav</label>
             <input type="text" value="{{ order.actualstatus.title }}" disabled="">
         </div>
 
         <div class="form-row">
             <label class="empty">Stav</label>
-            <input type="text" value="{{ order.actualstatusdate|date(" d.m.Y H:i:s") }}" disabled="">
+            <input type="text" value="{{ order.actualstatusdate|date(" d.m.Y") }}" disabled="">
         </div>
     </div>
     {% endif %}
 
     {# zaplatena suna #}
-    {% if editMode %}
-    <div class="form-row">
-        <label>Zaplatená suma</label>
-        <input type="text" name="realPrice" x-mask:dynamic="$money($input, '.', '', 2)"
-            placeholder="Zadajte zaplatenú sumu za objednávku" value="{{ order.realprice }}">
+    <div class="sm:form-horizontal-row">        
+        {% if editMode %}
+        <div class="form-row">
+            <label>Zaplatená suma</label>
+            <input type="text" name="realPrice" x-mask:dynamic="$money($input, '.', '', 2)"
+                placeholder="Zadajte zaplatenú sumu za objednávku" value="{{ order.realprice }}">
+        </div>
+        {% endif %}
+
+        {# datum vytvorenia #}
+        <div class="form-row">
+            <label>Dátum vytvorenia</label>
+            <input name="created" type="date" value="{{ order.created|date("Y-m-d") }}">
+        </div>
     </div>
 
-    {% endif %}
 
     {# polozky #}
     {% if order.orderitems|length > 0 %}
